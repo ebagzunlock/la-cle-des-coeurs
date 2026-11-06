@@ -1,20 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Découvrez les montres et bijoux LA CLÉ DES CŒURS.">
+  <title>Notre catalogue | LA CLÉ DES CŒURS</title>
+  <link rel="stylesheet" href="styles.css">
 
-Private
-ebagzunlock
-ebagzunlock
-Add initial styles for the website layout
-53cdc9c
- · 
-now
-Name		
-README.md
-Initial commit
-30 minutes ago
-index.html.
-Add initial index.html for LA CLÉ DES CŒURS
-3 minutes ago
-styles.css
-Add initial styles for the website layout
-now
-Repository files navigation
-README
+  <style>
+    .catalogue {
+      max-width: 1200px;
+      margin: 45px auto;
+      padding: 0 22px 70px;
+      color: #51483f;
+    }
+
+    .catalogue-heading {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .catalogue-heading h1 {
+      color: #78634f;
+      font-size: 34px;
+      font-weight: 500;
+    }
+
+    .catalogue-heading p {
+      color: #968779;
+    }
+
+    .catalogue-tools {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .catalogue-tools input,
+    .catalogue-tools select {
+      min-height: 45px;
+      padding: 10px 14px;
+      border: 1px solid #ded4c8;
+      background: #fff;
+      color: #51483f;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+
+    .catalogue-tools input {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .catalogue-tools select {
+      min-width: 190px;
+    }
+
+    .catalogue-count {
+      color: #968779;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      background: #fff;
+      border: 1px solid #eee7df;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #f5f1eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: #a49380;
+      font-size: 13px;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .product-brand {
+      color: #9a8269;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      margin-top: 16px;
+    }
+
+    .product-name {
+      color: #51483f;
+      font-size: 16px;
+      font-weight: 500;
+      margin: 7px 0;
+      line-height: 1.5;
+    }
+
+    .product-reference {
+      font-size: 12px;
+      color: #968779;
+    }
+
+    .product-price {
+      margin: 15px 0;
+      font-size: 17px;
+      color: #78634f;
+      font-weight: 600;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #a89d92;
+      font-size: 13px;
+      margin-right: 8px;
+      font-weight: 400;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .product-actions button {
+      flex: 1;
+      min-height: 40px;
+      padding: 8px;
+      border: 1px solid #9a8269;
+      background: #9a8269;
+      color: white;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .product-actions .favorite-button {
+      flex: 0 0 43px;
+      background: white;
+      color: #78634f;
+      font-size: 18px;
+    }
+
+    .product-actions button:hover {
+      opacity: .8;
+    }
+
+    .empty-catalogue {
+      text-align: center;
+      padding: 45px 15px;
+      color: #968779;
+      grid-column: 1 / -1;
+    }
+
+    .catalogue-back {
+      display: block;
+      text-align: center;
+      margin-top: 40px;
+      color: #8b7057;
+    }
+
+    @media (max-width: 800px) {
+      .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .catalogue-heading h1 {
+        font-size: 27px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-container">
+    <a href="index.html" class="logo">
+      <span>CDC</span>
+      <strong>LA CLÉ DES CŒURS</strong>
+      <small>BIJOUX FINS &amp; RAFFINÉS</small>
+    </a>
+  </div>
+</header>
+
+<main class="catalogue">
+
+  <div class="catalogue-heading">
+    <h1>Notre collection</h1>
+    <p>Découvrez notre sélection de montres et de bijoux.</p>
+  </div>
+
+  <div class="catalogue-tools">
+    <input
+      type="search"
+      id="productSearch"
+      placeholder="Rechercher une marque, un modèle..."
+      aria-label="Rechercher un produit"
+    >
+
+    <select id="categoryFilter" aria-label="Filtrer par catégorie">
+      <option value="all">Toutes les catégories</option>
+      <option value="accessoires">Accessoires et bracelets</option>
+      <option value="ap-swatch">AP x Swatch</option>
+      <option value="femme">Montres femme</option>
+      <option value="homme">Montres homme</option>
+    </select>
+
+    <select id="sortProducts" aria-label="Trier les produits">
+      <option value="default">Tri par défaut</option>
+      <option value="price-asc">Prix croissant</option>
+      <option value="price-desc">Prix décroissant</option>
+      <option value="name">Nom A à Z</option>
+    </select>
+  </div>
+
+  <p class="catalogue-count" id="productCount" aria-live="polite"></p>
+
+  <section class="products-grid" id="productsGrid">
+    <p class="empty-catalogue">Chargement du catalogue...</p>
+  </section>
+
+  <a class="catalogue-back" href="index.html">← Retour à l'accueil</a>
+
+</main>
+
+<footer>
+  <p>©️ LA CLÉ DES CŒURS — Tous droits réservés.</p>
+  <p>
+    <a href="qui-sommes-nous.html">Qui sommes-nous</a> ·
+    <a href="contact.html">Contact</a> ·
+    <a href="panier.html">Mon panier</a> ·
+    <a href="favoris.html">Mes favoris</a>
+  </p>
+</footer>
+
+<script src="produits.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  const grid = document.getElementById("productsGrid");
+  const count = document.getElementById("productCount");
+  const search = document.getElementById("productSearch");
+  const category = document.getElementById("categoryFilter");
+  const sort = document.getElementById("sortProducts");
+
+  const catalogue = Array.isArray(window.produits)
+    ? window.produits
+    : [];
+
+  function lireStock(cle) {
+    try {
+      const valeur = JSON.parse(localStorage.getItem(cle) || "[]");
+      return Array.isArray(valeur) ? valeur : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function enregistrer(cle, valeur) {
+    localStorage.setItem(cle, JSON.stringify(valeur));
+  }
+
+  function prixFormate(prix) {
+    return new Intl.NumberFormat("fr-FR", {
+      style: "currency",
+      currency: "EUR"
+    }).format(prix);
+  }
+
+  function ajouterAuPanier(produit) {
+    const panier = lireStock("cdc_cart");
+    const existant = panier.find(item => item.id === produit.id);
+
+    if (existant) {
+      existant.quantity = (Number(existant.quantity) || 0) + 1;
+    } else {
+      panier.push({
+        id: produit.id,
+        name: produit.nom,
+        price: Number(produit.prix),
+        quantity: 1,
+        image: produit.image || ""
+      });
+    }
+
+    enregistrer("cdc_cart", panier);
+    alert("Produit ajouté au panier.");
+  }
+
+  function ajouterAuxFavoris(produit) {
+    const favoris = lireStock("cdc_favorites");
+
+    if (favoris.some(item => item.id === produit.id)) {
+      alert("Ce produit est déjà dans vos favoris.");
+      return;
+    }
+
+    favoris.push({
+      id: produit.id,
+      name: produit.nom,
+      price: Number(produit.prix),
+      image: produit.image || ""
+    });
+
+    enregistrer("cdc_favorites", favoris);
+    alert("Produit ajouté à vos favoris.");
+  }
+
+  function creerCarte(produit) {
+    const carte = document.createElement("article");
+    carte.className = "product-card";
+
+    const imageZone = document.createElement("div");
+    imageZone.className = "product-image";
+
+    if (produit.image) {
+      const image = document.createElement("img");
+      image.src = produit.image;
+      image.alt = produit.nom || "Produit LA CLÉ DES CŒURS";
+      image.loading = "lazy";
+      image.onerror = () => {
+        imageZone.textContent = "Photo indisponible";
+      };
+      imageZone.appendChild(image);
+    } else {
+      imageZone.textContent = "Photo à intégrer";
+    }
+
+    const marque = document.createElement("div");
+    marque.className = "product-brand";
+    marque.textContent = produit.marque || "";
+
+    const nom = document.createElement("h2");
+    nom.className = "product-name";
+    nom.textContent = produit.nom || "Produit";
+
+    const reference = document.createElement("p");
+    reference.className = "product-reference";
+    reference.textContent = produit.reference
+      ? "Réf. " + produit.reference
+      : "";
+
+    const prix = document.createElement("p");
+    prix.className = "product-price";
+
+    if (produit.ancienPrix && produit.ancienPrix > produit.prix) {
+      const ancien = document.createElement("span");
+      ancien.className = "old-price";
+      ancien.textContent = prixFormate(produit.ancienPrix);
+      prix.appendChild(ancien);
+    }
+
+    prix.appendChild(document.createTextNode(prixFormate(produit.prix)));
+
+    const actions = document.createElement("div");
+    actions.className = "product-actions";
+
+    const panierButton = document.createElement("button");
+    panierButton.type = "button";
+    panierButton.textContent = "Ajouter au panier";
+    panierButton.addEventListener("click", () => ajouterAuPanier(produit));
+
+    const favorisButton = document.createElement("button");
+    favorisButton.type = "button";
+    favorisButton.className = "favorite-button";
+    favorisButton.textContent = "♡";
+    favorisButton.setAttribute("aria-label", "Ajouter aux favoris");
+    favorisButton.addEventListener("click", () => ajouterAuxFavoris(produit));
+
+    actions.append(panierButton, favorisButton);
+    carte.append(imageZone, marque, nom, reference, prix, actions);
+
+    return carte;
+  }
+
+  function afficherProduits() {
+    const recherche = search.value.trim().toLowerCase();
+    const categorieChoisie = category.value;
+
+    let resultat = catalogue.filter(produit => {
+      if (produit.actif === false) return false;
+
+      const correspondRecherche = [
+        produit.nom,
+        produit.marque,
+        produit.reference,
+        produit.description
+      ].join(" ").toLowerCase().includes(recherche);
+
+      const correspondCategorie =
+        categorieChoisie === "all" ||
+        produit.categorie === categorieChoisie;
+
+      return correspondRecherche && correspondCategorie;
+    });
+
+    if (sort.value === "price-asc") {
+      resultat.sort((a, b) => a.prix - b.prix);
+    } else if (sort.value === "price-desc") {
+      resultat.sort((a, b) => b.prix - a.prix);
+    } else if (sort.value === "name") {
+      resultat.sort((a, b) => a.nom.localeCompare(b.nom, "fr"));
+    }
+
+    grid.replaceChildren();
+    count.textContent = resultat.length + " produit(s) affiché(s)";
+
+    if (resultat.length === 0) {
+      const vide = document.createElement("p");
+      vide.className = "empty-catalogue";
+      vide.textContent = catalogue.length
+        ? "Aucun produit ne correspond à votre recherche."
+        : "Aucun produit disponible. Vérifiez le fichier produits.js.";
+      grid.appendChild(vide);
+      return;
+    }
+
+    resultat.forEach(produit => {
+      grid.appendChild(creerCarte(produit));
+    });
+  }
+
+  search.addEventListener("input", afficherProduits);
+  category.addEventListener("change", afficherProduits);
+  sort.addEventListener("change", afficherProduits);
+
+  afficherProduits();
+})();
+</script>
+
+</body>
+</html>
