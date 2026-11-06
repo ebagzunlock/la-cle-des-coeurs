@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Retrouvez votre sélection de bijoux et montres favoris chez LA CLÉ DES CŒURS.">
+  <title>Mes favoris | LA CLÉ DES CŒURS</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .favorites-page {
+      max-width: 1200px;
+      margin: 55px auto;
+      padding: 0 22px 70px;
+    }
+
+    .favorites-heading {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .favorites-heading h1 {
+      font-family: Georgia, serif;
+      font-weight: 400;
+      letter-spacing: 2px;
+    }
+
+    .favorites-heading p {
+      color: #827466;
+      font-size: 14px;
+    }
+
+    .favorites-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 25px;
+    }
+
+    .favorite-card {
+      background: #fff;
+      border: 1px solid #eee6dc;
+      padding-bottom: 18px;
+    }
+
+    .favorite-image {
+      height: 230px;
+      background: #f4f0e9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9a8977;
+      overflow: hidden;
+    }
+
+    .favorite-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .favorite-info {
+      padding: 15px;
+    }
+
+    .favorite-info h2 {
+      font-family: Georgia, serif;
+      font-size: 17px;
+      font-weight: 400;
+      margin: 0 0 8px;
+    }
+
+    .favorite-price {
+      color: #806b54;
+      font-weight: 600;
+      margin: 10px 0;
+    }
+
+    .favorite-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .favorite-actions button {
+      flex: 1;
+      padding: 11px 8px;
+      cursor: pointer;
+      border: 1px solid #9b856d;
+      font-size: 11px;
+      letter-spacing: .5px;
+    }
+
+    .add-cart {
+      background: #8b745c;
+      color: white;
+    }
+
+    .remove-favorite {
+      background: white;
+      color: #6e5b49;
+    }
+
+    .empty-favorites {
+      text-align: center;
+      padding: 65px 20px;
+      background: #faf8f4;
+      border: 1px solid #eee6dc;
+    }
+
+    .empty-favorites h2 {
+      font-family: Georgia, serif;
+      font-weight: 400;
+    }
+
+    .empty-favorites a {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 13px 24px;
+      background: #8b745c;
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 800px) {
+      .favorites-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      .favorites-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .favorite-image {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="favorites-page">
+
+    <header class="favorites-heading">
+      <p>LA CLÉ DES CŒURS</p>
+      <h1>Mes favoris</h1>
+      <p>Vos coups de cœur, réunis au même endroit.</p>
+    </header>
+
+    <div id="favoritesContainer"></div>
+
+  </main>
+
+  <script>
+    const FAVORITES_KEY = "cdc_favorites";
+    const CART_KEY = "cdc_cart";
+
+    function getFavorites() {
+      try {
+        const data = JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]");
+        return Array.isArray(data) ? data : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveFavorites(items) {
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(items));
+    }
+
+    function getCart() {
+      try {
+        const data = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+        return Array.isArray(data) ? data : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveCart(items) {
+      localStorage.setItem(CART_KEY, JSON.stringify(items));
+    }
+
+    function formatPrice(price) {
+      return Number(price).toLocaleString("fr-FR", {
+        style: "currency",
+        currency: "EUR"
+      });
+    }
+
+    function renderFavorites() {
+      const favorites = getFavorites();
+      const container = document.getElementById("favoritesContainer");
+
+      container.replaceChildren();
+
+      if (favorites.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty-favorites";
+
+        const heading = document.createElement("h2");
+        heading.textContent = "Votre liste est encore vide";
+
+        const message = document.createElement("p");
+        message.textContent = "Découvrez notre collection et ajoutez vos articles préférés.";
+
+        const link = document.createElement("a");
+        link.href = "catalogue.html";
+        link.textContent = "DÉCOUVRIR LA COLLECTION";
+
+        empty.append(heading, message, link);
+        container.appendChild(empty);
+        return;
+      }
+
+      const grid = document.createElement("div");
+      grid.className = "favorites-grid";
+
+      favorites.forEach((product, index) => {
+        const card = document.createElement("article");
+        card.className = "favorite-card";
+
+        const imageArea = document.createElement("div");
+        imageArea.className = "favorite-image";
+
+        if (product.image) {
+          const image = document.createElement("img");
+          image.src = product.image;
+          image.alt = product.name || "Article favori";
+          imageArea.appendChild(image);
+        } else {
+          imageArea.textContent = "LA CLÉ DES CŒURS";
+        }
+
+        const info = document.createElement("div");
+        info.className = "favorite-info";
+
+        const name = document.createElement("h2");
+        name.textContent = product.name || "Article";
+
+        const price = document.createElement("p");
+        price.className = "favorite-price";
+
+        const numericPrice = Number(product.price);
+        price.textContent = Number.isFinite(numericPrice)
+          ? formatPrice(numericPrice)
+          : "Prix à confirmer";
+
+        const actions = document.createElement("div");
+        actions.className = "favorite-actions";
+
+        const addButton = document.createElement("button");
+        addButton.className = "add-cart";
+        addButton.textContent = "AJOUTER AU PANIER";
+        addButton.addEventListener("click", () => addToCart(product));
+
+        const removeButton = document.createElement("button");
+        removeButton.className = "remove-favorite";
+        removeButton.textContent = "RETIRER";
+        removeButton.addEventListener("click", () => removeFavorite(index));
+
+        actions.append(addButton, removeButton);
+        info.append(name, price, actions);
+        card.append(imageArea, info);
+        grid.appendChild(card);
+      });
+
+      container.appendChild(grid);
+    }
+
+    function addToCart(product) {
+      const price = Number(product.price);
+
+      if (!Number.isFinite(price) || price < 0) {
+        alert("Le prix de cet article doit être vérifié avant l'ajout au panier.");
+        return;
+      }
+
+      const cart = getCart();
+      const existing = cart.find(item => item.name === product.name);
+
+      if (existing) {
+        existing.quantity = Number(existing.quantity || 0) + 1;
+      } else {
+        cart.push({
+          name: product.name,
+          price: price,
+          quantity: 1
+        });
+      }
+
+      saveCart(cart);
+      alert("Article ajouté au panier.");
+    }
+
+    function removeFavorite(index) {
+      const favorites = getFavorites();
+      favorites.splice(index, 1);
+      saveFavorites(favorites);
+      renderFavorites();
+    }
+
+    renderFavorites();
+  </script>
+
+</body>
+</html>
