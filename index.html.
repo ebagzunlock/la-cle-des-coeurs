@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LA CLÉ DES CŒURS | Bijoux fins & raffinés</title>
+
+  <meta name="description" content="Découvrez LA CLÉ DES CŒURS, une sélection de bijoux et de montres fins et raffinés.">
+
+  <meta name="theme-color" content="#f8f5f0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="announcement">
+    BIENVENUE CHEZ LA CLÉ DES CŒURS
+  </div>
+
+  <header class="header">
+
+    <button class="menu-button" id="menuButton" aria-label="Ouvrir le menu">
+      ☰
+    </button>
+
+    <a href="index.html" class="brand">
+      <span class="brand-monogram">CDC</span>
+      <span class="brand-name">LA CLÉ DES CŒURS</span>
+      <span class="brand-tagline">BIJOUX FINS & RAFFINÉS</span>
+    </a>
+
+    <div class="header-actions">
+      <a href="favoris.html" aria-label="Favoris">♡</a>
+      <a href="panier.html" aria-label="Panier">♧ <span id="cartCount">0</span></a>
+    </div>
+
+  </header>
+
+  <nav class="main-nav" id="mainNav">
+    <a href="index.html">Accueil</a>
+    <a href="catalogue.html?categorie=accessoires">Accessoires et bracelets</a>
+    <a href="catalogue.html?categorie=ap-swatch">AP x Swatch</a>
+    <a href="catalogue.html?categorie=femme">Montres femme</a>
+    <a href="catalogue.html?categorie=homme">Montres Homme</a>
+    <a href="qui-sommes-nous.html">Qui sommes-nous</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="utility-bar">
+    <form class="search-form" id="searchForm">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Rechercher un produit..."
+        aria-label="Rechercher un produit"
+      >
+      <button type="submit" aria-label="Rechercher">⌕</button>
+    </form>
+
+    <select id="languageSelect" aria-label="Choisir la langue">
+      <option value="fr">Français</option>
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="de">Deutsch</option>
+      <option value="it">Italiano</option>
+      <option value="pt">Português</option>
+    </select>
+  </div>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">L'ÉLÉGANCE DANS CHAQUE DÉTAIL</p>
+
+        <h1>Le raffinement<br>à votre poignet</h1>
+
+        <p>
+          Découvrez notre univers de bijoux et de montres
+          fins et raffinés.
+        </p>
+
+        <a href="catalogue.html" class="primary-button">
+          DÉCOUVRIR LA COLLECTION
+        </a>
+      </div>
+    </section>
+
+    <section class="welcome-section">
+      <p class="eyebrow">LA CLÉ DES CŒURS</p>
+      <h2>Une élégance intemporelle</h2>
+      <p>
+        Des pièces soigneusement sélectionnées pour celles
+        et ceux qui apprécient le style, le détail et le raffinement.
+      </p>
+    </section>
+
+    <section class="categories-section">
+      <div class="section-heading">
+        <p class="eyebrow">NOTRE UNIVERS</p>
+        <h2>Nos catégories</h2>
+      </div>
+
+      <div class="category-grid">
+
+        <a href="catalogue.html?categorie=accessoires" class="category-card">
+          <div class="category-image category-accessories">
+            <span>01</span>
+          </div>
+          <h3>Accessoires et bracelets</h3>
+          <span class="category-link">DÉCOUVRIR</span>
+        </a>
+
+        <a href="catalogue.html?categorie=ap-swatch" class="category-card">
+          <div class="category-image category-ap">
+            <span>02</span>
+          </div>
+          <h3>AP x Swatch</h3>
+          <span class="category-link">DÉCOUVRIR</span>
+        </a>
+
+        <a href="catalogue.html?categorie=femme" class="category-card">
+          <div class="category-image category-women">
+            <span>03</span>
+          </div>
+          <h3>Montres femme</h3>
+          <span class="category-link">DÉCOUVRIR</span>
+        </a>
+
+        <a href="catalogue.html?categorie=homme" class="category-card">
+          <div class="category-image category-men">
+            <span>04</span>
+          </div>
+          <h3>Montres Homme</h3>
+          <span class="category-link">DÉCOUVRIR</span>
+        </a>
+
+      </div>
+    </section>
+
+    <section class="featured-section">
+      <div class="section-heading">
+        <p class="eyebrow">SÉLECTION</p>
+        <h2>Nos pièces à découvrir</h2>
+        <p>Retrouvez notre sélection dans le catalogue.</p>
+      </div>
+
+      <div class="featured-placeholder">
+        <p>Découvrez prochainement notre catalogue complet.</p>
+        <a href="catalogue.html" class="primary-button">
+          VOIR TOUS LES PRODUITS
+        </a>
+      </div>
+    </section>
+
+    <section class="editorial-section">
+      <div class="editorial-content">
+        <p class="eyebrow">NOTRE PHILOSOPHIE</p>
+        <h2>Le détail fait toute la différence</h2>
+        <p>
+          LA CLÉ DES CŒURS célèbre les pièces qui traversent
+          le temps et accompagnent chaque moment important.
+        </p>
+        <a href="qui-sommes-nous.html" class="text-link">
+          EN SAVOIR PLUS →
+        </a>
+      </div>
+    </section>
+
+    <section class="contact-strip">
+      <p class="eyebrow">UNE QUESTION ?</p>
+      <h2>Nous sommes à votre écoute</h2>
+      <a href="contact.html" class="primary-button">
+        NOUS CONTACTER
+      </a>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+
+    <div class="footer-brand">
+      <span class="brand-monogram">CDC</span>
+      <h3>LA CLÉ DES CŒURS</h3>
+      <p>BIJOUX FINS & RAFFINÉS</p>
+    </div>
+
+    <div class="footer-column">
+      <h4>LA BOUTIQUE</h4>
+      <a href="catalogue.html">Tous les produits</a>
+      <a href="qui-sommes-nous.html">Qui sommes-nous</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="footer-column">
+      <h4>INFORMATIONS</h4>
+      <a href="commande.html">Ma commande</a>
+      <a href="livraison-retours.html">Livraison et retours</a>
+      <a href="conditions-generales.html">Conditions générales de vente</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="confidentialite.html">Politique de confidentialité</a>
+    </div>
+
+    <div class="footer-bottom">
+      © <span id="currentYear"></span> LA CLÉ DES CŒURS.
+      Tous droits réservés.
+    </div>
+
+  </footer>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
