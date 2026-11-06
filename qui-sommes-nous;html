@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Découvrez LA CLÉ DES CŒURS, un univers de bijoux fins, de montres et d'élégance.">
+  <title>Qui sommes-nous | LA CLÉ DES CŒURS</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .about-page {
+      color: #51463b;
+      background: #faf8f4;
+    }
+
+    .about-hero {
+      text-align: center;
+      padding: 85px 20px 75px;
+      background: #f1ece4;
+    }
+
+    .about-eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: #927c64;
+      text-transform: uppercase;
+    }
+
+    .about-hero h1 {
+      font-family: Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(34px, 5vw, 52px);
+      margin: 20px 0;
+      letter-spacing: 1px;
+    }
+
+    .about-hero p {
+      max-width: 620px;
+      margin: auto;
+      line-height: 1.9;
+      color: #76695d;
+      font-size: 15px;
+    }
+
+    .about-section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 75px 25px;
+    }
+
+    .about-intro {
+      text-align: center;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .about-intro h2,
+    .about-story h2,
+    .about-values h2,
+    .about-shop h2 {
+      font-family: Georgia, serif;
+      font-size: 30px;
+      font-weight: 400;
+      color: #685543;
+      margin-bottom: 22px;
+    }
+
+    .about-intro p,
+    .about-story p,
+    .about-shop p {
+      font-size: 15px;
+      line-height: 2;
+      color: #75695e;
+    }
+
+    .about-divider {
+      width: 55px;
+      height: 1px;
+      background: #b6a18a;
+      margin: 25px auto;
+    }
+
+    .about-values {
+      background: #f1ece4;
+      padding: 65px 25px;
+      text-align: center;
+    }
+
+    .values-grid {
+      max-width: 1050px;
+      margin: 40px auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .value-card {
+      padding: 30px 20px;
+      background: #faf8f4;
+      border: 1px solid #e8dfd3;
+    }
+
+    .value-card .value-icon {
+      font-family: Georgia, serif;
+      font-size: 30px;
+      color: #a58d72;
+    }
+
+    .value-card h3 {
+      font-family: Georgia, serif;
+      font-weight: 400;
+      font-size: 20px;
+      margin: 15px 0 10px;
+    }
+
+    .value-card p {
+      font-size: 13px;
+      line-height: 1.8;
+      color: #796d62;
+    }
+
+    .about-shop {
+      max-width: 850px;
+      margin: auto;
+      padding: 75px 25px;
+      text-align: center;
+    }
+
+    .about-shop-note {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #8b7b6b;
+      font-style: italic;
+    }
+
+    .about-cta {
+      text-align: center;
+      padding: 65px 20px;
+      background: #e9e0d5;
+    }
+
+    .about-cta h2 {
+      font-family: Georgia, serif;
+      font-weight: 400;
+      font-size: 29px;
+    }
+
+    .about-cta p {
+      color: #76695d;
+      margin: 15px 0 25px;
+    }
+
+    .about-cta a {
+      display: inline-block;
+      padding: 14px 28px;
+      color: white;
+      background: #8b745c;
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+    }
+
+    .about-cta a:hover {
+      background: #705b47;
+    }
+
+    @media (max-width: 700px) {
+      .about-hero {
+        padding: 60px 20px;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-section {
+        padding: 55px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="about-page">
+
+    <section class="about-hero">
+      <div class="about-eyebrow">LA CLÉ DES CŒURS</div>
+      <h1>Une signature d'élégance</h1>
+      <p>
+        Bienvenue dans l'univers de LA CLÉ DES CŒURS,
+        une maison dédiée à la beauté des bijoux et à l'élégance
+        de l'horlogerie.
+      </p>
+    </section>
+
+    <section class="about-section">
+      <div class="about-intro">
+        <h2>Notre univers</h2>
+        <div class="about-divider"></div>
+
+        <p>
+          LA CLÉ DES CŒURS célèbre les pièces qui accompagnent
+          les instants précieux de la vie.
+        </p>
+
+        <p>
+          À travers une sélection de bijoux, de bracelets et de montres,
+          nous souhaitons mettre en lumière des créations qui associent
+          style, caractère et raffinement.
+        </p>
+
+        <p>
+          Notre univers s'adresse à celles et ceux qui apprécient
+          les belles pièces, les détails soignés et l'élégance intemporelle.
+        </p>
+      </div>
+    </section>
+
+    <section class="about-values">
+      <h2>L'esprit de la maison</h2>
+      <div class="about-divider"></div>
+
+      <div class="values-grid">
+
+        <article class="value-card">
+          <div class="value-icon">◇</div>
+          <h3>Élégance</h3>
+          <p>
+            Un univers sobre et raffiné, où chaque détail contribue
+            à une esthétique harmonieuse.
+          </p>
+        </article>
+
+        <article class="value-card">
+          <div class="value-icon">♡</div>
+          <h3>Passion</h3>
+          <p>
+            Une attention particulière portée à l'univers de la bijouterie
+            et de l'horlogerie.
+          </p>
+        </article>
+
+        <article class="value-card">
+          <div class="value-icon">✧</div>
+          <h3>Style</h3>
+          <p>
+            Des pièces pour exprimer sa personnalité et accompagner
+            les moments qui comptent.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="about-shop">
+      <h2>Notre maison</h2>
+      <div class="about-divider"></div>
+
+      <p>
+        LA CLÉ DES CŒURS développe son univers autour de la bijouterie
+        et de l'horlogerie, avec une attention portée à la présentation
+        des collections et à l'expérience de ses clients.
+      </p>
+
+      <p>
+        Notre boutique en ligne vous permet de découvrir nos collections
+        et de retrouver vos pièces préférées depuis chez vous.
+      </p>
+
+      <p class="about-shop-note">
+        Les commandes présentées sur ce site sont destinées à être
+        réalisées en ligne.
+      </p>
+    </section>
+
+    <section class="about-cta">
+      <h2>Découvrez notre collection</h2>
+      <p>Entrez dans l'univers de LA CLÉ DES CŒURS.</p>
+      <a href="catalogue.html">DÉCOUVRIR NOS ARTICLES</a>
+    </section>
+
+  </main>
+
+</body>
+</html>
