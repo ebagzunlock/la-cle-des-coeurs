@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -107,6 +106,15 @@
       line-height: 1.5;
       margin: 0 0 10px;
       color: #403a33;
+    }
+
+    .product-name a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .product-name a:hover {
+      color: #9a8873;
     }
 
     .product-price {
@@ -240,9 +248,7 @@
     const triProduits = document.getElementById("triProduits");
     const nombreProduits = document.getElementById("nombreProduits");
 
-    // Récupération des filtres depuis l'adresse de la page
     const parametres = new URLSearchParams(window.location.search);
-
     const categorieDemandee = parametres.get("categorie");
     const rechercheDemandee = parametres.get("recherche");
 
@@ -329,8 +335,13 @@
         });
       }
 
+      // Gestion des produits associés à plusieurs catégories
       if (categorie) {
         produits = produits.filter(function(produit) {
+          if (Array.isArray(produit.categories)) {
+            return produit.categories.includes(categorie);
+          }
+
           return produit.categorie === categorie;
         });
       }
@@ -364,6 +375,7 @@
         const marque = echapperHTML(produit.marque || "");
         const image = produit.image ? echapperHTML(produit.image) : "";
         const prix = formaterPrix(produit.prix);
+        const lienProduit = "produit.html?id=" + encodeURIComponent(produit.id);
 
         const ancienPrix = produit.ancienPrix
           ? '<span class="product-old-price">' +
@@ -377,18 +389,27 @@
 
         return `
           <article class="product-card">
-            <div class="product-image">${visuel}</div>
+            <a href="${lienProduit}" class="product-image" aria-label="Voir ${nom}">
+              ${visuel}
+            </a>
+
             <div class="product-info">
               <div class="product-brand">${marque}</div>
-              <h2 class="product-name">${nom}</h2>
+
+              <h2 class="product-name">
+                <a href="${lienProduit}">${nom}</a>
+              </h2>
+
               <div class="product-price">
                 ${ancienPrix}
                 ${prix}
               </div>
+
               <div class="product-actions">
                 <button type="button" data-action="panier" data-id="${id}">
                   Ajouter au panier
                 </button>
+
                 <button type="button" data-action="favoris" data-id="${id}">
                   ♡ Favoris
                 </button>
