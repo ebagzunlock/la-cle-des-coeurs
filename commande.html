@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Finalisez votre commande LA CLÉ DES CŒURS.">
+  <title>Finaliser ma commande | LA CLÉ DES CŒURS</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .checkout-page {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 20px 70px;
+    }
+
+    .checkout-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .checkout-title h1 {
+      font-family: Georgia, serif;
+      font-weight: 400;
+      letter-spacing: 2px;
+    }
+
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 35px;
+      align-items: start;
+    }
+
+    .checkout-card {
+      background: #fff;
+      border: 1px solid #e9e1d6;
+      padding: 28px;
+      margin-bottom: 22px;
+    }
+
+    .checkout-card h2 {
+      font-family: Georgia, serif;
+      font-size: 21px;
+      font-weight: 400;
+      margin: 0 0 22px;
+    }
+
+    .checkout-form label {
+      display: block;
+      font-size: 13px;
+      margin: 15px 0 7px;
+      color: #55483d;
+    }
+
+    .checkout-form input,
+    .checkout-form select,
+    .checkout-form textarea {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ded5c9;
+      background: #fff;
+      color: #40372f;
+      font: inherit;
+      border-radius: 2px;
+    }
+
+    .checkout-form textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .checkout-form input:focus,
+    .checkout-form select:focus,
+    .checkout-form textarea:focus {
+      outline: 1px solid #a58c70;
+    }
+
+    .checkout-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .checkout-summary {
+      position: sticky;
+      top: 20px;
+    }
+
+    .checkout-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 13px 0;
+      font-size: 14px;
+    }
+
+    .checkout-total {
+      border-top: 1px solid #e9e1d6;
+      margin-top: 20px;
+      padding-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .payment-option {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .payment-option input {
+      width: auto;
+    }
+
+    .checkout-button {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      margin-top: 22px;
+      border: none;
+      background: #8b745c;
+      color: white;
+      letter-spacing: 1px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .checkout-button:hover {
+      background: #705b47;
+    }
+
+    .checkout-notice {
+      margin-top: 15px;
+      font-size: 12px;
+      line-height: 1.7;
+      color: #776b60;
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 20px 0;
+      color: #776b60;
+    }
+
+    @media (max-width: 750px) {
+      .checkout-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .checkout-summary {
+        position: static;
+      }
+
+      .checkout-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="checkout-page">
+
+    <div class="checkout-title">
+      <p>LA CLÉ DES CŒURS</p>
+      <h1>Finaliser ma commande</h1>
+      <p>Quelques dernières informations avant de poursuivre.</p>
+    </div>
+
+    <div class="checkout-layout">
+
+      <form class="checkout-form" id="checkoutForm">
+
+        <section class="checkout-card">
+          <h2>1. Vos coordonnées</h2>
+
+          <div class="checkout-row">
+            <div>
+              <label for="firstName">Prénom *</label>
+              <input id="firstName" name="firstName" required autocomplete="given-name">
+            </div>
+
+            <div>
+              <label for="lastName">Nom *</label>
+              <input id="lastName" name="lastName" required autocomplete="family-name">
+            </div>
+          </div>
+
+          <label for="email">Adresse e-mail *</label>
+          <input id="email" name="email" type="email" required autocomplete="email">
+
+          <label for="phone">Téléphone *</label>
+          <input id="phone" name="phone" type="tel" required autocomplete="tel">
+        </section>
+
+        <section class="checkout-card">
+          <h2>2. Adresse de livraison</h2>
+
+          <label for="address">Adresse *</label>
+          <input id="address" name="address" required autocomplete="street-address">
+
+          <label for="address2">Complément d'adresse</label>
+          <input id="address2" name="address2" autocomplete="address-line2">
+
+          <div class="checkout-row">
+            <div>
+              <label for="postalCode">Code postal *</label>
+              <input id="postalCode" name="postalCode" required autocomplete="postal-code">
+            </div>
+
+            <div>
+              <label for="city">Ville *</label>
+              <input id="city" name="city" required autocomplete="address-level2">
+            </div>
+          </div>
+
+          <label for="country">Pays *</label>
+          <select id="country" name="country" required autocomplete="country-name">
+            <option value="">Choisir un pays</option>
+            <option value="France">France</option>
+            <option value="Belgique">Belgique</option>
+            <option value="Suisse">Suisse</option>
+            <option value="Luxembourg">Luxembourg</option>
+            <option value="Autre">Autre</option>
+          </select>
+
+          <label for="deliveryNote">Instructions de livraison (facultatif)</label>
+          <textarea id="deliveryNote" name="deliveryNote"
+            placeholder="Informations utiles pour le transporteur..."></textarea>
+        </section>
+
+        <section class="checkout-card">
+          <h2>3. Mode de paiement</h2>
+
+          <label class="payment-option">
+            <input type="radio" name="payment" value="card" required>
+            Carte bancaire
+          </label>
+
+          <label class="payment-option">
+            <input type="radio" name="payment" value="transfer">
+            Virement bancaire
+          </label>
+
+          <p class="checkout-notice">
+            Les paiements ne sont pas encore activés. Aucun paiement ne sera
+            effectué depuis cette page tant que le système sécurisé ne sera
+            pas connecté.
+          </p>
+        </section>
+
+        <section class="checkout-card">
+          <label class="payment-option">
+            <input type="checkbox" id="acceptTerms" required>
+            J'accepte les conditions générales de vente.
+          </label>
+
+          <button class="checkout-button" type="submit">
+            POURSUIVRE MA COMMANDE
+          </button>
+
+          <p class="checkout-notice">
+            Cette version est une maquette. Le formulaire ne transmet pas
+            encore vos informations et ne crée aucune commande.
+          </p>
+        </section>
+
+      </form>
+
+      <aside class="checkout-summary">
+        <section class="checkout-card">
+          <h2>Récapitulatif</h2>
+
+          <div id="orderItems">
+            <p class="empty-cart">Chargement de votre panier...</p>
+          </div>
+
+          <div class="checkout-line">
+            <span>Sous-total</span>
+            <span id="subtotal">0,00 €</span>
+          </div>
+
+          <div class="checkout-line">
+            <span>Livraison</span>
+            <span>À confirmer</span>
+          </div>
+
+          <div class="checkout-line checkout-total">
+            <span>Total provisoire</span>
+            <span id="total">0,00 €</span>
+          </div>
+
+          <p class="checkout-notice">
+            Les frais et conditions de livraison seront confirmés avant
+            l'activation des commandes en ligne.
+          </p>
+        </section>
+
+        <p style="text-align:center;font-size:12px;color:#776b60;">
+          LA CLÉ DES CŒURS — BIJOUX FINS & RAFFINÉS
+        </p>
+      </aside>
+
+    </div>
+  </main>
+
+  <script>
+    const CART_KEY = "cdc_cart";
+
+    function getCart() {
+      try {
+        const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+        return Array.isArray(cart) ? cart : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function formatPrice(value) {
+      return Number(value).toLocaleString("fr-FR", {
+        style: "currency",
+        currency: "EUR"
+      });
+    }
+
+    function displayOrderSummary() {
+      const cart = getCart();
+      const container = document.getElementById("orderItems");
+
+      container.replaceChildren();
+
+      if (cart.length === 0) {
+        const message = document.createElement("p");
+        message.className = "empty-cart";
+        message.textContent = "Votre panier est vide.";
+        container.appendChild(message);
+      }
+
+      let subtotal = 0;
+
+      cart.forEach(item => {
+        const price = Number(item.price);
+        const quantity = Number(item.quantity);
+
+        if (!Number.isFinite(price) || !Number.isFinite(quantity)) return;
+
+        subtotal += price * quantity;
+
+        const line = document.createElement("div");
+        line.className = "checkout-line";
+
+        const name = document.createElement("span");
+        name.textContent = `${item.name || "Article"} × ${quantity}`;
+
+        const amount = document.createElement("span");
+        amount.textContent = formatPrice(price * quantity);
+
+        line.append(name, amount);
+        container.appendChild(line);
+      });
+
+      document.getElementById("subtotal").textContent = formatPrice(subtotal);
+      document.getElementById("total").textContent = formatPrice(subtotal);
+    }
+
+    document.getElementById("checkoutForm").addEventListener("submit", event => {
+      event.preventDefault();
+
+      if (getCart().length === 0) {
+        alert("Votre panier est vide. Ajoutez d'abord un article.");
+        return;
+      }
+
+      alert(
+        "Merci ! Cette page est encore en préparation. " +
+        "Aucune commande n'a été envoyée et aucun paiement n'a été effectué."
+      );
+    });
+
+    displayOrderSummary();
+  </script>
+
+</body>
+</html>
