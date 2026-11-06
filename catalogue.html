@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Découvrez la sélection de bijoux et montres LA CLÉ DES CŒURS.">
+  <meta name="description" content="Découvrez les bijoux et montres LA CLÉ DES CŒURS.">
   <title>Notre catalogue | LA CLÉ DES CŒURS</title>
   <link rel="stylesheet" href="styles.css">
 
@@ -47,7 +48,6 @@
       background: #fff;
       color: #403a33;
       font: inherit;
-      border-radius: 2px;
     }
 
     .catalogue-count {
@@ -136,7 +136,6 @@
       padding: 10px 13px;
       font-size: 12px;
       cursor: pointer;
-      transition: background .2s, color .2s;
     }
 
     .product-actions button:hover {
@@ -186,18 +185,12 @@
         padding-left: 9px;
         padding-right: 9px;
       }
-
-      .product-actions button {
-        padding: 9px 10px;
-      }
     }
   </style>
 </head>
 
 <body>
-
   <main class="catalogue-page">
-
     <header class="catalogue-heading">
       <h1>Notre collection</h1>
       <p>Découvrez notre sélection de bijoux et de montres.</p>
@@ -227,12 +220,13 @@
       </select>
     </section>
 
-    <p class="catalogue-count" id="nombreProduits">Chargement des produits...</p>
+    <p class="catalogue-count" id="nombreProduits">
+      Chargement des produits...
+    </p>
 
     <section class="products-grid" id="listeProduits" aria-live="polite">
       <p class="no-products">Chargement du catalogue...</p>
     </section>
-
   </main>
 
   <script src="produits.js"></script>
@@ -246,12 +240,32 @@
     const triProduits = document.getElementById("triProduits");
     const nombreProduits = document.getElementById("nombreProduits");
 
+    // Récupération des filtres depuis l'adresse de la page
+    const parametres = new URLSearchParams(window.location.search);
+
+    const categorieDemandee = parametres.get("categorie");
+    const rechercheDemandee = parametres.get("recherche");
+
+    if (categorieDemandee) {
+      const optionExiste = Array.from(filtreCategorie.options)
+        .some(option => option.value === categorieDemandee);
+
+      if (optionExiste) {
+        filtreCategorie.value = categorieDemandee;
+      }
+    }
+
+    if (rechercheDemandee) {
+      recherche.value = rechercheDemandee;
+    }
+
     function lireStock(cle) {
       try {
         const contenu = localStorage.getItem(cle);
-        return contenu ? JSON.parse(contenu) : [];
+        const donnees = contenu ? JSON.parse(contenu) : [];
+        return Array.isArray(donnees) ? donnees : [];
       } catch (erreur) {
-        console.error("Erreur de lecture du stockage :", erreur);
+        console.error(erreur);
         return [];
       }
     }
@@ -274,7 +288,7 @@
     }
 
     function echapperHTML(texte) {
-      return String(texte ?? "").replace(/[&<>"']/g, function(caractere) {
+      return String(texte ?? "").replace(/[&<>"']/g, function(c) {
         const caracteres = {
           "&": "&amp;",
           "<": "&lt;",
@@ -283,14 +297,12 @@
           "'": "&#039;"
         };
 
-        return caracteres[caractere];
+        return caracteres[c];
       });
     }
 
     function obtenirProduits() {
-      if (!Array.isArray(window.produits)) {
-        return [];
-      }
+      if (!Array.isArray(window.produits)) return [];
 
       return window.produits.filter(function(produit) {
         return produit && produit.actif !== false;
@@ -324,21 +336,17 @@
       }
 
       if (tri === "prix-croissant") {
-        produits.sort(function(a, b) {
-          return Number(a.prix) - Number(b.prix);
-        });
+        produits.sort((a, b) => Number(a.prix) - Number(b.prix));
       }
 
       if (tri === "prix-decroissant") {
-        produits.sort(function(a, b) {
-          return Number(b.prix) - Number(a.prix);
-        });
+        produits.sort((a, b) => Number(b.prix) - Number(a.prix));
       }
 
       if (tri === "nom") {
-        produits.sort(function(a, b) {
-          return String(a.nom).localeCompare(String(b.nom), "fr");
-        });
+        produits.sort((a, b) =>
+          String(a.nom).localeCompare(String(b.nom), "fr")
+        );
       }
 
       nombreProduits.textContent =
@@ -369,24 +377,18 @@
 
         return `
           <article class="product-card">
-            <div class="product-image">
-              ${visuel}
-            </div>
-
+            <div class="product-image">${visuel}</div>
             <div class="product-info">
               <div class="product-brand">${marque}</div>
               <h2 class="product-name">${nom}</h2>
-
               <div class="product-price">
                 ${ancienPrix}
                 ${prix}
               </div>
-
               <div class="product-actions">
                 <button type="button" data-action="panier" data-id="${id}">
                   Ajouter au panier
                 </button>
-
                 <button type="button" data-action="favoris" data-id="${id}">
                   ♡ Favoris
                 </button>
@@ -398,9 +400,9 @@
     }
 
     function ajouterAuPanier(id) {
-      const produit = obtenirProduits().find(function(item) {
-        return String(item.id) === String(id);
-      });
+      const produit = obtenirProduits().find(item =>
+        String(item.id) === String(id)
+      );
 
       if (!produit) {
         alert("Produit introuvable.");
@@ -410,9 +412,9 @@
       try {
         const panier = lireStock("cdc_cart");
 
-        const existant = panier.find(function(item) {
-          return String(item.id) === String(produit.id);
-        });
+        const existant = panier.find(item =>
+          String(item.id) === String(produit.id)
+        );
 
         if (existant) {
           existant.quantity = Number(existant.quantity || 0) + 1;
@@ -429,15 +431,15 @@
         enregistrer("cdc_cart", panier);
         alert("Produit ajouté au panier.");
       } catch (erreur) {
-        console.error("Erreur panier :", erreur);
-        alert("Impossible d'enregistrer le panier sur cet appareil.");
+        console.error(erreur);
+        alert("Impossible d'enregistrer le panier.");
       }
     }
 
     function ajouterAuxFavoris(id) {
-      const produit = obtenirProduits().find(function(item) {
-        return String(item.id) === String(id);
-      });
+      const produit = obtenirProduits().find(item =>
+        String(item.id) === String(id)
+      );
 
       if (!produit) {
         alert("Produit introuvable.");
@@ -447,9 +449,9 @@
       try {
         const favoris = lireStock("cdc_favorites");
 
-        const dejaPresent = favoris.some(function(item) {
-          return String(item.id) === String(produit.id);
-        });
+        const dejaPresent = favoris.some(item =>
+          String(item.id) === String(produit.id)
+        );
 
         if (dejaPresent) {
           alert("Ce produit est déjà dans vos favoris.");
@@ -466,26 +468,23 @@
         enregistrer("cdc_favorites", favoris);
         alert("Produit ajouté à vos favoris.");
       } catch (erreur) {
-        console.error("Erreur favoris :", erreur);
-        alert("Impossible d'enregistrer vos favoris sur cet appareil.");
+        console.error(erreur);
+        alert("Impossible d'enregistrer les favoris.");
       }
     }
 
     listeProduits.addEventListener("click", function(evenement) {
       const bouton = evenement.target.closest("button[data-action]");
 
-      if (!bouton) {
-        return;
-      }
+      if (!bouton) return;
 
       const id = bouton.dataset.id;
-      const action = bouton.dataset.action;
 
-      if (action === "panier") {
+      if (bouton.dataset.action === "panier") {
         ajouterAuPanier(id);
       }
 
-      if (action === "favoris") {
+      if (bouton.dataset.action === "favoris") {
         ajouterAuxFavoris(id);
       }
     });
@@ -499,9 +498,8 @@
     } else {
       nombreProduits.textContent = "Catalogue indisponible";
       listeProduits.innerHTML =
-        '<p class="no-products">Impossible de charger les produits. Vérifiez le fichier produits.js.</p>';
+        '<p class="no-products">Vérifiez le fichier produits.js.</p>';
     }
   </script>
-
 </body>
 </html>
