@@ -1,8 +1,9 @@
 "use strict";
 
 // LA CLÉ DES CŒURS
-// Catalogue reconstitué depuis le fichier actuel.
-// Les 4 premières photos sont des visuels originaux vérifiés.
+// Catalogue complet : 76 accessoires et 2 montres.
+// Les 4 premières images sont des photos originales vérifiées.
+// Les autres images restent vides en attendant leur vérification.
 
 const creerProduit = (id, nom, marque, prix, ancienPrix = null, categories = ["accessoires"], extra = {}) => ({
   id,
