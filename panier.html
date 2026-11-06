@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mon panier | LA CLÉ DES CŒURS</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cart-page { max-width:1000px; margin:auto; padding:60px 5%; }
+    .cart-page h1 { text-align:center; font:500 48px "Cormorant Garamond",serif; color:#302820; margin-bottom:35px; }
+    .cart-list { display:grid; gap:15px; }
+    .cart-item { display:grid; grid-template-columns:90px 1fr auto; align-items:center; gap:20px; padding:20px; background:#f2eee7; }
+    .cart-item-image { height:85px; display:grid; place-items:center; background:#e8dfd2; color:#514238; font:30px "Cormorant Garamond",serif; }
+    .cart-item h2 { font:500 22px "Cormorant Garamond",serif; color:#302820; }
+    .cart-item p { font-size:12px; }
+    .cart-item input { width:65px; padding:8px; border:1px solid #ddd2c4; }
+    .cart-remove { border:0; background:transparent; color:#795e4b; cursor:pointer; text-decoration:underline; font-size:12px; }
+    .cart-summary { max-width:420px; margin:30px 0 0 auto; padding:25px; background:#f2eee7; }
+    .cart-total { display:flex; justify-content:space-between; font-size:18px; margin-bottom:20px; }
+    .cart-checkout { display:block; text-align:center; padding:15px; background:#514238; color:white; letter-spacing:2px; font-size:11px; }
+    .cart-empty { text-align:center; padding:45px 15px; background:#f2eee7; }
+    @media(max-width:550px) { .cart-item { grid-template-columns:65px 1fr; gap:12px; } .cart-item-image { height:65px; } .cart-item-actions { grid-column:2; } .cart-page h1 { font-size:38px; } }
+  </style>
+</head>
+<body>
+  <div class="announcement">BIENVENUE CHEZ LA CLÉ DES CŒURS</div>
+  <header class="header">
+    <button class="menu-button" id="menuButton" aria-label="Ouvrir le menu">☰</button>
+    <a href="index.html" class="brand">
+      <span class="brand-monogram">CDC</span>
+      <span class="brand-name">LA CLÉ DES CŒURS</span>
+      <span class="brand-tagline">BIJOUX FINS & RAFFINÉS</span>
+    </a>
+    <div class="header-actions">
+      <a href="favoris.html">♡</a>
+      <a href="panier.html">♧ <span id="cartCount">0</span></a>
+    </div>
+  </header>
+  <nav class="main-nav" id="mainNav">
+    <a href="index.html">Accueil</a>
+    <a href="catalogue.html">Catalogue</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <main class="cart-page">
+    <p class="eyebrow" style="text-align:center">LA CLÉ DES CŒURS</p>
+    <h1>Mon panier</h1>
+
+    <div id="cartContents" class="cart-list"></div>
+
+    <div id="cartSummary" class="cart-summary" hidden>
+      <div class="cart-total">
+        <strong>Total provisoire</strong>
+        <strong id="cartTotal">0,00 €</strong>
+      </div>
+      <p style="font-size:11px;margin-bottom:18px">
+        Les frais de livraison seront calculés avant validation de la commande.
+      </p>
+      <a href="commande.html" class="cart-checkout">CONTINUER VERS LA COMMANDE</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <span class="brand-monogram">CDC</span>
+      <h3>LA CLÉ DES CŒURS</h3>
+      <p>BIJOUX FINS & RAFFINÉS</p>
+    </div>
+    <div class="footer-column">
+      <h4>LA BOUTIQUE</h4>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-column">
+      <h4>INFORMATIONS</h4>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="livraison-retours.html">Livraison et retours</a>
+    </div>
+    <div class="footer-bottom">©️ LA CLÉ DES CŒURS. Tous droits réservés.</div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    const contents = document.getElementById("cartContents");
+    const summary = document.getElementById("cartSummary");
+    const totalElement = document.getElementById("cartTotal");
+
+    function readCart() {
+      try {
+        return JSON.parse(localStorage.getItem("cdc_cart")) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveCart(cart) {
+      localStorage.setItem("cdc_cart", JSON.stringify(cart));
+      renderCart();
+      if (typeof updateCartCount === "function") updateCartCount();
+    }
+
+    function renderCart() {
+      const cart = readCart();
+      contents.innerHTML = "";
+
+      if (!cart.length) {
+        contents.innerHTML = `
+          <div class="cart-empty">
+            <h2>Votre panier est vide</h2>
+            <p>Découvrez notre sélection de bijoux et de montres.</p>
+            <br>
+            <a class="primary-button" href="catalogue.html">DÉCOUVRIR LE CATALOGUE</a>
+          </div>`;
+        summary.hidden = true;
+        return;
+      }
+
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const price = Number(item.price);
+        const quantity = Math.max(1, Number(item.quantity) || 1);
+
+        if (!Number.isFinite(price) || price < 0) return;
+
+        total += price * quantity;
+
+        const article = document.createElement("article");
+        article.className = "cart-item";
+
+        const image = document.createElement("div");
+        image.className = "cart-item-image";
+        image.textContent = "CDC";
+
+        const details = document.createElement("div");
+        const name = document.createElement("h2");
+        name.textContent = item.name || "Article";
+        const priceText = document.createElement("p");
+        priceText.textContent = price.toLocaleString("fr-FR", {
+          style: "currency",
+          currency: "EUR"
+        });
+        details.append(name, priceText);
+
+        const actions = document.createElement("div");
+        actions.className = "cart-item-actions";
+
+        const quantityInput = document.createElement("input");
+        quantityInput.type = "number";
+        quantityInput.min = "1";
+        quantityInput.max = "10";
+        quantityInput.value = quantity;
+        quantityInput.setAttribute("aria-label", "Quantité");
+
+        quantityInput.addEventListener("change", () => {
+          const updated = readCart();
+          updated[index].quantity = Math.min(10, Math.max(1, Number(quantityInput.value) || 1));
+          saveCart(updated);
+        });
+
+        const remove = document.createElement("button");
+        remove.className = "cart-remove";
+        remove.textContent = "Supprimer";
+        remove.addEventListener("click", () => {
+          const updated = readCart();
+          updated.splice(index, 1);
+          saveCart(updated);
+        });
+
+        actions.append(quantityInput, document.createElement("br"), remove);
+        article.append(image, details, actions);
+        contents.append(article);
+      });
+
+      totalElement.textContent = total.toLocaleString("fr-FR", {
+        style: "currency",
+        currency: "EUR"
+      });
+
+      summary.hidden = total === 0;
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
