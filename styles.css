@@ -823,3 +823,127 @@ body {
   background: #302a27;
   border-top: 1px solid #bca77f;
 }
+
+
+/* PALETTE JOAILLERIE — TAUPE MINÉRAL, BRONZE ET CHAMPAGNE */
+:root {
+  --ivory: #e9e4dc;
+  --cream: #ded7cd;
+  --beige: #d2c8bb;
+  --champagne: #b69a70;
+  --brown: #443832;
+  --dark: #29231f;
+  --text: #554c44;
+  --white: #f0ece5;
+  --border: #cfc5b8;
+}
+html { background: #e5dfd6 !important; }
+body {
+  color: #554c44 !important;
+  background:
+    radial-gradient(ellipse at 18% 4%, rgba(255,250,240,.25), transparent 38%),
+    radial-gradient(ellipse at 88% 48%, rgba(91,72,58,.07), transparent 42%),
+    linear-gradient(145deg, #e8e2d9 0%, #dcd4c9 48%, #e7e1d8 100%) !important;
+  background-attachment: fixed;
+}
+.announcement {
+  background: linear-gradient(100deg, #29231f, #40352e 50%, #29231f) !important;
+  color: #e4d2b2 !important;
+}
+.header, .main-nav {
+  background: rgba(229,223,214,.96) !important;
+  border-color: rgba(123,104,83,.22) !important;
+}
+.welcome-section, .contact-strip, .featured-section { background: transparent !important; }
+.categories-section {
+  background: linear-gradient(135deg, #d9d1c6, #e4ded5) !important;
+}
+.category-image, .category-product-track img {
+  background: #d8d0c5 !important;
+}
+.featured-home-card, .featured-placeholder, .cart-item, .cart-summary, .cart-empty,
+.checkout-card, .product-card, .product-item, .catalogue-card {
+  background: rgba(239,235,228,.88) !important;
+  border-color: rgba(137,117,92,.28) !important;
+}
+.featured-home-card img {
+  background: #ddd5ca !important;
+}
+.editorial-section {
+  background: linear-gradient(125deg, #d3c8ba, #e1d9ce 52%, #d0c4b5) !important;
+}
+.footer {
+  background: linear-gradient(125deg, #29231f, #40352e) !important;
+  color: #e7ddce !important;
+  border-top: 1px solid #b69a70 !important;
+}
+.primary-button, .cart-checkout, .checkout-button {
+  background: linear-gradient(110deg, #342b26, #514239) !important;
+  border: 1px solid #b69a70 !important;
+  color: #f4eee4 !important;
+}
+.primary-button:hover, .cart-checkout:hover, .checkout-button:hover {
+  background: #b69a70 !important;
+  color: #29231f !important;
+}
+input, select, textarea {
+  background-color: #eee9e1 !important;
+  border-color: #c9bdad !important;
+  color: #403831 !important;
+}
+@media (max-width: 600px) { body { background-attachment: scroll; } }
+
+/* PICTOGRAMMES DE NAVIGATION — TRAIT FIN ET UNIFORME */
+.header-actions { align-items: center; gap: 18px !important; }
+.header-actions a, #menuButton, .menu-button {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  color: #514238 !important;
+  -webkit-tap-highlight-color: transparent;
+}
+.header-actions a {
+  width: 36px;
+  height: 36px;
+  position: relative;
+  transition: color .2s ease, transform .2s ease;
+}
+.header-actions a:hover { color: #a88a5e !important; transform: translateY(-1px); }
+.header-actions a svg, #menuButton svg, .menu-button svg {
+  width: 21px;
+  height: 21px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.55;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+#menuButton, .menu-button {
+  width: 40px !important;
+  height: 40px !important;
+  border: 1px solid rgba(135,113,86,.35) !important;
+  border-radius: 50% !important;
+  background: rgba(239,234,226,.55) !important;
+  cursor: pointer;
+}
+#menuButton:hover, .menu-button:hover {
+  border-color: #b69a70 !important;
+  color: #9a7b50 !important;
+}
+.header-actions #cartCount {
+  position: absolute;
+  top: -2px;
+  right: -5px;
+  min-width: 15px;
+  height: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #9b8059;
+  color: #fffaf1;
+  font: 600 9px/1 Arial, sans-serif;
+}
+.search-form button { color: #514238 !important; }
+.search-form button svg { width: 19px; height: 19px; stroke: currentColor; }
