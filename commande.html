@@ -223,8 +223,27 @@
           <select id="country" name="country" required>
             <option value="">Choisir un pays</option>
           </select>
+          <label for="address">Adresse *</label>
+          <input id="address" name="address" type="text" required autocomplete="address-line1" placeholder="Numéro et nom de rue">
+
+          <label for="address2">Complément d’adresse</label>
+          <input id="address2" name="address2" type="text" autocomplete="address-line2" placeholder="Appartement, bâtiment, étage (facultatif)">
+
+          <div class="checkout-row">
+            <div>
+              <label for="postalCode">Code postal *</label>
+              <input id="postalCode" name="postalCode" type="text" required autocomplete="postal-code">
+            </div>
+            <div>
+              <label for="city">Ville *</label>
+              <input id="city" name="city" type="text" required autocomplete="address-level2">
+            </div>
+          </div>
+
+          <label for="state">Région / État / Province</label>
+          <input id="state" name="state" type="text" autocomplete="address-level1">
           <p class="checkout-notice">
-            Vous indiquerez votre adresse complète sur la page de paiement sécurisée Stripe.
+            Merci de saisir l’adresse complète à laquelle votre commande devra être livrée.
           </p>
         </section>
 
@@ -244,7 +263,7 @@
           </button>
 
           <p class="checkout-notice">
-            Stripe recueillera votre adresse de livraison et vos informations de paiement de manière sécurisée.
+            Vos coordonnées et votre adresse de livraison seront utilisées pour préparer votre commande. Le paiement reste sécurisé sur Stripe.
           </p>
         </section>
 
@@ -432,7 +451,12 @@
           lastName: String(formData.get("lastName") || "").trim(),
           email: String(formData.get("email") || "").trim(),
           phone: String(formData.get("phone") || "").trim(),
-          country: String(formData.get("country") || "").trim()
+          country: String(formData.get("country") || "").trim(),
+          address: String(formData.get("address") || "").trim(),
+          address2: String(formData.get("address2") || "").trim(),
+          postalCode: String(formData.get("postalCode") || "").trim(),
+          city: String(formData.get("city") || "").trim(),
+          state: String(formData.get("state") || "").trim()
         };
 
         const items = cart.map(item => ({
