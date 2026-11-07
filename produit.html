@@ -101,10 +101,28 @@
     }
 
     .detail-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-width: 380px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      max-width: 440px;
+      margin: 0 0 22px;
+    }
+    .detail-buttons .buy-now-button {
+      grid-column: 1 / -1;
+      background: #493328;
+      border-color: #493328;
+      min-height: 52px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+    }
+    .detail-buttons button.secondary {
+      min-height: 48px;
+      padding: 12px 10px;
+      font-size: 11px;
+    }
+    @media(max-width:420px) {
+      .detail-buttons { grid-template-columns: 1fr; }
+      .detail-buttons .buy-now-button { grid-column: auto; }
     }
 
     .detail-buttons button {
@@ -416,17 +434,19 @@
               </p>
             ` : ""}
 
-            <div class="detail-description">${description}</div>
-
             <div class="detail-buttons">
-              <button type="button" id="ajouterPanier" ${Number(produit.prix) > 0 ? "" : "disabled"}>
-                ${Number(produit.prix) > 0 ? "AJOUTER AU PANIER" : "PRIX À CONFIRMER"}
+              <button type="button" class="buy-now-button" id="acheterMaintenant" ${Number(produit.prix) > 0 ? "" : "disabled"}>
+                ${Number(produit.prix) > 0 ? "ACHETER" : "PRIX À CONFIRMER"}
               </button>
-
+              <button type="button" class="secondary" id="ajouterPanier" ${Number(produit.prix) > 0 ? "" : "disabled"}>
+                AJOUTER AU PANIER
+              </button>
               <button type="button" class="secondary" id="ajouterFavoris">
                 ♡ AJOUTER AUX FAVORIS
               </button>
             </div>
+
+            <div class="detail-description">${description}</div>
           </div>
 
         </article>
@@ -448,6 +468,21 @@
             bouton.classList.add("active");
           }
         });
+      });
+
+      document.getElementById("acheterMaintenant").addEventListener("click", function() {
+        if (!Number.isFinite(Number(produit.prix)) || Number(produit.prix) <= 0) {
+          alert("Le prix de cet article doit être confirmé avant l'achat.");
+          return;
+        }
+        enregistrer("cdc_buy_now", [{
+          id: produit.id,
+          name: produit.nom,
+          price: Number(produit.prix),
+          quantity: 1,
+          image: produit.image || ""
+        }]);
+        window.location.href = "commande.html?achat=direct";
       });
 
       document.getElementById("ajouterPanier").addEventListener("click", function() {
