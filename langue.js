@@ -303,7 +303,7 @@
       </div>
       <div class="footer-column">
         <h4>INFORMATIONS</h4>
-        <a href="commande.html">Ma commande</a>
+        <a href="compte.html">Ma commande</a>
         <a href="livraison-retours.html">Livraison et retours</a>
         <a href="conditions-generales.html">Conditions générales de vente</a>
         <a href="mentions-legales.html">Mentions légales</a>
@@ -365,12 +365,12 @@
       #cdc-language-menu[hidden] { display: none; }
       #cdc-language-menu label {
         display: block; margin: 0 0 7px; color: #55483d;
-        font: 11px Montserrat, Arial, sans-serif;
+        font: 11px Manrope, Arial, sans-serif;
       }
       #cdc-language-select {
         box-sizing: border-box; width: 100%; padding: 10px;
         border: 1px solid rgba(198,166,116,.45); background: #40382f; color: #f0e7da;
-        font: 12px Montserrat, Arial, sans-serif;
+        font: 12px Manrope, Arial, sans-serif;
       }
       #google_translate_element {
         position: absolute !important; left: -9999px !important;
