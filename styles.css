@@ -2,6 +2,7 @@
 /* =========================================
    LA CLÉ DES CŒURS
    BIJOUX FINS & RAFFINÉS
+   VERSION CORRIGÉE
    ========================================= */
 
 :root {
@@ -118,6 +119,10 @@ select {
   gap: 22px;
   color: var(--brown);
   font-size: 24px;
+}
+
+.header-actions a {
+  text-decoration: none;
 }
 
 /* NAVIGATION */
@@ -523,6 +528,10 @@ select {
     grid-template-columns: 35px 1fr 65px;
   }
 
+  .menu-button {
+    display: block;
+  }
+
   .brand-monogram {
     font-size: 31px;
   }
@@ -550,8 +559,10 @@ select {
     padding: 5px 20px;
   }
 
-  .main-nav.open {
-    display: flex;
+  /* Compatibilité avec index.html */
+  .main-nav.open,
+  .main-nav.is-open {
+    display: flex !important;
   }
 
   .main-nav a {
