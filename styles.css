@@ -2607,3 +2607,188 @@ hr { border-color:var(--cdc-line) !important; }
   .cart-item h2 { font-size:19px !important; line-height:1.35 !important; }
   .cart-item p,.cart-page .cart-summary p { font-size:13px !important; line-height:1.55 !important; }
 }
+
+
+/* ACCESSIBILITÉ CDC — CONTRASTE RENFORCÉ SUR CHAQUE PAGE ET CHAQUE TEXTE */
+:root {
+  --cdc-bg:#252621;
+  --cdc-panel:#33352f;
+  --cdc-panel-raised:#3b3d36;
+  --cdc-text:#fff8ed;
+  --cdc-muted:#e8dece;
+  --cdc-gold:#e0bd80;
+  --cdc-border:rgba(224,189,128,.42);
+}
+html,body {
+  background:#252621 !important;
+  background-image:none !important;
+  color:#fff8ed !important;
+}
+body {
+  font-family:"Manrope",Arial,sans-serif !important;
+  font-size:15px !important;
+  line-height:1.75 !important;
+}
+/* Règle globale : aucun texte ne doit hériter d'une couleur trop faible. */
+body :where(*):not(img):not(video):not(canvas) {
+  color:#fff8ed !important;
+}
+body a, body a :where(*) {
+  color:#e8c991 !important;
+}
+body a:hover,body a:hover :where(*) {
+  color:#fff0d4 !important;
+}
+body p,body li,body dd,body dt,body label,body small,
+body .eyebrow,body .catalogue-count,body .detail-description,
+body .product-description,body .product-info,body .product-message,
+body .form-hint,body .last-update,body .intro,body .muted,
+body .footer-bottom,body .cart-item p {
+  color:#e8dece !important;
+}
+body h1,body h2,body h3,body h4,body h5,body h6,
+body .product-name,body .product-price,body .detail-name,
+body .detail-price,body .cart-total,body .cart-item-line-total {
+  color:#fff8ed !important;
+}
+/* Fonds uniformes : pas de texte clair posé sur une surface blanche ou crème. */
+main,main>section,.welcome-section,.categories-section,.featured-section,
+.editorial-section,.contact-strip,.catalogue-page,.product-page,
+.cart-page,.account-page,.checkout-page,.privacy-page,.legal-container,
+.cgv-container,.delivery-container,.about-shop,.contact-layout,
+.contact-page,.favorites-page,.featured-placeholder,.product-card,
+.featured-home-card,.category-card,.product-detail-info,.cart-item,
+.cart-summary,.cart-empty,.account-card,.checkout-card,.contact-card,
+.favorite-card,.privacy-note,.legal-warning,.cgv-note,.delivery-note,
+.about-cta,.delivery-contact,.legal-contact,.cgv-contact {
+  background-color:#33352f !important;
+  color:#fff8ed !important;
+  border-color:var(--cdc-border) !important;
+}
+body main { background:#252621 !important; }
+.hero {
+  background-image:
+    linear-gradient(rgba(25,26,22,.78),rgba(25,26,22,.84)),
+    url("https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/accueil-site-MTR.jpg") !important;
+  background-color:#252621 !important;
+}
+.hero h1,.hero p,.hero .eyebrow,.editorial-section h2,
+.editorial-section p,.welcome-section h2,.welcome-section p,
+.section-heading h2,.section-heading p,.contact-strip h2 {
+  color:#fff8ed !important;
+}
+.category-image,.product-image,.product-detail-image img,
+.featured-home-card img,.cart-item-image {
+  background-color:#292a25 !important;
+}
+.product-card,.featured-home-card {
+  border:1px solid var(--cdc-border) !important;
+}
+input,select,textarea,option {
+  background:#24251f !important;
+  color:#fff8ed !important;
+  border:1px solid rgba(224,189,128,.62) !important;
+}
+input::placeholder,textarea::placeholder {
+  color:#d7cbb9 !important; opacity:1 !important;
+}
+button,.primary-button,.account-submit,.checkout-button,
+.cart-checkout,.detail-buttons button {
+  background:#dfbd84 !important;
+  color:#25251f !important;
+  border:1px solid #f0d7ad !important;
+  font-weight:700 !important;
+}
+button *, .primary-button *, .account-submit *,
+.checkout-button *, .cart-checkout *, .detail-buttons button * {
+  color:#25251f !important;
+}
+button:hover,.primary-button:hover,.account-submit:hover,
+.checkout-button:hover,.cart-checkout:hover {
+  background:#f0d7ad !important;
+  color:#25251f !important;
+}
+.detail-buttons button.secondary,.product-actions button {
+  background:#24251f !important;
+  color:#fff8ed !important;
+  border:1px solid var(--cdc-gold) !important;
+}
+.detail-buttons button.secondary *, .product-actions button * {
+  color:#fff8ed !important;
+}
+.cart-page,.cart-page * { text-shadow:none !important; }
+.cart-item,.cart-summary,.cart-empty {
+  background:#33352f !important;
+  color:#fff8ed !important;
+  border:1px solid var(--cdc-border) !important;
+}
+.cart-item::before,.cart-item::after,.cart-summary::before,.cart-summary::after {
+  content:none !important; display:none !important;
+}
+.cart-summary { border-top:1px solid var(--cdc-border) !important; }
+.cart-item select,.cart-item select option {
+  background:#24251f !important;color:#fff8ed !important;
+}
+.announcement,.header,.main-nav,.footer {
+  background:#1e201c !important;
+  color:#fff8ed !important;
+  border-color:var(--cdc-border) !important;
+}
+.header-actions a,.header-search-link,.menu-button {
+  background:#30322c !important;color:#f1d7aa !important;
+  border:1px solid var(--cdc-border) !important;
+}
+.header-actions a svg,.menu-button svg { stroke:currentColor !important; }
+.main-nav a[aria-current="page"],.header-actions a[aria-current="page"] {
+  background:#dfbd84 !important;color:#25251f !important;
+  border:1px solid #f0d7ad !important;
+}
+.header-actions a[aria-current="page"] svg { stroke:#25251f !important; }
+.brand-monogram {
+  position:relative !important; display:flex !important;
+  flex-direction:column !important; align-items:center !important;
+  justify-content:center !important; width:auto !important;
+  height:auto !important; min-width:0 !important;
+  padding:3px 8px 0 !important; margin:0 auto !important;
+  border:0 !important; border-radius:0 !important;
+  background:transparent !important; box-shadow:none !important;
+}
+.brand-monogram::before {
+  content:""; position:absolute; z-index:0; inset:0 0 14px;
+  border:1px solid rgba(224,189,128,.48);
+  background:transparent !important; pointer-events:none;
+}
+.brand-initials {
+  position:relative;z-index:1;display:block !important;
+  color:#edcf9d !important;
+  font-family:"Cormorant Garamond",Georgia,serif !important;
+  font-size:34px !important;font-weight:400 !important;
+  line-height:1 !important;letter-spacing:5px !important;
+  padding-left:5px !important;
+}
+.brand-monogram svg {
+  position:relative !important;z-index:1;display:block !important;
+  width:48px !important;height:11px !important;
+  margin:3px auto 0 !important;
+  background:transparent !important;border:0 !important;
+  color:#e0bd80 !important;
+}
+.brand-name {
+  color:#fff8ed !important;
+  font-family:"Cormorant Garamond",Georgia,serif !important;
+  font-size:15px !important;font-weight:400 !important;
+  letter-spacing:1.7px !important;line-height:1.15 !important;
+  margin:3px 0 0 !important;
+}
+.brand-tagline { color:#e8dece !important; }
+.footer-brand h3,.footer-brand p,.footer-column h4,
+.footer-column a,.footer-bottom { color:#fff8ed !important; }
+hr,table,th,td { border-color:var(--cdc-border) !important; }
+@media(max-width:800px) {
+  body { font-size:14px !important; }
+  .brand-initials { font-size:27px !important;letter-spacing:4px !important;padding-left:4px !important; }
+  .brand-monogram svg { width:39px !important;height:9px !important; }
+  .brand-name { font-size:12px !important;letter-spacing:1px !important; }
+  .brand-tagline { font-size:6px !important;letter-spacing:.8px !important; }
+  .hero h1 { font-size:clamp(42px,12vw,56px) !important; }
+}
