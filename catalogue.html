@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -335,7 +336,6 @@
         });
       }
 
-      // Gestion des produits associés à plusieurs catégories
       if (categorie) {
         produits = produits.filter(function(produit) {
           if (Array.isArray(produit.categories)) {
@@ -375,7 +375,8 @@
         const marque = echapperHTML(produit.marque || "");
         const image = produit.image ? echapperHTML(produit.image) : "";
         const prix = formaterPrix(produit.prix);
-        const lienProduit = "produit.html?id=" + encodeURIComponent(produit.id);
+        const lienProduit =
+          "produit.html?id=" + encodeURIComponent(produit.id);
 
         const ancienPrix = produit.ancienPrix
           ? '<span class="product-old-price">' +
@@ -514,12 +515,22 @@
     filtreCategorie.addEventListener("change", afficherProduits);
     triProduits.addEventListener("change", afficherProduits);
 
-    if (Array.isArray(window.produits)) {
-      afficherProduits();
+    // Attendre le chargement du catalogue original
+    if (window.produitsReady) {
+      window.produitsReady
+        .then(() => {
+          afficherProduits();
+        })
+        .catch((erreur) => {
+          console.error("Erreur de chargement :", erreur);
+          nombreProduits.textContent = "Catalogue indisponible";
+          listeProduits.innerHTML =
+            '<p class="no-products">Impossible de charger les produits. Réessayez plus tard.</p>';
+        });
     } else {
       nombreProduits.textContent = "Catalogue indisponible";
       listeProduits.innerHTML =
-        '<p class="no-products">Vérifiez le fichier produits.js.</p>';
+        '<p class="no-products">Le fichier produits.js n’a pas été chargé.</p>';
     }
   </script>
 </body>
