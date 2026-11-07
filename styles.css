@@ -3793,3 +3793,148 @@ input,select,textarea {
   .brand-tagline { font-size:6px !important; letter-spacing:.8px !important; }
   .main-nav { background:#29251f !important; }
 }
+
+
+/* CDC HOTFIX 15 — visibilité garantie du monogramme sur mobile et thème */
+html, body {
+  background-color: #e8e1d6 !important;
+  background-image: linear-gradient(180deg,#eee9e0 0%,#e3dbcf 100%) !important;
+  color: #29251f !important;
+}
+body { background-attachment: fixed !important; }
+.header {
+  background: #eee9e0 !important;
+  color: #29251f !important;
+}
+.brand {
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:0 !important;
+  text-align:center !important;
+}
+.brand-monogram {
+  display:block !important;
+  position:relative !important;
+  width:44px !important;
+  height:44px !important;
+  min-width:44px !important;
+  min-height:44px !important;
+  margin:0 auto 5px !important;
+  padding:0 !important;
+  overflow:visible !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  color:#29251f !important;
+  font-size:0 !important;
+  letter-spacing:0 !important;
+  outline:none !important;
+  box-shadow:none !important;
+}
+.brand-monogram::before {
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  top:0 !important;
+  left:50% !important;
+  width:42px !important;
+  height:42px !important;
+  transform:translateX(-50%) !important;
+  border:1.5px solid #ad8958 !important;
+  border-radius:50% !important;
+  background:transparent !important;
+}
+.brand-initials {
+  display:flex !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:2 !important;
+  width:100% !important;
+  height:42px !important;
+  align-items:center !important;
+  justify-content:center !important;
+  color:#29251f !important;
+  font:700 18px/1 "Cormorant Garamond",Georgia,serif !important;
+  letter-spacing:.2px !important;
+}
+.brand-monogram svg { display:none !important; }
+.brand-name {
+  display:block !important;
+  margin:0 !important;
+  padding:0 !important;
+  color:#29251f !important;
+  font:700 16px/1.15 "Cormorant Garamond",Georgia,serif !important;
+  letter-spacing:1.2px !important;
+  text-align:center !important;
+  white-space:nowrap !important;
+}
+.brand-tagline {
+  display:block !important;
+  margin:4px 0 0 !important;
+  color:#766b5d !important;
+  font-size:8px !important;
+  letter-spacing:1.1px !important;
+  text-align:center !important;
+}
+.announcement {
+  background:#29251f !important;
+  color:#f4eee5 !important;
+}
+.main-nav {
+  background:#29251f !important;
+  color:#f4eee5 !important;
+  border-bottom:2px solid #ad8958 !important;
+}
+.main-nav a { color:#f4eee5 !important; }
+main, main section, .welcome-section, .featured-section,
+.contact-strip, .product-page, .catalogue-page, .account-page,
+.cart-page, .favorites-page, .favourites-page {
+  background-color:transparent !important;
+  color:#29251f !important;
+}
+.categories-section, .editorial-section, .contact-hero {
+  background:#e2dacf !important;
+}
+.category-card, .featured-home-card, .product-card, .cart-item,
+.cart-summary, .cart-empty, .account-panel, .account-card,
+.favorite-card, .favorites-empty, .product-detail-card {
+  background:#f1ece4 !important;
+  color:#29251f !important;
+  border:1px solid #d7cbbb !important;
+  box-shadow:0 6px 20px rgba(45,36,26,.07) !important;
+}
+h1,h2,h3,h4,.category-card h3,.featured-home-card h3,
+.product-name,.product-name a,.product-price,.product-brand {
+  color:#29251f !important;
+}
+p { color:#5e564d; }
+.eyebrow { color:#927044 !important; }
+.footer {
+  background:#29251f !important;
+  color:#f4eee5 !important;
+  border-top:2px solid #ad8958 !important;
+}
+.footer h3,.footer h4,.footer p,.footer a,.footer-bottom {
+  color:#f4eee5 !important;
+}
+input,select,textarea {
+  background:#f7f3ed !important;
+  color:#29251f !important;
+  border-color:#cfc2b1 !important;
+}
+@media(max-width:760px) {
+  .brand-monogram {
+    display:block !important;
+    width:38px !important;
+    height:38px !important;
+    min-width:38px !important;
+    min-height:38px !important;
+    margin-bottom:4px !important;
+  }
+  .brand-monogram::before { width:36px !important; height:36px !important; }
+  .brand-initials { height:36px !important; font-size:17px !important; }
+  .brand-name { font-size:clamp(9px,2.7vw,12px) !important; letter-spacing:.6px !important; }
+  .brand-tagline { font-size:6px !important; letter-spacing:.7px !important; }
+}
