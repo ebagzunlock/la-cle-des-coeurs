@@ -248,6 +248,7 @@
 
         <section class="checkout-card" aria-labelledby="recapTitle">
           <h2 id="recapTitle">3. RÉCAPITULATIF DE VOTRE COMMANDE</h2>
+          <p class="checkout-notice">Référence de commande : <strong id="orderReference"></strong></p>
           <div class="checkout-customer-details" aria-live="polite">
             <p id="recapName">—</p>
             <p id="recapEmail">—</p>
@@ -299,6 +300,11 @@
 
     function getCart() {
       try {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("achat") === "direct") {
+          const direct = JSON.parse(localStorage.getItem("cdc_buy_now") || "[]");
+          if (Array.isArray(direct) && direct.length) return direct;
+        }
         const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
         return Array.isArray(cart) ? cart : [];
       } catch {
@@ -314,6 +320,8 @@
     }
 
     const SHIPPING_COST = 15.62;
+    const orderReference = "CDC-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.random().toString(36).slice(2,7).toUpperCase();
+    document.getElementById("orderReference").textContent = orderReference;
 
     function updateCustomerRecap() {
       const value = id => String(document.getElementById(id).value || "").trim();
@@ -378,6 +386,7 @@
         }
 
         localStorage.removeItem(CART_KEY);
+        localStorage.removeItem("cdc_buy_now");
         document.querySelector(".checkout-title").innerHTML =
           "<p>LA CLÉ DES CŒURS</p><h1>Merci pour votre commande</h1><p>Votre paiement a été confirmé par Stripe.</p>";
         form.innerHTML =
