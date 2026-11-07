@@ -2094,3 +2094,72 @@ html[data-cdc-theme="dark"] .cdc-global-footer{background:#171412!important}
 @media(max-width:600px){
   #cdc-theme-toggle{flex:0 0 20px!important;width:20px!important;min-width:20px!important;height:24px!important;border:0!important;font-size:15px!important}
 }
+
+
+/* THEME CLAIR/SOMBRE — HARMONISATION DES PAGES ET DES TEXTES */
+html[data-cdc-theme="light"] body,
+html[data-cdc-theme="light"] main,
+html[data-cdc-theme="light"] .page-content,
+html[data-cdc-theme="light"] .page-container,
+html[data-cdc-theme="light"] .catalogue-page,
+html[data-cdc-theme="light"] .cart-page,
+html[data-cdc-theme="light"] .product-page,
+html[data-cdc-theme="light"] .favorites-page,
+html[data-cdc-theme="light"] .checkout-page,
+html[data-cdc-theme="light"] .account-page,
+html[data-cdc-theme="light"] .contact-page,
+html[data-cdc-theme="light"] .legal-page,
+html[data-cdc-theme="light"] .cgv-page,
+html[data-cdc-theme="light"] .delivery-page,
+html[data-cdc-theme="light"] .about-page{
+  background-color:#e8e1d7!important;color:#40352d!important
+}
+html[data-cdc-theme="light"] main h1,html[data-cdc-theme="light"] main h2,
+html[data-cdc-theme="light"] main h3,html[data-cdc-theme="light"] main h4,
+html[data-cdc-theme="light"] main p,html[data-cdc-theme="light"] main li,
+html[data-cdc-theme="light"] main label,html[data-cdc-theme="light"] main .price{
+  color:#40352d!important
+}
+html[data-cdc-theme="light"] .cart-item,html[data-cdc-theme="light"] .cart-summary,
+html[data-cdc-theme="light"] .cart-empty,html[data-cdc-theme="light"] .checkout-card,
+html[data-cdc-theme="light"] .product-card,html[data-cdc-theme="light"] .product-item,
+html[data-cdc-theme="light"] .catalogue-card,html[data-cdc-theme="light"] .favorite-card,
+html[data-cdc-theme="light"] .account-card,html[data-cdc-theme="light"] .contact-form,
+html[data-cdc-theme="light"] .cgv-section,html[data-cdc-theme="light"] .legal-section,
+html[data-cdc-theme="light"] .delivery-section{
+  background:#f0ebe3!important;color:#40352d!important;border-color:#c7b9a8!important
+}
+html[data-cdc-theme="dark"] body,
+html[data-cdc-theme="dark"] main,
+html[data-cdc-theme="dark"] .page-content,
+html[data-cdc-theme="dark"] .page-container,
+html[data-cdc-theme="dark"] .catalogue-page,
+html[data-cdc-theme="dark"] .cart-page,
+html[data-cdc-theme="dark"] .product-page,
+html[data-cdc-theme="dark"] .favorites-page,
+html[data-cdc-theme="dark"] .checkout-page,
+html[data-cdc-theme="dark"] .account-page,
+html[data-cdc-theme="dark"] .contact-page,
+html[data-cdc-theme="dark"] .legal-page,
+html[data-cdc-theme="dark"] .cgv-page,
+html[data-cdc-theme="dark"] .delivery-page,
+html[data-cdc-theme="dark"] .about-page{
+  background-color:#211d1a!important;color:#eee4d6!important
+}
+html[data-cdc-theme="dark"] main h1,html[data-cdc-theme="dark"] main h2,
+html[data-cdc-theme="dark"] main h3,html[data-cdc-theme="dark"] main h4,
+html[data-cdc-theme="dark"] main p,html[data-cdc-theme="dark"] main li,
+html[data-cdc-theme="dark"] main label,html[data-cdc-theme="dark"] main .price{
+  color:#eee4d6!important
+}
+html[data-cdc-theme="dark"] .cart-item,html[data-cdc-theme="dark"] .cart-summary,
+html[data-cdc-theme="dark"] .cart-empty,html[data-cdc-theme="dark"] .checkout-card,
+html[data-cdc-theme="dark"] .product-card,html[data-cdc-theme="dark"] .product-item,
+html[data-cdc-theme="dark"] .catalogue-card,html[data-cdc-theme="dark"] .favorite-card,
+html[data-cdc-theme="dark"] .account-card,html[data-cdc-theme="dark"] .contact-form,
+html[data-cdc-theme="dark"] .cgv-section,html[data-cdc-theme="dark"] .legal-section,
+html[data-cdc-theme="dark"] .delivery-section{
+  background:#393129!important;color:#eee4d6!important;border-color:#665541!important
+}
+html[data-cdc-theme="dark"] main a:not(.primary-button):not(.category-link){color:#e2c99e!important}
+html[data-cdc-theme="light"] main a:not(.primary-button):not(.category-link){color:#725638!important}
