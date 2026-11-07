@@ -2245,3 +2245,102 @@ input::placeholder,textarea::placeholder { color:#cbbda8 !important; opacity:1 !
  .header-actions a svg { width:17px !important; height:17px !important; }
  .menu-button,#menuButton { left:5px !important; width:32px !important; height:32px !important; }
 }
+
+
+/* IDENTITÉ FINALE TDC — logo typographique fin, palette minérale cohérente */
+.brand-monogram {
+  width:auto !important; min-width:0 !important; height:auto !important;
+  min-height:0 !important; padding:0 0 2px !important;
+  display:flex !important; flex-direction:column !important;
+  align-items:center !important; justify-content:center !important;
+  border:0 !important; border-radius:0 !important; outline:0 !important;
+  outline-offset:0 !important; background:transparent !important;
+  box-shadow:none !important; overflow:visible !important;
+}
+.brand-initials {
+  display:block !important; color:#e4c795 !important;
+  font-family:"Cormorant Garamond",Georgia,serif !important;
+  font-size:39px !important; font-weight:400 !important;
+  line-height:.9 !important; letter-spacing:7px !important;
+  padding-left:7px !important; text-shadow:0 1px 12px rgba(208,173,118,.12) !important;
+}
+.brand-monogram svg {
+  position:static !important; display:block !important;
+  width:56px !important; height:13px !important; margin:7px auto 0 !important;
+  padding:0 !important; border:0 !important; border-radius:0 !important;
+  background:transparent !important; color:#d0ad76 !important;
+}
+.brand-name {
+  margin:2px 0 0 !important; font-size:19px !important;
+  letter-spacing:2.6px !important; font-weight:500 !important;
+}
+.brand-tagline { margin-top:2px !important; }
+.footer-brand .brand-monogram { margin:0 auto 8px !important; }
+.footer-brand .brand-initials { font-size:30px !important; }
+.footer-brand .brand-monogram svg { width:46px !important; height:11px !important; }
+
+/* Panier : aucun panneau clair ni séparateur blanc sur le fond minéral */
+.cart-page { background:#302f29 !important; color:#f3eadb !important; }
+.cart-page h1,.cart-page .eyebrow { color:#f3eadb !important; }
+.cart-list { gap:14px !important; }
+.cart-item,.cart-summary,.cart-empty {
+  background:#403e35 !important; color:#f3eadb !important;
+  border:1px solid rgba(208,173,118,.42) !important;
+  box-shadow:0 10px 28px rgba(0,0,0,.14) !important;
+}
+.cart-item h2,.cart-item p,.cart-item strong,.cart-item-line-total,
+.cart-summary strong,.cart-summary p,.cart-total,.cart-empty,
+.cart-empty h2,.cart-empty p { color:#f0e7d9 !important; }
+.cart-item select {
+  background:#292922 !important; color:#f3eadb !important;
+  border:1px solid rgba(208,173,118,.62) !important;
+}
+.cart-item select option { background:#292922 !important; color:#f3eadb !important; }
+.cart-item .cart-remove { color:#e2c18d !important; }
+.cart-summary { border-top:1px solid rgba(208,173,118,.42) !important; }
+.cart-checkout {
+  background:#d0ad76 !important; color:#292720 !important;
+  border:1px solid #e3c693 !important; font-weight:700 !important;
+}
+.cart-checkout:hover { background:#e3c693 !important; color:#292720 !important; }
+
+/* Surfaces et textes cohérents sur les pages secondaires */
+.privacy-page,.legal-container,.cgv-container,.delivery-container,
+.about-shop,.contact-layout,.contact-page,.favorites-page {
+  background:transparent !important; color:#eee4d5 !important;
+}
+.privacy-page h1,.privacy-page h2,.privacy-page p,.privacy-page li,
+.privacy-page .intro,.privacy-page .last-update,
+.legal-section h2,.legal-section p,.legal-section li,
+.cgv-section h2,.cgv-section p,.cgv-section li,
+.delivery-section h2,.delivery-section p,.delivery-section li {
+  color:#eee4d5 !important;
+}
+.privacy-note,.legal-warning,.cgv-note,.delivery-note,
+.about-cta,.delivery-contact,.legal-contact,.cgv-contact {
+  background:#403e35 !important; color:#eee4d5 !important;
+  border-color:rgba(208,173,118,.55) !important;
+}
+.privacy-page a,.legal-section a,.cgv-section a { color:#e2c18d !important; }
+
+/* Rubrique courante : l'icône reste visible et reçoit un repère champagne */
+.header-actions a[aria-current="page"] {
+  background:#d0ad76 !important; border:2px solid #f0d8ad !important;
+  color:#272720 !important; box-shadow:0 0 0 3px rgba(208,173,118,.2),0 5px 16px rgba(0,0,0,.2) !important;
+}
+.header-actions a[aria-current="page"] svg {
+  stroke:#272720 !important; color:#272720 !important;
+}
+.main-nav a[aria-current="page"] {
+  color:#f1d29e !important; border-bottom:2px solid #d0ad76 !important;
+  padding-bottom:5px !important;
+}
+.header-search-form[aria-current="page"] {
+  border-color:#f0d8ad !important; box-shadow:0 0 0 3px rgba(208,173,118,.2) !important;
+}
+@media(max-width:800px) {
+ .brand-initials { font-size:29px !important; letter-spacing:4px !important; padding-left:4px !important; }
+ .brand-monogram svg { width:43px !important; height:10px !important; margin-top:5px !important; }
+ .brand-name { font-size:14px !important; letter-spacing:1.3px !important; }
+ .brand-tagline { font-size:6px !important; letter-spacing:1px !important; }
+}
