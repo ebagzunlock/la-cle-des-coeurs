@@ -114,6 +114,13 @@
 
     .payment-option input {
       width: auto;
+      flex: 0 0 auto;
+    }
+
+    .payment-option a {
+      color: #806f5d;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
     .checkout-button {
@@ -204,7 +211,7 @@
           <label for="email">ADRESSE MAIL *</label>
           <input id="email" name="email" type="email" required autocomplete="email">
 
-          <label for="phone">N° DE TÉLÉPHONE *</label>
+          <label for="phone">N° *</label>
           <input id="phone" name="phone" type="tel" required autocomplete="tel" placeholder="+33 6 12 34 56 78">
         </section>
 
@@ -229,7 +236,7 @@
         <section class="checkout-card">
           <label class="payment-option">
             <input type="checkbox" id="acceptTerms" required>
-            J'accepte les conditions générales de vente.
+            J’ai lu et j’accepte les <a href="conditions-generales.html" target="_blank" rel="noopener">Conditions Générales de Vente (CGV)</a>.
           </label>
 
           <button class="checkout-button" type="submit">
@@ -466,5 +473,6 @@
     verifierRetourStripe().then(traite => { if (!traite) displayOrderSummary(); });
   </script>
 
+  <script src="langue.js?v=b24984a"></script>
 </body>
 </html>
