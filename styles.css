@@ -1598,3 +1598,231 @@ input, select, textarea, #cdc-language-menu, #cdc-language-select {
   min-width: var(--category-slide-width) !important;
   max-width: var(--category-slide-width) !important;
 }
+
+
+/* IDENTITÉ LISIBLE — ivoire chaud, encre profonde et champagne */
+:root {
+  --ivory: #f5f1ea;
+  --cream: #eee8de;
+  --beige: #e4dbce;
+  --champagne: #a98755;
+  --brown: #45372d;
+  --dark: #29231e;
+  --text: #403831;
+  --white: #fffdf9;
+  --border: #d8cdbf;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "Manrope", "Helvetica Neue", Arial, sans-serif;
+}
+html, body {
+  background: #f5f1ea !important;
+  color: #403831 !important;
+  font-family: "Manrope", "Helvetica Neue", Arial, sans-serif !important;
+}
+body { font-size: 15px !important; line-height: 1.75 !important; }
+p, li, label, small, .checkout-notice, .account-heading > p:not(.eyebrow) {
+  color: #403831;
+}
+h1, h2, h3, h4, .detail-name, .account-heading h1 {
+  color: #29231e;
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+.header {
+  background: #f5f1ea !important;
+  border-color: #d8cdbf !important;
+}
+.brand-monogram {
+  width: 48px !important;
+  height: 48px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid #a98755 !important;
+  outline: 1px solid rgba(169,135,85,.48) !important;
+  outline-offset: 3px !important;
+  border-radius: 50% !important;
+  color: #8e6c3e !important;
+  font-family: "Cormorant Garamond", Georgia, serif !important;
+  font-size: 25px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1px !important;
+  line-height: 1 !important;
+  box-shadow: inset 0 0 0 3px #f5f1ea, inset 0 0 0 4px rgba(169,135,85,.38) !important;
+}
+.brand-name {
+  color: #29231e !important;
+  font-family: "Cormorant Garamond", Georgia, serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 2.5px !important;
+}
+.brand-tagline {
+  color: #74634f !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 2.2px !important;
+}
+.menu-button, #menuButton {
+  color: #45372d !important;
+}
+.header-actions { gap: 13px !important; color: #45372d !important; }
+.header-actions a {
+  color: #45372d !important;
+  border: 1px solid rgba(169,135,85,.38) !important;
+  border-radius: 50% !important;
+  background: rgba(255,253,249,.7) !important;
+}
+.header-actions a:hover, #cdc-language-button:hover {
+  color: #8e6c3e !important;
+  border-color: #a98755 !important;
+}
+.main-nav, .utility-bar {
+  background: #f5f1ea !important;
+  border-color: #d8cdbf !important;
+}
+.main-nav a, .search-form button, .menu-button {
+  color: #45372d !important;
+}
+.search-form { border-color: #b9aa96 !important; }
+.search-form input {
+  color: #29231e !important;
+  background: transparent !important;
+}
+.search-form input::placeholder { color: #766b60 !important; opacity: 1; }
+.hero {
+  background:
+    linear-gradient(rgba(248,245,239,.76), rgba(248,245,239,.86)),
+    url("https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/accueil-site-MTR.jpg")
+    center 50% / cover no-repeat !important;
+}
+.hero h1, .hero p:not(.eyebrow), .hero-content { color: #29231e !important; }
+.eyebrow { color: #8e6c3e !important; }
+.welcome-section, .categories-section, .featured-section, .contact-strip,
+.account-page, .product-page, .favourites-page, .cart-page {
+  color: #403831 !important;
+}
+.welcome-section p:not(.eyebrow), .section-heading p:not(.eyebrow),
+.editorial-content p:not(.eyebrow), .contact-strip p:not(.eyebrow) {
+  color: #494039 !important;
+}
+.category-card h3, .category-link { color: #29231e !important; }
+.category-image { border: 1px solid #d8cdbf; }
+.featured-home-card, .product-card, .product-item, .catalogue-card {
+  background: #eee8de !important;
+  border-color: #d8cdbf !important;
+  color: #332c26 !important;
+}
+.featured-home-card h3, .featured-home-card p,
+.product-name, .product-name a, .product-price, .product-brand {
+  color: #332c26 !important;
+}
+.editorial-section {
+  background: linear-gradient(125deg, #e4dbce, #eee8de 52%, #ded3c5) !important;
+}
+.footer {
+  background: linear-gradient(125deg, #29231f, #40352e) !important;
+  color: #eee5d8 !important;
+  border-top: 1px solid #a98755 !important;
+}
+.footer h3, .footer h4, .footer p, .footer a, .footer-bottom {
+  color: #eee5d8 !important;
+}
+.footer-column a:hover { color: #d8bb8b !important; }
+.account-card, .checkout-card {
+  background: #fffdf9 !important;
+  border: 1px solid #ded4c7 !important;
+  color: #403831 !important;
+}
+.account-card h2, .account-form label, .account-message,
+.checkout-card h2, .checkout-customer-details p, .checkout-line,
+.checkout-form label, .checkout-notice {
+  color: #403831 !important;
+}
+.account-form input, .checkout-form input, .checkout-form select,
+.checkout-form textarea, input, select, textarea {
+  background: #fffdf9 !important;
+  color: #29231e !important;
+  border-color: #cfc2b2 !important;
+}
+.account-tabs button[aria-selected="true"] {
+  background: #45372d !important;
+  color: #fffdf9 !important;
+}
+.account-submit, .checkout-button {
+  background: #45372d !important;
+  color: #fffdf9 !important;
+  border: 1px solid #a98755 !important;
+}
+.account-submit:hover, .checkout-button:hover {
+  background: #a98755 !important;
+  color: #29231e !important;
+}
+.detail-name, .detail-price, .detail-description, .detail-reference,
+.product-message, .product-message h1 {
+  color: #29231e !important;
+}
+.detail-brand { color: #8e6c3e !important; }
+.detail-description {
+  font-family: "Manrope", "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 15px !important;
+  line-height: 1.85 !important;
+  letter-spacing: .005em !important;
+}
+.product-detail-image img {
+  background: #eee8de !important;
+  border-color: #d8cdbf !important;
+}
+.back-link, .payment-option a { color: #80623c !important; }
+#cdc-language-button {
+  color: #45372d !important;
+  background: #fffdf9 !important;
+  border-color: rgba(169,135,85,.55) !important;
+}
+#cdc-language-menu {
+  background: #29231f !important;
+  color: #f5f1ea !important;
+}
+#cdc-language-menu label { color: #f0e7da !important; }
+#cdc-language-select {
+  background: #40382f !important;
+  color: #fffdf9 !important;
+}
+@media (max-width: 700px) {
+  .header {
+    min-height: 78px !important;
+    padding: 8px 9px !important;
+    gap: 5px !important;
+  }
+  .header > .menu-button, .header > #menuButton {
+    flex: 0 0 34px !important;
+    width: 34px !important; height: 34px !important;
+  }
+  .header > .brand {
+    max-width: calc(100% - 174px) !important;
+    gap: 6px !important;
+  }
+  .header > .brand .brand-monogram {
+    width: 33px !important; height: 33px !important;
+    font-size: 17px !important; letter-spacing: 0 !important;
+    outline-offset: 2px !important;
+  }
+  .header > .brand .brand-name {
+    font-size: clamp(8px, 2.6vw, 11px) !important;
+    letter-spacing: .45px !important;
+  }
+  .header-actions {
+    gap: 3px !important;
+    flex: 0 0 auto !important;
+  }
+  .header-actions a, #cdc-language-button {
+    flex: 0 0 27px !important;
+    width: 27px !important; min-width: 27px !important;
+    height: 32px !important; min-height: 32px !important;
+    padding: 2px !important;
+  }
+  .header-actions a svg, #cdc-language-button svg {
+    width: 17px !important; height: 17px !important;
+  }
+  #cdc-language-switcher {
+    flex: 0 0 27px !important; width: 27px !important;
+  }
+}
