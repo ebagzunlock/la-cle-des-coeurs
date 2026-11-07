@@ -58,7 +58,7 @@ function nettoyerDescription(html) {
   documentHTML.body.querySelectorAll("p, li, h2, h3, h4").forEach(element => {
     element.innerHTML = element.innerHTML
       .replace(/&nbsp;/gi, " ")
-      .replace(/\\s+/g, " ")
+      .replace(/\s+/g, " ")
       .trim();
 
     if (!element.textContent.trim()) element.remove();
@@ -72,10 +72,10 @@ function nettoyerDescription(html) {
   let texte;
   while ((texte = parcours.nextNode())) {
     texte.nodeValue = texte.nodeValue
-      .replace(/\\u00a0/g, " ")
-      .replace(/[ \\t]+/g, " ")
-      .replace(/[ \\t]+([,.;:!?])/g, "$1")
-      .replace(/([,;:!?])(?=\\S)/g, "$1 ");
+      .replace(/\u00a0/g, " ")
+      .replace(/[ \t]+/g, " ")
+      .replace(/[ \t]+([,.;:!?])/g, "$1")
+      .replace(/([,;:!?])(?=\S)/g, "$1 ");
   }
 
   return documentHTML.body.innerHTML.trim();
