@@ -229,12 +229,17 @@
           <label for="address">ADRESSE *</label>
           <input id="address" name="address" type="text" required autocomplete="address-line1" placeholder="Numéro et nom de rue">
 
+          <label for="address2">COMPLÉMENT D’ADRESSE</label>
+          <input id="address2" name="address2" type="text" autocomplete="address-line2" placeholder="Appartement, bâtiment, étage (facultatif)">
 
           <label for="postalCode">CODE POSTAL *</label>
           <input id="postalCode" name="postalCode" type="text" required autocomplete="postal-code">
 
           <label for="city">VILLE *</label>
           <input id="city" name="city" type="text" required autocomplete="address-level2">
+
+          <label for="state">RÉGION / DÉPARTEMENT</label>
+          <input id="state" name="state" type="text" autocomplete="address-level1" placeholder="Région, département ou province (facultatif)">
         </section>
 
         <section class="checkout-card" aria-labelledby="recapTitle">
@@ -313,7 +318,7 @@
       document.getElementById("recapPhone").textContent = value("phone") || "—";
       const country = document.getElementById("country");
       const countryName = country.options[country.selectedIndex]?.text || "";
-      const address = [value("address"), value("postalCode"), value("city"), countryName && country.value ? countryName : ""].filter(Boolean).join(", ");
+      const address = [value("address"), value("address2"), value("postalCode"), value("city"), value("state"), countryName && country.value ? countryName : ""].filter(Boolean).join(", ");
       document.getElementById("recapAddress").textContent = address || "—";
     }
 
@@ -416,10 +421,10 @@
           phone: String(formData.get("phone") || "").trim(),
           country: String(formData.get("country") || "").trim(),
           address: String(formData.get("address") || "").trim(),
-          address2: "",
+          address2: String(formData.get("address2") || "").trim(),
           postalCode: String(formData.get("postalCode") || "").trim(),
           city: String(formData.get("city") || "").trim(),
-          state: ""
+          state: String(formData.get("state") || "").trim()
         };
 
         const items = cart.map(item => ({
