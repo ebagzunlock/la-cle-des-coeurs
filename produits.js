@@ -76,10 +76,29 @@ function convertirProduit(p) {
     };
   }
 
-  const prixBrut = p.prices?.price;
-  const prix = prixBrut === undefined || prixBrut === null || prixBrut === "" ? null : Number(prixBrut) / 100;
-  const prixNormalBrut = p.prices?.regular_price;
-  const prixNormal = prixNormalBrut === undefined || prixNormalBrut === null || prixNormalBrut === "" ? null : Number(prixNormalBrut) / 100;
+  // WooCommerce Store API fournit les prix dans la plus petite unité
+  // monétaire. Si "price" vaut 0 mais qu'un tarif de vente ou normal existe,
+  // on utilise ce tarif réel plutôt que d'afficher un faux prix à 0 €.
+  const minorUnit = Number.isInteger(Number(p.prices?.currency_minor_unit))
+    ? Number(p.prices.currency_minor_unit)
+    : 2;
+  const diviseur = Math.pow(10, minorUnit);
+
+  function convertirMontant(brut) {
+    if (brut === undefined || brut === null || brut === "") return null;
+    const valeur = Number(brut);
+    return Number.isFinite(valeur) && valeur > 0 ? valeur / diviseur : null;
+  }
+
+  const prixAPI = convertirMontant(p.prices?.price);
+  const prixVente = convertirMontant(p.prices?.sale_price);
+  const prixNormal = convertirMontant(p.prices?.regular_price);
+
+  const prix = prixAPI
+    || (p.is_on_sale && prixVente ? prixVente : null)
+    || prixNormal
+    || prixVente
+    || null;
 
   const categories = [
     ...new Set((p.categories || []).map(convertirCategorie))
