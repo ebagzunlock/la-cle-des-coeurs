@@ -5,7 +5,7 @@
    ========================================= */
 
 const API_PRODUITS =
-"https://la-cle-des-coeurs-api.bagzful.workers.dev/wp-json/wc/store/v1/products";
+  "https://la-cle-des-coeurs-api.bagzful.workers.dev/wp-json/wc/store/v1/products";
 
 const CATEGORIES = {
   "ap-x-swatch": "ap-swatch",
@@ -53,22 +53,24 @@ function convertirProduit(p) {
 
   const imagesSource = Array.isArray(p.images) ? p.images : [];
 
-  // Photos vérifiées sur la fiche originale de la Cartier.
+  // Galerie originale de la Cartier : fichiers sans miniatures.
   const imagesCartier = [
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE1-150x135.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE2-150x144.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE3-150x147.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE4-150x144.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE5-150x141.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE6-150x145.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE7-150x147.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE8-150x135.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE9-150x146.jpeg"
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE1.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE2.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE3.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE4.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE5.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE6.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE7.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE8.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE9.jpeg"
   ];
 
-  const galerie = String(p.id) === "30716"
+  const galerieBrute = String(p.id) === "30716"
     ? imagesCartier
     : imagesSource.map(img => img.src).filter(Boolean);
+
+  const galerie = [...new Set(galerieBrute)];
 
   return {
     id: String(p.id),
