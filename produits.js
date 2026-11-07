@@ -1,4 +1,3 @@
-
 /* =========================================
    LA CLÉ DES CŒURS
    IMPORT AUTOMATIQUE DU CATALOGUE ORIGINAL
@@ -53,12 +52,11 @@ function convertirProduit(p) {
 
   const imagesSource = Array.isArray(p.images) ? p.images : [];
 
-  // Galerie Cartier corrigée : CE8 retirée car doublon de CE1.
+  // Cartier Baignoire : doublons CE4 et CE8 retirés
   const imagesCartier = [
     "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE1.jpeg",
     "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE2.jpeg",
     "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE3.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE4.jpeg",
     "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE5.jpeg",
     "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE6.jpeg",
     "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE7.jpeg",
