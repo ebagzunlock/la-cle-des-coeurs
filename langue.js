@@ -144,60 +144,77 @@
         @media (max-width: 700px) {
           .header {
             position: relative !important;
-            display: flex !important;
+            display: grid !important;
+            grid-template-columns: 24px minmax(0, 1fr) auto !important;
             align-items: center !important;
-            justify-content: space-between !important;
-            gap: 8px !important;
-            min-height: 76px !important;
-            padding: 9px 12px !important;
+            justify-content: initial !important;
+            column-gap: 6px !important;
+            min-height: 88px !important;
+            padding: 6px 7px !important;
             box-sizing: border-box !important;
           }
           .header > .menu-button, .header > #menuButton {
-            flex: 0 0 38px !important;
-            width: 38px !important; height: 38px !important;
+            grid-column: 1 !important;
+            justify-self: start !important;
+            flex: none !important;
+            width: 23px !important; min-width: 23px !important;
+            height: 30px !important;
             z-index: 2 !important;
           }
-          .header > .brand {
-            position: absolute !important;
-            left: 50% !important; top: 50% !important;
-            transform: translate(-50%,-50%) !important;
+          .header > .brand, .header > .brand-home-link {
+            position: static !important;
+            grid-column: 2 !important;
+            justify-self: start !important;
+            align-self: center !important;
+            transform: none !important;
             width: max-content !important;
-            max-width: calc(100% - 178px) !important;
+            max-width: 100% !important;
             min-width: 0 !important;
             display: flex !important;
-            flex-direction: row !important;
+            flex-direction: column !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 7px !important;
+            gap: 0 !important;
+            margin: 0 !important;
+            text-align: center !important;
+            white-space: nowrap !important;
             z-index: 1 !important;
           }
-          .header > .brand .brand-monogram { display: inline-flex !important; }
-          .header > .brand .brand-tagline { display: none !important; }
+          .header > .brand .brand-monogram { display: flex !important; }
+          .header > .brand .brand-tagline { display: block !important; }
           .header > .brand .brand-name {
-            font-size: clamp(9px, 2.8vw, 12px) !important;
-            letter-spacing: .8px !important;
+            font-size: clamp(8px, 2.7vw, 11px) !important;
+            letter-spacing: .15px !important;
             white-space: nowrap !important;
           }
+          .header > .brand .brand-tagline {
+            font-size: 5px !important;
+            letter-spacing: .55px !important;
+          }
           .header-actions {
+            grid-column: 3 !important;
+            justify-self: end !important;
             display: flex !important;
             flex: 0 0 auto !important;
+            min-width: 0 !important;
             flex-wrap: nowrap !important;
             align-items: center !important;
             justify-content: flex-end !important;
-            gap: 4px !important;
-            margin-left: auto !important;
+            gap: 2px !important;
+            margin: 0 !important;
             position: relative !important;
             z-index: 3 !important;
           }
-          .header-actions a, #cdc-language-button {
-            flex: 0 0 28px !important;
-            width: 28px !important; min-width: 28px !important;
-            height: 34px !important; min-height: 34px !important;
-            padding: 3px !important; box-sizing: border-box !important;
+          .header-actions a, #cdc-language-button, #cdc-language-switcher {
+            flex: 0 0 22px !important;
+            width: 22px !important; min-width: 22px !important;
+            max-width: 22px !important;
+            height: 28px !important; min-height: 22px !important;
+            padding: 0 !important; box-sizing: border-box !important;
             display: inline-flex !important;
             align-items: center !important; justify-content: center !important;
           }
-          .header-actions a svg, #cdc-language-button svg { width: 18px !important; height: 18px !important; }
+          .header-actions a svg, #cdc-language-button svg { width: 15px !important; height: 15px !important; }
           #cdc-language-switcher { flex: 0 0 28px !important; width: 28px !important; margin: 0 !important; }
           .main-nav.is-open {
             flex-direction: column; align-items: stretch; gap: 0; padding: 5px 20px;
