@@ -346,6 +346,10 @@
 
       const premiereImage = images[0] || "";
 
+      // La première image est déjà affichée en grand.
+      // On ne la répète donc pas dans les miniatures.
+      const imagesMiniatures = images.slice(1);
+
       const ancienPrix = produit.ancienPrix
         ? `<span class="detail-old-price">${formaterPrix(produit.ancienPrix)}</span>`
         : "";
@@ -365,16 +369,17 @@
             </div>
 
             <div class="product-thumbnails">
-              ${images.map((url, index) => `
+              ${imagesMiniatures.map((url, index) => `
                 <button
                   type="button"
-                  class="product-thumbnail ${index === 0 ? "active" : ""}"
-                  data-index="${index}"
-                  aria-label="Afficher la photo ${index + 1}"
+                  class="product-thumbnail"
+                  data-index="${index + 1}"
+                  aria-label="Afficher la photo ${index + 2}"
                 >
                   <img
                     src="${echapperHTML(url)}"
-                    alt="${nom} - photo ${index + 1}"
+                    alt="${nom} - photo ${index + 2}"
+                    loading="lazy"
                   >
                 </button>
               `).join("")}
