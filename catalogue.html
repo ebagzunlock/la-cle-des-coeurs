@@ -34,7 +34,7 @@
 
     .catalogue-filters {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-columns: 2fr 1.2fr 1fr 1fr 1fr;
       gap: 12px;
       margin-bottom: 30px;
     }
@@ -221,11 +221,23 @@
         <option value="homme">Montres homme</option>
       </select>
 
+      <select id="filtreDisponibilite" aria-label="Filtrer par disponibilité">
+        <option value="">Tous les stocks</option>
+        <option value="stock">En stock</option>
+        <option value="rupture">Indisponibles</option>
+      </select>
+
+      <select id="filtrePromotion" aria-label="Filtrer les promotions">
+        <option value="">Toutes les offres</option>
+        <option value="promo">En promotion</option>
+      </select>
+
       <select id="triProduits" aria-label="Trier les produits">
         <option value="recent">Ordre d'affichage</option>
         <option value="prix-croissant">Prix croissant</option>
         <option value="prix-decroissant">Prix décroissant</option>
         <option value="nom">Nom A à Z</option>
+        <option value="note">Mieux notés</option>
       </select>
     </section>
 
@@ -238,7 +250,7 @@
     </section>
   </main>
 
-  <script src="produits.js"></script>
+  <script src="produits.js?v=catalogue-filtres-stock-promos-20261107"></script>
 
   <script>
     "use strict";
@@ -247,6 +259,8 @@
     const recherche = document.getElementById("recherche");
     const filtreCategorie = document.getElementById("filtreCategorie");
     const triProduits = document.getElementById("triProduits");
+    const filtreDisponibilite = document.getElementById("filtreDisponibilite");
+    const filtrePromotion = document.getElementById("filtrePromotion");
     const nombreProduits = document.getElementById("nombreProduits");
 
     const parametres = new URLSearchParams(window.location.search);
@@ -322,6 +336,8 @@
       const terme = recherche.value.trim().toLowerCase();
       const categorie = filtreCategorie.value;
       const tri = triProduits.value;
+      const disponibilite = filtreDisponibilite.value;
+      const promotion = filtrePromotion.value;
 
       if (terme) {
         produits = produits.filter(function(produit) {
@@ -346,6 +362,18 @@
         });
       }
 
+      if (disponibilite === "stock") {
+        produits = produits.filter(produit => produit.enStock !== false);
+      }
+
+      if (disponibilite === "rupture") {
+        produits = produits.filter(produit => produit.enStock === false);
+      }
+
+      if (promotion === "promo") {
+        produits = produits.filter(produit => produit.enPromo === true);
+      }
+
       if (tri === "prix-croissant") {
         produits.sort((a, b) => Number(a.prix) - Number(b.prix));
       }
@@ -358,6 +386,10 @@
         produits.sort((a, b) =>
           String(a.nom).localeCompare(String(b.nom), "fr")
         );
+      }
+
+      if (tri === "note") {
+        produits.sort((a, b) => Number(b.note || 0) - Number(a.note || 0));
       }
 
       nombreProduits.textContent =
@@ -514,6 +546,8 @@
     recherche.addEventListener("input", afficherProduits);
     filtreCategorie.addEventListener("change", afficherProduits);
     triProduits.addEventListener("change", afficherProduits);
+    filtreDisponibilite.addEventListener("change", afficherProduits);
+    filtrePromotion.addEventListener("change", afficherProduits);
 
     // Attendre le chargement du catalogue original
     if (window.produitsReady) {
