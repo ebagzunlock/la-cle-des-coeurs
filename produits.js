@@ -52,22 +52,13 @@ function convertirProduit(p) {
 
   const imagesSource = Array.isArray(p.images) ? p.images : [];
 
-  // Cartier Baignoire : doublons CE4 et CE8 retirés
-  const imagesCartier = [
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE1.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE2.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE3.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE5.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE6.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE7.jpeg",
-    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE9.jpeg"
+  const galerie = [
+    ...new Set(
+      imagesSource
+        .map(img => img.src)
+        .filter(Boolean)
+    )
   ];
-
-  const galerieBrute = String(p.id) === "30716"
-    ? imagesCartier
-    : imagesSource.map(img => img.src).filter(Boolean);
-
-  const galerie = [...new Set(galerieBrute)];
 
   return {
     id: String(p.id),
