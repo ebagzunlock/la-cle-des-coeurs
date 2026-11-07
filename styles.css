@@ -3938,3 +3938,50 @@ input,select,textarea {
   .brand-name { font-size:clamp(9px,2.7vw,12px) !important; letter-spacing:.6px !important; }
   .brand-tagline { font-size:6px !important; letter-spacing:.7px !important; }
 }
+
+
+/* CDC — IDENTITÉ FINALE : MONOGRAMME SOBRE ET CONTRASTE LISIBLE */
+:root{--cdc-page:#f2f0eb;--cdc-panel:#fbfaf7;--cdc-ink:#252a2d;--cdc-body:#454b4f;--cdc-muted:#62696d;--cdc-gold:#a98755;--cdc-border:#d8d3c9}
+html,body,body{background:#f2f0eb!important;color:#454b4f!important}
+body{background:#f2f0eb!important}
+body *{text-shadow:none!important}
+main,main section,.welcome-section,.featured-section,.contact-strip,.product-page,.catalogue-page,.account-page,.cart-page,.favourites-page,.favorites-page{color:#454b4f!important}
+h1,h2,h3,h4,h5,h6,.section-heading,.product-name,.product-name a,.product-price,.product-brand,.cart-item h2,.cart-summary h2,.account-page h2,.catalogue-heading h1{color:#252a2d!important}
+p,li,label,small,.description,.product-description,.product-details,.editorial-content,.editorial-content p,.section-heading p,.welcome-section p,.contact-strip p{color:#454b4f!important}
+a{color:#765b36}
+.announcement{background:#34393c!important;color:#f7f5f0!important;border:0!important}
+.header{background:#fbfaf7!important;color:#252a2d!important;border-bottom:1px solid #d8d3c9!important}
+.brand{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:0!important;text-decoration:none!important;line-height:1!important}
+.brand-monogram{display:flex!important;position:relative!important;align-items:center!important;justify-content:center!important;width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;margin:0 auto 5px!important;padding:0!important;border:1px solid #a98755!important;border-radius:50%!important;background:transparent!important;box-shadow:none!important;overflow:hidden!important}
+.brand-monogram:before{content:none!important;display:none!important}
+.brand-initials{display:flex!important;position:static!important;inset:auto!important;width:100%!important;height:100%!important;align-items:center!important;justify-content:center!important;color:#252a2d!important;font-family:Manrope,Arial,sans-serif!important;font-size:10px!important;font-weight:500!important;letter-spacing:.4px!important;line-height:1!important}
+.brand-monogram svg{display:none!important}
+.brand-name{display:block!important;margin:0!important;padding:0!important;color:#252a2d!important;font-family:"Cormorant Garamond",Georgia,serif!important;font-size:17px!important;font-weight:500!important;letter-spacing:1.25px!important;line-height:1.15!important;text-align:center!important;white-space:nowrap!important}
+.brand-tagline{display:none!important}
+.main-nav{background:#34393c!important;color:#f7f5f0!important;border:0!important;border-bottom:2px solid #a98755!important}
+.main-nav a{color:#f7f5f0!important}
+.main-nav a:hover,.main-nav a[aria-current=page],.main-nav a.is-current{color:#e7cfaa!important;background:rgba(255,255,255,.06)!important;box-shadow:inset 0 -2px 0 #a98755!important}
+.page-location{background:#ebe8e1!important;color:#62696d!important;border-color:#d8d3c9!important}
+.page-location strong{color:#252a2d!important}
+.hero,.contact-hero,.categories-section,.editorial-section,.welcome-section,.featured-section,.contact-page{background:#f2f0eb!important;color:#454b4f!important}
+.hero h1,.hero p,.contact-hero h1,.contact-hero p{color:#252a2d!important}
+.category-card,.featured-home-card,.product-card,.cart-item,.cart-summary,.cart-empty,.account-panel,.account-card,.favourites-empty,.favorites-empty,.product-detail-card,.contact-information,.contact-form-box,.legal-card,.content-card{background:#fbfaf7!important;color:#454b4f!important;border:1px solid #d8d3c9!important;box-shadow:0 5px 18px rgba(36,39,40,.055)!important}
+.category-card h3,.featured-home-card h3,.product-card h2,.product-card h3,.product-name,.product-name a,.product-price,.product-brand,.cart-item h2,.cart-summary h2,.account-page h2,.contact-information h2,.contact-form-box h2{color:#252a2d!important}
+.product-card p,.product-description,.product-details p,.cart-item p,.cart-summary p,.account-card p,.contact-information p,.contact-form-box p{color:#454b4f!important}
+.product-image,.category-image,.featured-home-card img{background:#e9e6df!important}
+button,.primary-button,.checkout-button,button.primary,.account-tabs button,.contact-submit,.product-actions button{background:#34393c!important;color:#fff!important;border:1px solid #34393c!important}
+button:hover,.primary-button:hover,.checkout-button:hover,button.primary:hover,.contact-submit:hover,.product-actions button:hover{background:#a98755!important;color:#fff!important;border-color:#a98755!important}
+input,select,textarea{background:#fff!important;color:#252a2d!important;border:1px solid #c9c5bc!important}
+input::placeholder,textarea::placeholder{color:#777d80!important;opacity:1!important}
+.footer,.cdc-site-footer,footer{background:#34393c!important;color:#f7f5f0!important;border-top:2px solid #a98755!important}
+.footer h3,.footer h4,.footer p,.footer a,.footer-bottom,footer h3,footer h4,footer p,footer a{color:#f7f5f0!important}
+.footer-brand,.cdc-footer-brand{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:5px!important}
+.footer-brand .brand-monogram,.cdc-footer-brand .brand-monogram{margin:0 0 5px!important;border-color:#d0b17d!important}
+.footer-brand .brand-initials,.cdc-footer-brand .brand-initials{color:#fff!important}
+.footer-brand h3,.cdc-footer-brand h3{font-family:"Cormorant Garamond",Georgia,serif!important;font-size:19px!important;font-weight:500!important;letter-spacing:1.2px!important;margin:0!important}
+.footer-brand p,.cdc-footer-brand p{font-size:10px!important;letter-spacing:1.3px!important;margin:0!important;color:#d8d2c7!important}
+.cdc-site-footer{padding:32px clamp(20px,5vw,64px)!important;display:flex!important;flex-wrap:wrap!important;align-items:center!important;justify-content:space-between!important;gap:24px!important}
+.cdc-site-footer .cdc-footer-brand{min-width:220px}
+.cdc-site-footer .cdc-footer-links{display:flex;flex-wrap:wrap;gap:12px 22px}
+.cdc-site-footer .cdc-footer-links a{font-size:12px;text-decoration:none}
+@media(max-width:760px){.header{background:#fbfaf7!important;min-height:90px!important}.brand-monogram{width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;margin-bottom:4px!important}.brand-initials{font-size:9px!important}.brand-name{font-size:clamp(10px,2.8vw,13px)!important;letter-spacing:.65px!important}.main-nav{background:#34393c!important}.cdc-site-footer{align-items:flex-start!important;flex-direction:column!important}}
