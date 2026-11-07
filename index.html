@@ -51,6 +51,38 @@
         z-index: 20;
       }
     }
+      .featured-home-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:20px;
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 20px;
+    }
+    .featured-home-card {
+      border:1px solid #eee9e1;
+      background:#fff;
+      text-align:center;
+      padding-bottom:16px;
+      min-width:0;
+    }
+    .featured-home-card img {
+      display:block;
+      width:100%;
+      aspect-ratio:1/1;
+      object-fit:contain;
+      background:#f5f2ed;
+    }
+    .featured-home-card h3 {
+      font-size:14px;
+      font-weight:400;
+      line-height:1.5;
+      padding:0 12px;
+      min-height:42px;
+    }
+    .featured-home-card p {font-size:15px;}
+    .featured-home-card a {color:inherit;text-decoration:none;}
+    @media(max-width:800px){.featured-home-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:0 14px;}}
   </style>
 </head>
 
@@ -240,17 +272,13 @@
         <p>Retrouvez notre sélection dans le catalogue.</p>
       </div>
 
-      <div class="featured-placeholder">
-
-        <p>
-          Découvrez notre sélection de bijoux et de montres.
-        </p>
-
-        <a href="catalogue.html" class="primary-button">
-          VOIR TOUS LES PRODUITS
-        </a>
-
+      <div class="featured-home-grid" id="featuredProducts">
+        <p>Chargement de notre sélection...</p>
       </div>
+
+      <p style="text-align:center;margin-top:30px;">
+        <a href="catalogue.html" class="primary-button">VOIR TOUS LES PRODUITS</a>
+      </p>
 
     </section>
 
@@ -411,5 +439,26 @@
     actualiserCompteurPanier();
   </script>
 
+  <script src="produits.js?v=accueil-selection-dynamique-20261107"></script>
+  <script>
+    (function() {
+      const zone = document.getElementById("featuredProducts");
+      if (!zone || !window.produitsReady) return;
+      const euro = value => new Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(Number(value)||0);
+      window.produitsReady.then(produits => {
+        const selection = produits.filter(p => p && p.actif !== false && p.image).slice(0,4);
+        if (!selection.length) {
+          zone.textContent = "Découvrez notre sélection dans le catalogue.";
+          return;
+        }
+        zone.innerHTML = selection.map(p => {
+          const href = "produit.html?id=" + encodeURIComponent(p.id);
+          const name = String(p.nom || "Article").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[ch]));
+          const img = String(p.image).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+          return '<article class="featured-home-card"><a href="'+href+'"><img src="'+img+'" alt="'+name+'" loading="lazy"><h3>'+name+'</h3><p>'+euro(p.prix)+'</p></a></article>';
+        }).join("");
+      }).catch(() => { zone.textContent = "La sélection est momentanément indisponible."; });
+    })();
+  </script>
 </body>
 </html>
