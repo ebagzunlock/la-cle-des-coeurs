@@ -251,5 +251,47 @@
   }
 })();
 </script>
+
+<script id="cdc-page-location-20261107">
+(function(){
+  const path=(location.pathname.split("/").pop()||"index.html").toLowerCase();
+  const params=new URLSearchParams(location.search);
+  const category=(params.get("categorie")||params.get("category")||"").toLowerCase();
+  const labels={
+    "index.html":"Accueil","catalogue.html":"Tout le catalogue","produit.html":"Fiche produit",
+    "panier.html":"Mon panier","commande.html":"Finaliser ma commande","compte.html":"Mon compte",
+    "favoris.html":"Mes favoris","contact.html":"Contact","qui-sommes-nous.html":"Qui sommes-nous",
+    "conditions-generales.html":"Conditions générales de vente","confidentialite.html":"Politique de confidentialité",
+    "livraison-retours.html":"Livraison et retours","mentions-legales.html":"Mentions légales"
+  };
+  const categoryLabels={homme:"Montres homme",femme:"Montres femme",accessoires:"Accessoires et bracelets",bracelets:"Accessoires et bracelets",ap:"AP x Swatch"};
+  const links=[...document.querySelectorAll(".main-nav a")];
+  let currentLabel=labels[path]||"Page";
+  if(path==="catalogue.html"&&categoryLabels[category]) currentLabel=categoryLabels[category];
+  links.forEach(link=>{
+    const href=(link.getAttribute("href")||"").toLowerCase();
+    let active=false;
+    if(path==="index.html") active=href==="index.html";
+    else if(path==="catalogue.html"&&categoryLabels[category]){
+      active=href.includes("categorie="+encodeURIComponent(category)) ||
+        (category==="bracelets"&&href.includes("categorie=accessoires"));
+    } else if(path==="catalogue.html") active=href==="catalogue.html";
+    else if(path==="produit.html") active=href.startsWith("catalogue.html");
+    else active=href.split("?")[0]===path;
+    if(active){link.setAttribute("aria-current","page");link.classList.add("is-current");}
+    else {link.removeAttribute("aria-current");link.classList.remove("is-current");}
+  });
+  const nav=document.querySelector(".main-nav");
+  if(nav&&!document.querySelector(".page-location")){
+    const crumb=document.createElement("div");
+    crumb.className="page-location";
+    crumb.setAttribute("aria-label","Emplacement sur le site");
+    crumb.innerHTML='<span>Vous êtes ici</span><span class="location-separator">›</span><strong></strong>';
+    crumb.querySelector("strong").textContent=currentLabel;
+    nav.insertAdjacentElement("afterend",crumb);
+  }
+})();
+</script>
+
 </body>
 </html>
