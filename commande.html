@@ -259,8 +259,6 @@
 
       </form>
 
-aside>
-
     </div>
   </main>
 
@@ -372,7 +370,6 @@ aside>
           "<p>LA CLÉ DES CŒURS</p><h1>Merci pour votre commande</h1><p>Votre paiement a été confirmé par Stripe.</p>";
         form.innerHTML =
           '<section class="checkout-card"><h2>Paiement confirmé</h2><p>Votre paiement a bien été enregistré. Conservez la confirmation envoyée par Stripe.</p><a class="checkout-button" href="catalogue.html">RETOURNER À LA BOUTIQUE</a></section>';
-        document.querySelector(".checkout-summary").hidden = true;
         return true;
       } catch (error) {
         document.querySelector(".checkout-title").insertAdjacentHTML(
