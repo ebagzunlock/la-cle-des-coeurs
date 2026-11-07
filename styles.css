@@ -1652,3 +1652,49 @@ input, select, textarea, .catalogue-filters input, .catalogue-filters select, .c
   .header .brand-initials { font-size: 9px !important; }
   .header .brand-name { font-size: 14px !important; letter-spacing: 1px !important; }
 }
+
+/* EN-TÊTE LUXUEUX, MENU LISIBLE ET COLLECTIONS — VERSION 23 */
+.header{display:grid!important;grid-template-columns:minmax(42px,1fr) minmax(0,auto) minmax(120px,1fr)!important;align-items:center!important;column-gap:clamp(12px,2vw,30px)!important;overflow:visible!important}
+.header>.menu-button,.header>#menuButton{grid-column:1!important;justify-self:start!important;align-self:center!important;width:40px!important;height:40px!important;padding:8px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important}
+.header>.brand,.header>.brand-home-link{grid-column:2!important;justify-self:center!important;align-self:center!important;width:auto!important;max-width:100%!important;min-width:0!important;gap:0!important;white-space:nowrap!important}
+.header>.header-actions{grid-column:3!important;justify-self:end!important;display:flex!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:flex-end!important;gap:clamp(12px,1.5vw,22px)!important;min-width:0!important;width:auto!important}
+.header .brand-monogram{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;margin:0 auto 6px!important;border:1px solid var(--champagne)!important;border-radius:50%!important;background:radial-gradient(circle at 35% 25%,#665344,#302820 78%)!important;box-shadow:0 2px 9px rgba(48,40,32,.13),inset 0 0 0 2px rgba(199,170,123,.12)!important;color:var(--champagne)!important}
+.header .brand-initials{display:block!important;color:#ead7b5!important;font-family:var(--sans)!important;font-size:11px!important;font-weight:600!important;letter-spacing:1px!important;line-height:1!important}
+.header .brand-name{display:block!important;margin:0!important;color:var(--dark)!important;font-family:var(--serif)!important;font-size:clamp(13px,1.35vw,17px)!important;font-weight:600!important;letter-spacing:1.1px!important;line-height:1.15!important;white-space:nowrap!important}
+.header .brand-tagline{display:block!important;margin-top:3px!important;color:var(--brown)!important;font-size:7px!important;letter-spacing:1.7px!important}
+.utility-bar{display:flex!important;justify-content:center!important;align-items:center!important;padding:12px 5%!important}
+.utility-bar .search-form{width:min(420px,100%)!important;max-width:100%!important;margin:0 auto!important;border-bottom:1px solid var(--champagne)!important}
+.header-actions a{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:30px!important;min-height:34px!important;color:var(--brown)!important}
+.header-actions a svg,.menu-button svg{display:block!important;width:21px!important;height:21px!important}
+.main-nav.is-open{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:0!important;padding:10px 18px!important;background:var(--brown)!important;border-color:var(--champagne)!important}
+.main-nav.is-open a{display:block!important;padding:12px 8px!important;color:var(--ivory)!important;border-bottom:1px solid rgba(250,248,244,.18)!important;text-align:left!important}
+.category-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:20px!important}
+.category-card{min-width:0!important;padding:0 0 16px!important;overflow:hidden!important;border:1px solid var(--border)!important;background:rgba(250,248,244,.62)!important;box-shadow:0 5px 18px rgba(48,40,32,.045)!important}
+.category-image{position:relative!important;width:100%!important;height:clamp(190px,24vw,300px)!important;margin:0 0 14px!important;overflow:hidden!important;background:var(--beige)!important}
+.category-product-track{display:flex!important;flex-wrap:nowrap!important;width:max-content!important;max-width:none!important;height:100%!important;animation:cdc-category-marquee var(--category-duration,24s) linear infinite!important;animation-delay:var(--category-delay,0s)!important}
+.category-product-item{display:block!important;flex:0 0 var(--category-slide-width)!important;width:var(--category-slide-width)!important;min-width:var(--category-slide-width)!important;max-width:var(--category-slide-width)!important;height:100%!important;overflow:hidden!important;position:relative!important}
+.category-product-item img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;padding:10px!important;background:var(--ivory)!important}
+@media(max-width:700px){
+.header{min-height:76px!important;height:auto!important;padding:8px 10px!important;grid-template-columns:34px minmax(0,1fr) auto!important;column-gap:7px!important}
+.header>.menu-button,.header>#menuButton{grid-column:1!important;width:32px!important;height:32px!important;min-width:32px!important;padding:5px!important}
+.header>.brand,.header>.brand-home-link{grid-column:2!important;width:100%!important;max-width:100%!important;justify-self:center!important;white-space:nowrap!important}
+.header .brand-monogram{width:34px!important;height:34px!important;min-width:34px!important;min-height:34px!important;margin-bottom:3px!important}
+.header .brand-initials{font-size:9px!important}
+.header .brand-name{font-size:clamp(9px,2.5vw,13px)!important;letter-spacing:.55px!important}
+.header .brand-tagline{font-size:5px!important;letter-spacing:.7px!important}
+.header>.header-actions{grid-column:3!important;gap:clamp(2px,.7vw,7px)!important}
+.header-actions a{min-width:25px!important;width:25px!important;max-width:25px!important;min-height:30px!important}
+.header-actions a svg{width:17px!important;height:17px!important}
+.utility-bar{padding:10px 14px!important}
+.main-nav{display:none!important}
+.main-nav.is-open{display:flex!important;width:100%!important;position:relative!important;z-index:50!important}
+.main-nav.is-open a{color:var(--ivory)!important}
+.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+.category-image{height:clamp(170px,43vw,250px)!important}
+.category-card h3{padding:0 8px!important;font-size:19px!important}
+}
+@media(max-width:360px){
+.header{grid-template-columns:30px minmax(0,1fr) auto!important;column-gap:4px!important}
+.header-actions a{min-width:22px!important;width:22px!important;max-width:22px!important}
+.header .brand-name{font-size:9px!important;letter-spacing:.35px!important}
+}
