@@ -1497,3 +1497,82 @@ input, select, textarea, #cdc-language-menu, #cdc-language-select {
 @media (prefers-reduced-motion: reduce) {
   .category-product-track { animation: none !important; }
 }
+
+
+/* FINITIONS DE MARQUE — LOGO CDC ET NAVIGATION */
+.brand {
+  text-decoration: none !important;
+}
+.brand-monogram {
+  width: 39px !important;
+  height: 39px !important;
+  min-width: 39px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  border: 1px solid #c6a674 !important;
+  border-radius: 50% !important;
+  outline: 1px solid rgba(198,166,116,.45) !important;
+  outline-offset: 3px !important;
+  background: radial-gradient(circle at 35% 25%,#514438,#29231f 72%) !important;
+  color: #e3c99c !important;
+  font: 500 13px/1 "Cormorant Garamond",Georgia,serif !important;
+  letter-spacing: .5px !important;
+  text-shadow: 0 1px 5px rgba(0,0,0,.35);
+}
+.brand-name {
+  color: #eee4d6 !important;
+  font-family: "Cormorant Garamond",Georgia,serif !important;
+  font-weight: 500 !important;
+  letter-spacing: 1.6px !important;
+}
+.brand-tagline {
+  color: #c9b38e !important;
+  letter-spacing: 1.8px !important;
+}
+.category-card { cursor: pointer; }
+.category-card:focus-visible {
+  outline: 2px solid #c6a674 !important;
+  outline-offset: 4px !important;
+}
+.category-product-item { cursor: pointer; }
+.category-product-image-unavailable::after {
+  content: "Photo momentanément indisponible";
+  position: absolute; inset: auto 0 0; padding: 8px;
+  color: #eee4d6; background: rgba(35,29,24,.88);
+  font: 10px "Manrope",sans-serif; text-align: center;
+}
+.category-image-empty::after {
+  color: #e1d2bb !important;
+  content: "Collection bientôt disponible" !important;
+}
+.header-actions a, #cdc-language-button, .menu-button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.header-actions a:focus-visible, #cdc-language-button:focus-visible,
+.menu-button:focus-visible {
+  outline: 2px solid #d7b985 !important;
+  outline-offset: 3px !important;
+}
+@media (max-width: 700px) {
+  .brand-monogram {
+    width: 30px !important; height: 30px !important; min-width: 30px !important;
+    font-size: 10px !important; outline-offset: 2px !important;
+  }
+  .header-actions { gap: 3px !important; }
+  .category-card h3 { min-height: 2.4em; }
+}
+@media (max-width: 370px) {
+  .header { padding-left: 7px !important; padding-right: 7px !important; gap: 3px !important; }
+  .header > .menu-button, .header > #menuButton {
+    flex-basis: 32px !important; width: 32px !important; height: 32px !important;
+  }
+  .header-actions { gap: 0 !important; }
+  .header-actions a, #cdc-language-button, #cdc-language-switcher {
+    flex-basis: 27px !important; width: 27px !important; min-width: 27px !important;
+  }
+  .header > .brand { max-width: calc(100% - 165px) !important; gap: 5px !important; }
+  .header > .brand .brand-name { font-size: 9px !important; letter-spacing: .35px !important; }
+}
