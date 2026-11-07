@@ -3013,3 +3013,79 @@ main .featured-home-card a:not(.primary-button) {
   .header > .brand .brand-name,
   .header > .brand-home-link .brand-name { font-size:9px !important;letter-spacing:.35px !important; }
 }
+
+
+/* CDC — CORRECTION DÉFINITIVE DU THÈME ET DU CONTRASTE */
+:root {
+  --cdc-bg:#302923;
+  --cdc-ink:#f3ece2;
+  --cdc-muted:#d2c4b2;
+  --cdc-gold:#c5a477;
+  --cdc-line:rgba(197,164,119,.32);
+}
+html, body {
+  min-height:100%;
+  background:#302923 !important;
+  color:#f3ece2 !important;
+}
+body {
+  background:
+    radial-gradient(ellipse at 16% 0%, rgba(177,151,112,.15), transparent 38%),
+    radial-gradient(ellipse at 86% 45%, rgba(12,10,8,.2), transparent 42%),
+    linear-gradient(145deg,#403a34 0%,#342f2a 50%,#29241f 100%) fixed !important;
+  color:#f3ece2 !important;
+}
+main, main section, .welcome-section, .categories-section,
+.featured-section, .contact-strip, .editorial-section,
+.account-page, .product-page, .catalogue-page, .cart-page,
+.favourites-page {
+  color:#f3ece2 !important;
+}
+main .welcome-section,
+main .featured-section,
+main .contact-strip {
+  background:transparent !important;
+}
+main .welcome-section h2,
+main .welcome-section p:not(.eyebrow),
+main .section-heading h2,
+main .section-heading p:not(.eyebrow),
+main .editorial-content h2,
+main .editorial-content p:not(.eyebrow),
+main .contact-strip h2,
+main .contact-strip p:not(.eyebrow),
+main .category-card h3,
+main .featured-home-card h3,
+main .featured-home-card p {
+  color:#f3ece2 !important;
+}
+main .eyebrow, .section-heading .eyebrow {
+  color:#d1b487 !important;
+}
+.categories-section {
+  background:linear-gradient(135deg,#40382f 0%,#302923 100%) !important;
+}
+.category-card, .featured-home-card, .category-product-info {
+  background:#332d27 !important;
+  color:#f3ece2 !important;
+  border-color:rgba(197,164,119,.3) !important;
+}
+.category-card a, .featured-home-card a:not(.primary-button) {
+  color:#e2c18f !important;
+}
+.header, .main-nav, .announcement, .footer {
+  background:#211d19 !important;
+  color:#f3ece2 !important;
+}
+.header { border-bottom:1px solid rgba(197,164,119,.28) !important; }
+.main-nav { border-bottom:1px solid rgba(197,164,119,.28) !important; }
+.header-actions a, .header-actions button, .menu-button {
+  color:#e8c991 !important;
+}
+.brand-name { color:#fff8ed !important; }
+.brand-tagline { color:#d2c4b2 !important; }
+@media(max-width:700px) {
+  .header {
+    background:#211d19 !important;
+  }
+}
