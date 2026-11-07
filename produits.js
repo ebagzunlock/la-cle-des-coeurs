@@ -15,10 +15,13 @@ const DETAILS_IMAGE =
 // Les quatre vues du même modèle Cartier Baignoire WGBA0025,
 // retrouvées dans l'historique du dépôt.
 const IMAGES_CARTIER = [
-  "https://pisa1940.com/cdn/shop/files/SOLD_115_e13845bd-fce8-4eeb-8067-a5a86ae5bad8.png",
-  "https://pisa1940.com/cdn/shop/files/w1242_tpadding12_20_3__8_56539df2-8927-4022-9f58-d1892be7478d.webp",
-  "https://pisa1940.com/cdn/shop/files/w1242_tpadding12_20_1__8.webp",
-  "https://pisa1940.com/cdn/shop/files/w1242_tpadding12_20_2__7.webp"
+  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE1.jpeg",
+  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE2.jpeg",
+  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE3.jpeg",
+  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE5.jpeg",
+  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE6.jpeg",
+  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE7.jpeg",
+  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE9.jpeg"
 ];
 
 const CATEGORIES = {
