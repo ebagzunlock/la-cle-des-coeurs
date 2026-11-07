@@ -2163,3 +2163,27 @@ html[data-cdc-theme="dark"] .delivery-section{
 }
 html[data-cdc-theme="dark"] main a:not(.primary-button):not(.category-link){color:#e2c99e!important}
 html[data-cdc-theme="light"] main a:not(.primary-button):not(.category-link){color:#725638!important}
+
+
+/* ICÔNE DE THÈME — FINITION DISCRÈTE ET ESPACEMENT */
+#cdc-theme-toggle{
+  display:inline-flex!important;flex:0 0 25px!important;
+  width:25px!important;min-width:25px!important;max-width:25px!important;
+  height:30px!important;margin:0 0 0 5px!important;padding:0!important;
+  align-items:center!important;justify-content:center!important;
+  border:0!important;border-radius:50%!important;background:transparent!important;
+  color:#8b704d!important;box-shadow:none!important;
+}
+#cdc-theme-toggle svg{display:block!important;width:18px!important;height:18px!important}
+#cdc-theme-toggle:hover{background:rgba(168,138,94,.12)!important;color:#b08d5d!important}
+@media(max-width:600px){
+  #cdc-theme-toggle{
+    flex:0 0 19px!important;width:19px!important;min-width:19px!important;max-width:19px!important;
+    height:24px!important;margin-left:2px!important;padding:0!important;
+  }
+  #cdc-theme-toggle svg{width:15px!important;height:15px!important}
+}
+@media(max-width:360px){
+  #cdc-theme-toggle{flex-basis:18px!important;width:18px!important;min-width:18px!important;max-width:18px!important;margin-left:1px!important}
+  #cdc-theme-toggle svg{width:14px!important;height:14px!important}
+}
