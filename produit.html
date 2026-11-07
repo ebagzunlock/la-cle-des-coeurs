@@ -186,7 +186,7 @@
     </div>
   </main>
 
-  <script src="produits.js?v=catalogue-identique-20261107"></script>
+  <script src="produits.js?v=prix-nuls-corriges-20261107"></script>
 
   <script>
     "use strict";
@@ -210,7 +210,7 @@
     function formaterPrix(prix) {
       const montant = Number(prix);
 
-      if (!Number.isFinite(montant)) {
+      if (prix === null || prix === undefined || prix === "" || !Number.isFinite(montant) || montant <= 0) {
         return "Prix sur demande";
       }
 
@@ -386,8 +386,8 @@
             <div class="detail-description">${description}</div>
 
             <div class="detail-buttons">
-              <button type="button" id="ajouterPanier">
-                AJOUTER AU PANIER
+              <button type="button" id="ajouterPanier" ${Number(produit.prix) > 0 ? "" : "disabled"}>
+                ${Number(produit.prix) > 0 ? "AJOUTER AU PANIER" : "PRIX À CONFIRMER"}
               </button>
 
               <button type="button" class="secondary" id="ajouterFavoris">
