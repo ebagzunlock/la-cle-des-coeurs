@@ -80,6 +80,14 @@ if(params.get("redirect_status")==="succeeded"){
  localStorage.removeItem(CART_KEY);localStorage.removeItem("cdc_buy_now");localStorage.removeItem("cdc_pending_payment");
  return;
 }
+if(params.get("redirect_status")==="processing"){
+ document.getElementById("paymentLayout").hidden=true;
+ document.getElementById("pageTitle").textContent="Paiement en cours de confirmation";
+ document.getElementById("successPanel").hidden=false;
+ document.querySelector("#successPanel h2").textContent="Paiement en cours";
+ document.querySelector("#successPanel p").textContent="Votre banque traite le paiement. La confirmation définitive sera communiquée après vérification.";
+ return;
+}
 let order;
 try{order=JSON.parse(localStorage.getItem("cdc_pending_payment")||"null");}catch{}
 if(!order||!Array.isArray(order.items)||!order.items.length||!order.customer){
@@ -111,10 +119,9 @@ async function start(){
   button.disabled=false;button.textContent="PAYER MAINTENANT";
   button.addEventListener("click",async()=>{
    button.disabled=true;button.textContent="PAIEMENT EN COURS…";msg.textContent="Vérification sécurisée de votre paiement…";
-   const {error}=await stripe.confirmPayment({elements,confirmParams:{return_url:location.origin+location.pathname},redirect:"if_required"});
+   const {error}=await stripe.confirmPayment({elements,confirmParams:{return_url:location.origin+location.pathname}});
    if(error){msg.textContent=error.message||"Le paiement n'a pas pu être confirmé.";button.disabled=false;button.textContent="RÉESSAYER LE PAIEMENT";return;}
-   msg.textContent="Paiement transmis. Vérification de la confirmation…";
-   location.href=location.pathname+"?redirect_status=succeeded";
+   msg.textContent="Redirection vers la confirmation sécurisée…";
   });
   msg.textContent="Choisissez votre moyen de paiement puis confirmez.";
  }catch(e){msg.textContent=e.message||"Impossible de préparer le paiement.";button.disabled=true;button.textContent="PAIEMENT INDISPONIBLE";}
