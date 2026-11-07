@@ -1826,3 +1826,178 @@ h1, h2, h3, h4, .detail-name, .account-heading h1 {
     flex: 0 0 27px !important; width: 27px !important;
   }
 }
+
+
+/* =========================================
+   SIGNATURE VISUELLE — ESPRESSO & CHAMPAGNE
+   Fond sans blanc pur, contraste renforcé,
+   finitions cohérentes sur toutes les pages.
+   ========================================= */
+:root {
+  --cdc-bg: #29231f;
+  --cdc-surface: #38302a;
+  --cdc-surface-soft: #433930;
+  --cdc-ink: #f3ece2;
+  --cdc-muted: #d2c4b2;
+  --cdc-gold: #c5a477;
+  --cdc-line: rgba(197,164,119,.32);
+}
+html, body {
+  background: var(--cdc-bg) !important;
+  color: var(--cdc-ink) !important;
+}
+body, p, li, label, small, span, .checkout-notice {
+  color: inherit;
+}
+.header, .main-nav, .utility-bar, .announcement {
+  background: #211c19 !important;
+  color: var(--cdc-ink) !important;
+  border-color: var(--cdc-line) !important;
+}
+.announcement {
+  letter-spacing: 3px !important;
+  color: var(--cdc-gold) !important;
+}
+.brand-monogram {
+  width: 52px !important;
+  height: 52px !important;
+  border: 1px solid var(--cdc-gold) !important;
+  outline: 1px solid rgba(197,164,119,.35) !important;
+  outline-offset: 3px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle, #44372c 0%, #211c19 72%) !important;
+  color: #e2c69b !important;
+  box-shadow: inset 0 0 0 3px #211c19, inset 0 0 0 4px rgba(197,164,119,.28) !important;
+}
+.brand-name { color: #f4eadc !important; letter-spacing: 2.7px !important; }
+.brand-tagline { color: #c5a477 !important; }
+.menu-button, #menuButton, .header-actions, .header-actions a,
+.main-nav a, .search-form button, .search-form input {
+  color: var(--cdc-ink) !important;
+}
+.header-actions a {
+  width: 40px !important; height: 40px !important;
+  display: inline-flex !important; align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid var(--cdc-line) !important;
+  border-radius: 50% !important;
+  background: #332a24 !important;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease !important;
+}
+.header-actions a:hover {
+  background: #514132 !important;
+  border-color: var(--cdc-gold) !important;
+  transform: translateY(-1px);
+}
+.header-actions svg, .menu-button svg, #menuButton svg {
+  width: 21px !important; height: 21px !important;
+  stroke: currentColor !important; fill: none !important;
+}
+.main-nav a {
+  font-weight: 600 !important;
+  letter-spacing: 1.15px !important;
+}
+.main-nav a:hover { color: #e0bd89 !important; }
+.search-form { border-color: var(--cdc-line) !important; }
+.search-form input::placeholder { color: #c2b4a3 !important; }
+.utility-bar select, #cdc-language-select {
+  background: #38302a !important; color: var(--cdc-ink) !important;
+  border: 1px solid var(--cdc-line) !important;
+}
+.hero {
+  background:
+    linear-gradient(90deg, rgba(32,26,22,.82), rgba(32,26,22,.54)),
+    url("https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/accueil-site-MTR.jpg")
+    center 50% / cover no-repeat !important;
+}
+.hero h1, .hero p:not(.eyebrow), .hero-content,
+.welcome-section h2, .welcome-section p:not(.eyebrow),
+.section-heading h2, .section-heading p:not(.eyebrow),
+.editorial-section h2, .editorial-section p:not(.eyebrow),
+.contact-strip h2, .contact-strip p:not(.eyebrow) {
+  color: #f3ece2 !important;
+}
+.eyebrow, .category-link, .detail-brand { color: #d2b181 !important; }
+.primary-button, .account-submit, .checkout-button {
+  background: #b18d5e !important;
+  color: #211c19 !important;
+  border: 1px solid #d1b487 !important;
+  font-weight: 700 !important;
+}
+.primary-button:hover, .account-submit:hover, .checkout-button:hover {
+  background: #d1b487 !important; color: #211c19 !important;
+}
+.welcome-section, .featured-section, .contact-strip,
+.product-page, .catalogue-page, .account-page, .cart-page, .favourites-page {
+  background: var(--cdc-bg) !important; color: var(--cdc-ink) !important;
+}
+.categories-section, .editorial-section {
+  background: #332a24 !important; color: var(--cdc-ink) !important;
+}
+.category-card h3, .category-card p, .category-link { color: #f0e6d8 !important; }
+.category-image, .product-image, .product-detail-image img,
+.featured-home-card img {
+  background: #40372f !important;
+  border-color: var(--cdc-line) !important;
+}
+.featured-home-card, .product-card, .product-item, .catalogue-card,
+.account-card, .checkout-card, .featured-placeholder {
+  background: var(--cdc-surface) !important;
+  color: var(--cdc-ink) !important;
+  border: 1px solid var(--cdc-line) !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,.14) !important;
+}
+.featured-home-card h3, .featured-home-card p,
+.product-name, .product-name a, .product-price, .product-brand,
+.detail-name, .detail-price, .detail-description, .detail-reference,
+.catalogue-heading h1, .catalogue-heading p, .account-heading h1,
+.account-heading p:not(.eyebrow), .account-card h2, .account-form label,
+.checkout-card h2, .checkout-line, .checkout-form label,
+.product-message, .product-message h1, .back-link {
+  color: var(--cdc-ink) !important;
+}
+.detail-description, .product-name, .product-price,
+.catalogue-heading p, .account-heading p:not(.eyebrow) {
+  color: #e0d5c8 !important;
+}
+.catalogue-filters input, .catalogue-filters select,
+.account-form input, .checkout-form input, .checkout-form select,
+.checkout-form textarea, input, select, textarea {
+  background: #29231f !important;
+  color: #f3ece2 !important;
+  border: 1px solid var(--cdc-line) !important;
+}
+input::placeholder, textarea::placeholder { color: #c2b4a3 !important; opacity: 1 !important; }
+.account-tabs button, .product-actions button, .detail-buttons button {
+  background: #40372f !important;
+  color: #f3ece2 !important;
+  border: 1px solid var(--cdc-gold) !important;
+}
+.account-tabs button[aria-selected="true"],
+.product-actions button:hover, .detail-buttons button:not(.secondary) {
+  background: #b18d5e !important; color: #211c19 !important;
+}
+.account-message, .checkout-notice {
+  background: #40372f !important; color: #f3ece2 !important;
+}
+.footer {
+  background: #171310 !important;
+  color: #eee4d7 !important;
+  border-top: 1px solid var(--cdc-gold) !important;
+}
+.footer h3, .footer h4, .footer p, .footer a, .footer-bottom {
+  color: #eee4d7 !important;
+}
+.footer a:hover { color: #d9b985 !important; }
+#cdc-language-button {
+  background: #38302a !important; color: #f3ece2 !important;
+  border: 1px solid var(--cdc-line) !important;
+}
+#cdc-language-menu { background: #211c19 !important; color: #f3ece2 !important; }
+#cdc-language-menu label { color: #f3ece2 !important; }
+@media (max-width: 700px) {
+  .brand-monogram { width: 35px !important; height: 35px !important; font-size: 18px !important; }
+  .header-actions a { width: 30px !important; height: 30px !important; }
+  .header-actions a svg { width: 17px !important; height: 17px !important; }
+  .main-nav.is-open { background: #211c19 !important; }
+}
