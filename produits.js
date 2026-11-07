@@ -1,12 +1,16 @@
-
 /* =========================================
    LA CLÉ DES CŒURS
    IMPORT AUTOMATIQUE DU CATALOGUE ORIGINAL
    CORRECTION CARTIER BAIGNOIRE 30716
+   ARTICLE DETAILS POUR TESTS
    ========================================= */
 
 const API_PRODUITS =
   "https://la-cle-des-coeurs-api.bagzful.workers.dev/wp-json/wc/store/v1/products";
+
+const DETAILS_PRODUCT_ID = "987654321";
+const DETAILS_IMAGE =
+  "https://shop.pinetti.it/cdn/shop/products/prestigebox_zoom-Pinetti.png?v=1611572510";
 
 const IMAGES_CARTIER = [
   "https://pisa1940.com/cdn/shop/files/SOLD_115_e13845bd-fce8-4eeb-8067-a5a86ae5bad8.png?v=1793283493",
@@ -52,10 +56,36 @@ function nettoyerDescription(html) {
 }
 
 function convertirProduit(p) {
-  const estCartier = String(p.id) === "30716";
+  const id = String(p.id);
+  const estCartier = id === "30716";
+  const estDetails = id === DETAILS_PRODUCT_ID;
 
-  const prix = Number(p.prices?.price || 0) / 100;
-  const prixNormal = Number(p.prices?.regular_price || 0) / 100;
+  if (estDetails) {
+    return {
+      id: DETAILS_PRODUCT_ID,
+      nom: "DETAILS",
+      marque: "LA CLÉ DES CŒURS",
+      reference: "TEST-DETAILS",
+      categorie: "accessoires",
+      categories: ["accessoires"],
+      prix: 2,
+      ancienPrix: null,
+      devise: "EUR",
+      image: DETAILS_IMAGE,
+      images: [DETAILS_IMAGE],
+      actif: true,
+      enStock: true,
+      enPromo: false,
+      note: 0,
+      nombreAvis: 0,
+      description:
+        "Article de démonstration à 2 € destiné aux essais de commande et de paiement. Aucun bijou physique n’est associé à cet article.",
+      ficheSource: ""
+    };
+  }
+
+  const prix = Number(p.prices?.price) / 100;
+  const prixNormal = Number(p.prices?.regular_price) / 100;
 
   const categories = [
     ...new Set((p.categories || []).map(convertirCategorie))
@@ -76,7 +106,7 @@ function convertirProduit(p) {
     : galerieOriginale;
 
   return {
-    id: String(p.id),
+    id,
 
     nom: estCartier
       ? "Cartier Baignoire Petit WGBA0025 « Femme » Quartz Or Jaune (2025) Taille 16 NEUF"
@@ -147,10 +177,21 @@ async function chargerTousLesProduits() {
     }
 
     for (const produit of donnees) {
-      if (!dejaVus.has(produit.id)) {
-        dejaVus.add(produit.id);
-        produitsImportes.push(convertirProduit(produit));
+      const id = String(produit.id);
+
+      if (dejaVus.has(id)) continue;
+      dejaVus.add(id);
+
+      // Garder DETAILS et Cartier ; masquer les autres produits gratuits
+      if (id !== DETAILS_PRODUCT_ID && id !== "30716") {
+        const prixCentimes = Number(produit.prices?.price);
+
+        if (!Number.isSafeInteger(prixCentimes) || prixCentimes <= 0) {
+          continue;
+        }
       }
+
+      produitsImportes.push(convertirProduit(produit));
     }
 
     if (donnees.length < limite) break;
@@ -172,7 +213,7 @@ window.produitsReady = chargerTousLesProduits()
     );
 
     console.log(
-      `${produitsImportes.length} produits importés depuis le catalogue original.`
+      `${produitsImportes.length} produits importés ; produits sans prix exclus.`
     );
 
     window.dispatchEvent(new Event("produits:loaded"));
