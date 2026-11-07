@@ -55,7 +55,30 @@ function nettoyerDescription(html) {
     "script, style, iframe, object, embed, form"
   ).forEach(element => element.remove());
 
-  return documentHTML.body.innerHTML;
+  documentHTML.body.querySelectorAll("p, li, h2, h3, h4").forEach(element => {
+    element.innerHTML = element.innerHTML
+      .replace(/&nbsp;/gi, " ")
+      .replace(/\\s+/g, " ")
+      .trim();
+
+    if (!element.textContent.trim()) element.remove();
+  });
+
+  const parcours = documentHTML.createTreeWalker(
+    documentHTML.body,
+    NodeFilter.SHOW_TEXT
+  );
+
+  let texte;
+  while ((texte = parcours.nextNode())) {
+    texte.nodeValue = texte.nodeValue
+      .replace(/\\u00a0/g, " ")
+      .replace(/[ \\t]+/g, " ")
+      .replace(/[ \\t]+([,.;:!?])/g, "$1")
+      .replace(/([,;:!?])(?=\\S)/g, "$1 ");
+  }
+
+  return documentHTML.body.innerHTML.trim();
 }
 
 function convertirProduit(p) {
