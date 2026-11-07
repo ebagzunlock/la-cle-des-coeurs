@@ -82,6 +82,19 @@ select {
   cursor: pointer;
 }
 
+.brand-home-link {
+  display: flex;
+  min-width: 0;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.brand-home-link:focus-visible {
+  outline: 2px solid var(--champagne);
+  outline-offset: 6px;
+}
+
 .brand {
   display: flex;
   flex-direction: column;
