@@ -109,7 +109,7 @@
         .menu-button {
           display: inline-flex !important; justify-self: start; align-items: center;
           justify-content: center; width: 42px; height: 42px; border: 0;
-          background: transparent; color: #514238; font-size: 27px; cursor: pointer;
+          background: rgba(239,232,221,.28); color: #493b31; font-size: 20px; cursor: pointer; border: 1px solid rgba(91,72,54,.22); border-radius: 50%;
         }
         .main-nav { display: none !important; }
         .main-nav.is-open {
@@ -198,7 +198,7 @@
           border: 1px solid rgba(255,255,255,.16); border-radius: 9px;
           background: #25221f; color: #fff;
           box-shadow: 0 10px 32px rgba(0,0,0,.22);
-          font: 500 13px Montserrat, Arial, sans-serif; letter-spacing: .2px;
+          font: 500 13px Manrope, "Helvetica Neue", Arial, sans-serif; letter-spacing: .2px;
           opacity: 0; visibility: hidden; pointer-events: none;
           transform: translate(-50%, 14px);
           transition: opacity .24s ease, transform .24s ease, visibility .24s;
