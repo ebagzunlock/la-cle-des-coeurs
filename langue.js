@@ -1,14 +1,19 @@
 (() => {
   "use strict";
 
-  const LANGUAGES = [
-    ["fr", "Français"],
-    ["en", "English"],
-    ["es", "Español"],
-    ["de", "Deutsch"],
-    ["it", "Italiano"],
-    ["pt", "Português"]
-  ];
+  const LANGUAGE_NAMES = new Intl.DisplayNames(["fr"], { type: "language" });
+
+  function languageLabel(code, googleLabel) {
+    try {
+      const nativeName = new Intl.DisplayNames([code], { type: "language" }).of(code);
+      const frenchName = LANGUAGE_NAMES.of(code);
+      return nativeName && frenchName && nativeName.toLowerCase() !== frenchName.toLowerCase()
+        ? nativeName + " — " + frenchName
+        : (googleLabel || frenchName || code);
+    } catch {
+      return googleLabel || code;
+    }
+  }
 
   function currentLanguage() {
     const cookie = document.cookie.split(";").map(part => part.trim());
@@ -19,7 +24,6 @@
     if (!window.google || !window.google.translate) return;
     new window.google.translate.TranslateElement({
       pageLanguage: "fr",
-      includedLanguages: "en,es,de,it,pt",
       autoDisplay: false
     }, "google_translate_element");
   };
@@ -89,18 +93,40 @@
     box.innerHTML = '<label for="cdc-language-select">Langue</label><select id="cdc-language-select" aria-label="Changer la langue"></select>';
 
     const select = box.querySelector("select");
-    LANGUAGES.forEach(([code, label]) => {
-      const option = document.createElement("option");
-      option.value = code;
-      option.textContent = label;
-      select.appendChild(option);
-    });
-    select.value = currentLanguage();
+    function populateAllLanguages() {
+      const googleSelect = document.querySelector(".goog-te-combo");
+      if (!googleSelect || !googleSelect.options.length) return false;
+
+      const selected = currentLanguage();
+      select.replaceChildren();
+      Array.from(googleSelect.options).forEach(option => {
+        const code = option.value;
+        if (!code) {
+          select.add(new Option("Français", "fr"));
+          return;
+        }
+        select.add(new Option(languageLabel(code, option.textContent.trim()), code));
+      });
+      select.value = selected;
+      if (!select.value) select.value = "fr";
+      return true;
+    }
+
     select.addEventListener("change", () => changeLanguage(select.value));
 
     const translate = document.createElement("div");
     translate.id = "google_translate_element";
     document.body.append(box, translate);
+
+    const refreshLanguages = () => {
+      if (populateAllLanguages()) return;
+      window.setTimeout(refreshLanguages, 400);
+    };
+    const previousInit = window.googleTranslateElementInit;
+    window.googleTranslateElementInit = function () {
+      if (typeof previousInit === "function") previousInit();
+      refreshLanguages();
+    };
 
     if (!document.querySelector('script[data-cdc-google-translate]')) {
       const script = document.createElement("script");
@@ -109,6 +135,7 @@
       script.dataset.cdcGoogleTranslate = "true";
       document.head.appendChild(script);
     }
+    refreshLanguages();
   }
 
   if (document.readyState === "loading") {
