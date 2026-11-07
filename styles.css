@@ -2070,3 +2070,178 @@ input::placeholder,textarea::placeholder { color:#62594f !important; opacity:1 !
  .header-actions { gap:2px !important; }
  .category-image { height:clamp(165px,48vw,220px) !important; }
 }
+
+
+/* SIGNATURE CDC — fond minéral profond, typographie champagne */
+:root {
+  --cdc-bg:#302f29;
+  --cdc-surface:#403e35;
+  --cdc-surface-soft:#4a473c;
+  --cdc-ink:#f3eadb;
+  --cdc-muted:#d8cbb7;
+  --cdc-gold:#d0ad76;
+  --cdc-line:rgba(208,173,118,.42);
+}
+html,body { background:#302f29 !important; color:#f3eadb !important; }
+body { color:#f3eadb !important; }
+body p,body li,body label,body small,body .checkout-notice,
+body .account-heading p,body .catalogue-heading p,
+body .detail-description,body .product-message { color:#e8dece !important; }
+h1,h2,h3,h4,h5,h6 { color:#f3eadb !important; }
+.header {
+  position:relative !important;
+  min-height:142px !important;
+  padding:14px 22px 12px !important;
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  background:#272720 !important; color:#f3eadb !important;
+  border-bottom:1px solid rgba(208,173,118,.45) !important;
+}
+.brand.brand-home-link {
+  display:flex !important; flex-direction:column !important;
+  align-items:center !important; justify-content:center !important;
+  gap:5px !important; margin:0 auto !important; padding:0 !important;
+  min-width:0 !important; text-align:center !important;
+  text-decoration:none !important; color:#f3eadb !important;
+}
+.brand-monogram {
+  position:relative !important; display:flex !important;
+  width:62px !important; height:62px !important; min-width:62px !important;
+  align-items:center !important; justify-content:center !important;
+  border:1.5px solid #d0ad76 !important; border-radius:50% !important;
+  outline:1px solid rgba(208,173,118,.45) !important; outline-offset:3px !important;
+  background:radial-gradient(circle at 35% 28%,#514638 0%,#302d25 68%,#24231e 100%) !important;
+  color:#e2c18d !important; box-shadow:inset 0 0 0 3px #272720,inset 0 0 0 4px rgba(208,173,118,.25) !important;
+}
+.brand-initials {
+  font-family:"Cormorant Garamond",Georgia,serif !important;
+  font-size:25px !important; line-height:1 !important; font-weight:600 !important;
+  letter-spacing:1px !important; color:#e2c18d !important;
+}
+.brand-monogram svg {
+  position:absolute !important; right:-7px !important; bottom:-4px !important;
+  width:24px !important; height:24px !important; padding:3px !important;
+  border:1px solid #d0ad76 !important; border-radius:50% !important;
+  background:#302f29 !important; color:#e2c18d !important;
+}
+.brand-name {
+  display:block !important; margin:3px 0 0 !important;
+  color:#f1e4cf !important;
+  font-family:"Cormorant Garamond",Georgia,serif !important;
+  font-size:21px !important; font-weight:500 !important;
+  line-height:1.05 !important; letter-spacing:3px !important;
+  text-align:center !important; white-space:nowrap !important;
+}
+.brand-tagline {
+  display:block !important; color:#d0ad76 !important;
+  font-family:"Manrope",Arial,sans-serif !important;
+  font-size:8px !important; font-weight:500 !important;
+  line-height:1.2 !important; letter-spacing:2.2px !important;
+  text-align:center !important;
+}
+.header-actions {
+  position:absolute !important; right:24px !important; top:50% !important;
+  transform:translateY(-50%) !important;
+  display:flex !important; flex-direction:row !important;
+  align-items:center !important; justify-content:flex-end !important;
+  gap:13px !important; margin:0 !important; padding:5px !important;
+}
+.header-actions a {
+  box-sizing:border-box !important; flex:0 0 44px !important;
+  width:44px !important; min-width:44px !important; max-width:44px !important;
+  height:44px !important; min-height:44px !important;
+  display:inline-flex !important; align-items:center !important; justify-content:center !important;
+  position:relative !important; padding:0 !important;
+  border:1px solid rgba(208,173,118,.62) !important;
+  border-radius:50% !important; background:#39372e !important;
+  color:#e1bd84 !important; text-decoration:none !important;
+}
+.header-actions a:hover,.header-actions a:focus-visible {
+  background:#514838 !important; border-color:#e5c18b !important;
+  color:#f2d6a8 !important; outline:2px solid rgba(208,173,118,.35) !important;
+  outline-offset:3px !important;
+}
+.header-actions a svg {
+  display:block !important; width:22px !important; height:22px !important;
+  stroke:#e1bd84 !important; color:#e1bd84 !important; fill:none !important;
+}
+.header-actions #cartCount {
+  position:absolute !important; top:-5px !important; right:-5px !important;
+  min-width:17px !important; height:17px !important; padding:0 4px !important;
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  border-radius:20px !important; background:#d0ad76 !important; color:#272720 !important;
+  font-size:10px !important; font-weight:700 !important;
+}
+.menu-button,#menuButton {
+  position:absolute !important; left:22px !important; top:50% !important;
+  transform:translateY(-50%) !important;
+  width:44px !important; height:44px !important;
+  display:inline-flex !important; align-items:center !important; justify-content:center !important;
+  border:1px solid rgba(208,173,118,.62) !important; border-radius:50% !important;
+  background:#39372e !important; color:#e1bd84 !important;
+}
+.menu-button svg,#menuButton svg { width:23px !important; height:23px !important; stroke:#e1bd84 !important; }
+.main-nav { background:#39372e !important; border-bottom:1px solid rgba(208,173,118,.35) !important; }
+.main-nav a { color:#f0e5d4 !important; }
+.main-nav a:hover,.main-nav a:focus-visible { color:#e4c28f !important; }
+.header-search-form {
+  border:1px solid rgba(208,173,118,.62) !important;
+  background:#39372e !important; color:#f1e4cf !important;
+}
+.header-search-form input { background:transparent !important; color:#f1e4cf !important; }
+.header-search-form input::placeholder { color:#d5c7b2 !important; }
+.header-search-form button,.header-search-form button svg { color:#e1bd84 !important; stroke:#e1bd84 !important; }
+.utility-bar { background:#302f29 !important; color:#f3eadb !important; }
+.hero { color:#f3eadb !important; }
+.welcome-section,.featured-section,.contact-strip,.product-page,.catalogue-page,
+.account-page,.cart-page,.favourites-page,.categories-section,.editorial-section,
+.checkout-page { background:#302f29 !important; color:#f3eadb !important; }
+.section-heading h2,.welcome-section h2,.editorial-section h2,.contact-strip h2,
+.catalogue-heading h1,.account-heading h1,.checkout-title h1,
+.section-heading p,.welcome-section p,.editorial-section p,.contact-strip p { color:#f3eadb !important; }
+.featured-home-card,.product-card,.product-item,.catalogue-card,.account-card,
+.checkout-card,.featured-placeholder,.cart-card,.favourites-card {
+  background:#403e35 !important; color:#f3eadb !important;
+  border:1px solid rgba(208,173,118,.38) !important;
+}
+.featured-home-card h3,.featured-home-card p,.product-name,.product-name a,
+.product-price,.product-brand,.detail-name,.detail-price,.detail-description,
+.detail-reference,.catalogue-heading p,.account-card h2,.account-form label,
+.checkout-card h2,.checkout-line,.checkout-form label,.checkout-notice {
+  color:#eee4d5 !important;
+}
+input,select,textarea,.catalogue-filters input,.catalogue-filters select,
+.account-form input,.checkout-form input,.checkout-form select,.checkout-form textarea {
+  background:#292922 !important; color:#f3eadb !important;
+  border:1px solid rgba(208,173,118,.48) !important;
+}
+input::placeholder,textarea::placeholder { color:#cbbda8 !important; opacity:1 !important; }
+.primary-button,.account-submit,.checkout-button {
+  background:#d0ad76 !important; color:#292720 !important; border:1px solid #e3c693 !important;
+}
+.footer { background:#22221d !important; color:#eee4d5 !important; border-top:1px solid #b89460 !important; }
+.footer h3,.footer h4,.footer p,.footer a,.footer-bottom { color:#eee4d5 !important; }
+#cdc-language-button { background:#39372e !important; color:#e1bd84 !important; border-color:rgba(208,173,118,.55) !important; }
+#cdc-language-menu { background:#292922 !important; color:#f3eadb !important; }
+#cdc-language-menu label { color:#f3eadb !important; }
+@media(max-width:800px) {
+ .header { min-height:126px !important; padding:10px 8px !important; }
+ .brand-monogram { width:49px !important; height:49px !important; min-width:49px !important; }
+ .brand-initials { font-size:21px !important; }
+ .brand-name { font-size:16px !important; letter-spacing:2px !important; }
+ .brand-tagline { font-size:7px !important; letter-spacing:1.5px !important; }
+ .header-actions { right:8px !important; gap:7px !important; }
+ .header-actions a { flex-basis:36px !important; width:36px !important; min-width:36px !important; max-width:36px !important; height:36px !important; min-height:36px !important; }
+ .header-actions a svg { width:19px !important; height:19px !important; }
+ .menu-button,#menuButton { left:8px !important; width:36px !important; height:36px !important; }
+ .header-search-form input { width:0 !important; max-width:0 !important; padding:0 !important; }
+ .header-search-form:focus-within input { width:72px !important; max-width:72px !important; padding:7px !important; }
+}
+@media(max-width:390px) {
+ .header { min-height:116px !important; }
+ .brand-name { font-size:14px !important; letter-spacing:1.5px !important; }
+ .brand-tagline { font-size:6px !important; letter-spacing:1px !important; }
+ .header-actions { gap:4px !important; right:5px !important; }
+ .header-actions a { flex-basis:31px !important; width:31px !important; min-width:31px !important; max-width:31px !important; height:31px !important; min-height:31px !important; }
+ .header-actions a svg { width:17px !important; height:17px !important; }
+ .menu-button,#menuButton { left:5px !important; width:32px !important; height:32px !important; }
+}
