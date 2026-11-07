@@ -128,7 +128,7 @@ function convertirProduit(p) {
       ? ["femme"]
       : categories.length ? categories : ["accessoires"],
 
-    prix: estCartier ? 16000 : prix,
+    prix: estCartier ? 16000 : (Number.isFinite(prix) && prix > 0 ? prix : null),
 
     ancienPrix: estCartier
       ? null
