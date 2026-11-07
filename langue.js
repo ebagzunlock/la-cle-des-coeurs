@@ -323,6 +323,40 @@ html body header.header>.header-actions svg,html body header.header #cdc-languag
     }
   }
 
+  function installWhiteBackgroundCleanup() {
+    const isNearWhite = value => {
+      const match = String(value || "").match(/rgba?\\(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+)/i);
+      return !!match && Number(match[1]) >= 238 && Number(match[2]) >= 238 && Number(match[3]) >= 238;
+    };
+    const paint = root => {
+      if (!root || !root.querySelectorAll) return;
+      const elements = [];
+      if (root.nodeType === 1) elements.push(root);
+      elements.push(...root.querySelectorAll("*"));
+      elements.forEach(el => {
+        if (/^(SCRIPT|STYLE|LINK|META|SVG|PATH|NOSCRIPT)$/.test(el.tagName)) return;
+        const style = getComputedStyle(el);
+        if (isNearWhite(style.backgroundColor)) {
+          el.style.setProperty("background-color", "#ded6cb", "important");
+          el.style.setProperty("border-color", "#c4b8a9", "important");
+          el.setAttribute("data-cdc-no-white-bg", "true");
+        }
+        if (isNearWhite(style.color) && el.tagName !== "BUTTON" && !el.closest(".cdc-global-footer,.header,.announcement,.primary-button,.cart-checkout,.checkout-button")) {
+          el.style.setProperty("color", "#403831", "important");
+        }
+      });
+    };
+    const run = () => paint(document.documentElement);
+    run();
+    window.addEventListener("load", run, { once: true });
+    const observer = new MutationObserver(records => {
+      records.forEach(record => record.addedNodes.forEach(node => {
+        if (node.nodeType === 1) paint(node);
+      }));
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+
   function installGlobalCountBadges() {
     const readArray = key => { try { const value = JSON.parse(localStorage.getItem(key) || '[]'); return Array.isArray(value) ? value : []; } catch { return []; } };
     const refresh = () => {
@@ -599,6 +633,7 @@ html body header.header>.header-actions svg,html body header.header #cdc-languag
     installCartToast();
     installGlobalFooter();
     installGlobalCountBadges();
+    installWhiteBackgroundCleanup();
     installSwitcher();
   }
   if (document.readyState === "loading") {
