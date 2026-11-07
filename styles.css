@@ -1303,3 +1303,197 @@ main, .welcome-section, .featured-section, .contact-strip {
     background: linear-gradient(transparent, rgba(25,20,16,.88)) !important;
   }
 }
+
+
+/* CORRECTION FINALE MOBILE — PALETTE SOMBRE SANS SURFACES BLANCHES */
+html, body, body > main {
+  background-color: #302923 !important;
+}
+body {
+  color: #e9dfd1 !important;
+  background: radial-gradient(ellipse at 50% 0%, #494037 0%, #332d27 48%, #29241f 100%) fixed !important;
+}
+body, main, section, .welcome-section, .featured-section, .contact-strip,
+.categories-section, .category-grid, .category-card, .editorial-section,
+.utility-bar {
+  color: #e9dfd1;
+}
+.welcome-section, .featured-section, .contact-strip, main {
+  background: transparent !important;
+}
+.header, .main-nav, .utility-bar {
+  background: #29241f !important;
+  color: #eee4d6 !important;
+  border-color: rgba(198,166,116,.28) !important;
+}
+.hero {
+  background-color: #332d27 !important;
+}
+.categories-section {
+  background: linear-gradient(135deg,#40382f,#302923) !important;
+}
+.category-card, .featured-home-card, .featured-placeholder {
+  background: #393129 !important;
+  color: #eee4d6 !important;
+  border-color: rgba(198,166,116,.3) !important;
+}
+.category-image, .category-product-item, .category-product-item img,
+.featured-home-card img {
+  background: #443a30 !important;
+}
+.category-card h3, .featured-home-card h3, .featured-home-card p,
+.featured-home-card a, .editorial-content h2, .editorial-content p,
+.welcome-section h2, .contact-strip h2, .section-heading h2 {
+  color: #eee4d6 !important;
+}
+.category-link, .editorial-content .text-link {
+  color: #d7b985 !important;
+  border-color: #b69a70 !important;
+}
+input, select, textarea, #cdc-language-menu, #cdc-language-select {
+  background: #393129 !important;
+  color: #f0e7da !important;
+  border-color: rgba(198,166,116,.38) !important;
+}
+#cdc-language-menu label { color: #e9dfd1 !important; }
+#cdc-language-menu option { background: #393129 !important; color: #f0e7da !important; }
+
+/* En-tête téléphone : menu | logo centré | compte, favoris, panier, langue */
+@media (max-width: 700px) {
+  .header {
+    width: 100% !important;
+    min-height: 76px !important;
+    height: auto !important;
+    padding: 8px 9px !important;
+    display: grid !important;
+    grid-template-columns: 34px minmax(0,1fr) auto !important;
+    align-items: center !important;
+    column-gap: 5px !important;
+    overflow: visible !important;
+  }
+  .header > .menu-button, .header > #menuButton {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    justify-self: start !important;
+    padding: 5px !important;
+    border-radius: 50% !important;
+  }
+  .header > .brand, .header > .brand-home-link {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    justify-self: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    white-space: nowrap !important;
+  }
+  .brand-monogram { display: none !important; }
+  .brand-name {
+    margin: 0 !important;
+    font-size: clamp(11px, 3.1vw, 15px) !important;
+    letter-spacing: clamp(1px, .35vw, 2px) !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+  }
+  .brand-tagline {
+    margin-top: 3px !important;
+    font-size: 6px !important;
+    letter-spacing: 1.2px !important;
+    line-height: 1 !important;
+  }
+  .header-actions {
+    grid-column: 3 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-self: end !important;
+    justify-content: flex-end !important;
+    gap: clamp(1px, .7vw, 5px) !important;
+    min-width: 0 !important;
+    width: auto !important;
+  }
+  .header-actions a, #cdc-language-button {
+    flex: 0 0 25px !important;
+    width: 25px !important;
+    min-width: 25px !important;
+    max-width: 25px !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    padding: 2px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .header-actions a svg, #cdc-language-button svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  .header-actions #cartCount { top: 0 !important; right: -1px !important; }
+  #cdc-language-switcher {
+    flex: 0 0 25px !important;
+    width: 25px !important;
+    min-width: 25px !important;
+    margin: 0 !important;
+  }
+  .category-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 10px !important;
+  }
+  .category-card { min-width: 0 !important; }
+  .category-image { height: clamp(165px, 48vw, 220px) !important; }
+  .category-product-item { max-width: none !important; }
+  .category-product-info {
+    opacity: 1 !important;
+    transform: none !important;
+    padding: 22px 8px 8px !important;
+    background: linear-gradient(transparent,rgba(25,20,16,.9)) !important;
+  }
+  .category-product-name { font-size: 9px !important; }
+  .category-product-price { font-size: 10px !important; }
+}
+@media (max-width: 360px) {
+  .header { padding-left: 6px !important; padding-right: 6px !important; column-gap: 2px !important; }
+  .header-actions { gap: 0 !important; }
+  .header-actions a, #cdc-language-button, #cdc-language-switcher {
+    flex-basis: 23px !important; width: 23px !important; min-width: 23px !important; max-width: 23px !important;
+  }
+  .brand-name { font-size: 10px !important; letter-spacing: .7px !important; }
+  .brand-tagline { font-size: 5px !important; letter-spacing: .7px !important; }
+}
+
+/* Chaque piste a sa propre largeur calculée dans sa case */
+.category-image { position: relative !important; overflow: hidden !important; }
+.category-product-track {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  max-width: none !important;
+  height: 100% !important;
+  animation: cdc-category-marquee var(--category-duration,24s) linear infinite !important;
+  animation-delay: var(--category-delay,0s) !important;
+}
+.category-product-item {
+  display: block !important;
+  flex-shrink: 0 !important;
+  height: 100% !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+.category-product-item img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  padding: 10px !important;
+}
+@keyframes cdc-category-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .category-product-track { animation: none !important; }
+}
