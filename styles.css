@@ -683,3 +683,85 @@ select {
 }
 .account-tabs button { background: var(--ivory) !important; color: var(--brown) !important; }
 .account-tabs button[aria-selected="true"] { background: var(--brown) !important; color: var(--ivory) !important; }
+
+
+/* Logo officiel CDC : monogramme dans un petit cercle, nom juste dessous */
+.header .brand,
+.footer-brand,
+.cdc-footer-brand {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+.header .brand-monogram,
+.footer-brand .brand-monogram,
+.cdc-footer-brand .brand-monogram {
+  box-sizing: border-box !important;
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  min-height: 42px !important;
+  padding: 0 !important;
+  margin: 0 auto 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid var(--champagne) !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  color: var(--brown) !important;
+  font-size: 0 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+}
+.header .brand-initials,
+.footer-brand .brand-initials,
+.cdc-footer-brand .brand-initials {
+  display: block !important;
+  margin: 0 !important;
+  color: var(--brown) !important;
+  font-family: var(--sans) !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1px !important;
+  line-height: 1 !important;
+}
+.header .brand-name,
+.footer-brand .brand-name,
+.cdc-footer-brand .brand-name {
+  display: block !important;
+  margin: 0 !important;
+  color: var(--dark) !important;
+  font-family: var(--serif) !important;
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.5px !important;
+  line-height: 1.2 !important;
+}
+@media (max-width: 600px) {
+  .header .brand-monogram { width: 38px !important; height: 38px !important; min-width: 38px !important; min-height: 38px !important; }
+  .header .brand-initials { font-size: 9px !important; }
+  .header .brand-name { font-size: 14px !important; letter-spacing: 1px !important; }
+}
+
+/* Derniers fonds locaux : alignement strict sur la palette d'origine */
+.catalogue-filters input, .catalogue-filters select,
+.checkout-form input, .checkout-form select, .checkout-form textarea,
+.contact-form input, .contact-form select, .contact-form textarea,
+.account-form input, .cart-item select {
+  background-color: var(--ivory) !important;
+  color: var(--dark) !important;
+  border-color: var(--border) !important;
+}
+.product-card, .favorite-card, .checkout-card, .account-card,
+.delivery-section, .contact-form, .cart-summary, .cart-empty {
+  background-color: var(--cream) !important;
+  color: var(--text) !important;
+}
+.product-image, .favorite-image, .cart-item-image,
+.featured-home-card img {
+  background-color: var(--beige) !important;
+}
+.featured-home-card { background-color: var(--cream) !important; color: var(--dark) !important; }
