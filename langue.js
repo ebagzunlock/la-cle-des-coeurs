@@ -126,7 +126,6 @@
   }
 
   function installCartToast() {
-    const nativeAlert = window.alert.bind(window);
     window.cdcToast = function(message) {
       let toast = document.getElementById("cdc-toast");
       if (!toast) {
@@ -134,32 +133,115 @@
         toast.id = "cdc-toast";
         toast.setAttribute("role", "status");
         toast.setAttribute("aria-live", "polite");
+        toast.innerHTML = '<span class="cdc-toast-check" aria-hidden="true">✓</span><span class="cdc-toast-message"></span>';
         document.body.appendChild(toast);
       }
-      toast.textContent = message;
+      toast.querySelector(".cdc-toast-message").textContent = message || "Produit ajouté au panier";
+      toast.classList.remove("is-visible");
+      void toast.offsetWidth;
       toast.classList.add("is-visible");
       window.clearTimeout(window.__cdcToastTimer);
-      window.__cdcToastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2600);
+      window.__cdcToastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2400);
     };
+
+    const nativeAlert = window.alert.bind(window);
     window.alert = function(message) {
       if (/ajouté au panier/i.test(String(message))) {
-        window.cdcToast("✓ Produit ajouté au panier");
+        window.cdcToast("Produit ajouté au panier");
         return;
       }
       nativeAlert(message);
     };
+
+    // Convertit aussi les éventuelles fenêtres de confirmation personnalisées du site.
+    const observer = new MutationObserver(() => {
+      document.querySelectorAll('[role="dialog"], .modal, .swal2-popup, .toast, .notification').forEach(el => {
+        if (!/produit ajouté au panier/i.test(el.textContent || "")) return;
+        const close = el.querySelector('button[aria-label*="fermer" i], button[title*="fermer" i], .close, .btn-close');
+        if (close) close.remove();
+        el.remove();
+        window.cdcToast("Produit ajouté au panier");
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
     if (!document.getElementById("cdc-toast-style")) {
       const style = document.createElement("style");
       style.id = "cdc-toast-style";
       style.textContent = `
         #cdc-toast {
-          position: fixed; left: 50%; bottom: 24px; z-index: 100005;
-          transform: translate(-50%, 18px); opacity: 0; pointer-events: none;
-          padding: 11px 18px; border-radius: 4px; background: #2f6d49; color: #fff;
-          box-shadow: 0 5px 18px rgba(0,0,0,.18); font: 13px Montserrat, Arial, sans-serif;
-          transition: opacity .22s ease, transform .22s ease;
+          position: fixed; left: 50%; bottom: 28px; z-index: 100005;
+          display: flex; align-items: center; gap: 11px;
+          min-width: 230px; max-width: calc(100vw - 32px);
+          box-sizing: border-box; padding: 14px 20px;
+          border: 1px solid rgba(255,255,255,.16); border-radius: 9px;
+          background: #25221f; color: #fff;
+          box-shadow: 0 10px 32px rgba(0,0,0,.22);
+          font: 500 13px Montserrat, Arial, sans-serif; letter-spacing: .2px;
+          opacity: 0; visibility: hidden; pointer-events: none;
+          transform: translate(-50%, 14px);
+          transition: opacity .24s ease, transform .24s ease, visibility .24s;
         }
-        #cdc-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+        #cdc-toast.is-visible {
+          opacity: 1; visibility: visible; transform: translate(-50%, 0);
+        }
+        #cdc-toast .cdc-toast-check {
+          display: inline-flex; flex: 0 0 22px; width: 22px; height: 22px;
+          align-items: center; justify-content: center; border-radius: 50%;
+          background: #d8c3a0; color: #25221f; font-size: 13px; font-weight: 700;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }
+
+  function installGlobalFooter() {
+    let footer = document.querySelector("footer.footer");
+    if (!footer) {
+      footer = document.createElement("footer");
+      footer.className = "footer cdc-global-footer";
+      footer.innerHTML = `
+        <div class="footer-brand">
+          <a class="cdc-footer-home" href="index.html" aria-label="LA CLÉ DES CŒURS — Retour à l’accueil">
+            <span class="brand-monogram">CDC</span>
+            <h3>LA CLÉ DES CŒURS</h3>
+            <p>BIJOUX FINS &amp; RAFFINÉS</p>
+          </a>
+        </div>
+        <div class="footer-column"><h4>LA BOUTIQUE</h4>
+          <a href="index.html">Accueil</a><a href="catalogue.html">Tous les produits</a>
+          <a href="favoris.html">Mes favoris</a><a href="panier.html">Mon panier</a>
+          <a href="qui-sommes-nous.html">Qui sommes-nous</a><a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-column"><h4>INFORMATIONS</h4>
+          <a href="livraison-retours.html">Livraison et retours</a>
+          <a href="conditions-generales.html">Conditions générales de vente</a>
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="confidentialite.html">Confidentialité</a>
+        </div>
+        <div class="footer-bottom">© <span class="cdc-current-year"></span> LA CLÉ DES CŒURS. Tous droits réservés.</div>
+      `;
+      document.body.appendChild(footer);
+    } else {
+      const brand = footer.querySelector(".footer-brand");
+      if (brand && !brand.querySelector("a")) {
+        const content = brand.innerHTML;
+        brand.innerHTML = '<a class="cdc-footer-home" href="index.html" aria-label="LA CLÉ DES CŒURS — Retour à l’accueil">' + content + '</a>';
+      }
+    }
+    footer.querySelectorAll(".cdc-current-year, #currentYear").forEach(el => el.textContent = new Date().getFullYear());
+    footer.querySelectorAll(".cdc-footer-home, .footer-brand a").forEach(a => a.setAttribute("href", "index.html"));
+
+    if (!document.getElementById("cdc-global-footer-style")) {
+      const style = document.createElement("style");
+      style.id = "cdc-global-footer-style";
+      style.textContent = `
+        .cdc-global-footer { margin-top: 64px; }
+        .footer-brand a, .cdc-footer-home { display: inline-block; color: inherit; text-decoration: none; }
+        .footer-brand a:hover, .cdc-footer-home:hover { opacity: .82; }
+        .footer-brand .brand-monogram { display: inline-flex; align-items: center; justify-content: center; }
+        .footer-brand h3 { margin: 12px 0 5px; }
+        .footer-brand p { margin: 0; }
       `;
       document.head.appendChild(style);
     }
@@ -289,5 +371,17 @@
     document.addEventListener("DOMContentLoaded", installSwitcher, { once: true });
   } else {
     installSwitcher();
+  }
+
+  function initializeCdcEnhancements() {
+    installGlobalNavigation();
+    installCartToast();
+    installGlobalFooter();
+    installSwitcher();
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeCdcEnhancements, { once: true });
+  } else {
+    initializeCdcEnhancements();
   }
 })();
