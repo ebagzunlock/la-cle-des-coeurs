@@ -185,7 +185,7 @@
       document.head.appendChild(style);
     }
 
-    // index.html possède déjà son propre gestionnaire de menu.
+    // La page d’accueil marque son gestionnaire dédié avec data-cdc-menu-ready.
     if (button.dataset.cdcMenuReady !== "true") {
       button.dataset.cdcMenuReady = "true";
       if (!/index\.html$/i.test(location.pathname)) {
