@@ -145,7 +145,7 @@
           .header {
             position: relative !important;
             display: grid !important;
-            grid-template-columns: 24px minmax(0, 1fr) auto !important;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
             align-items: center !important;
             justify-content: initial !important;
             column-gap: 6px !important;
@@ -164,7 +164,7 @@
           .header > .brand, .header > .brand-home-link {
             position: static !important;
             grid-column: 2 !important;
-            justify-self: start !important;
+            justify-self: center !important;
             align-self: center !important;
             transform: none !important;
             width: max-content !important;
