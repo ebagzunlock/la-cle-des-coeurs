@@ -51,8 +51,18 @@ function convertirProduit(p) {
     ...new Set((p.categories || []).map(convertirCategorie))
   ];
 
-  const imagesProduit = p.id === 30716 ? p.images?.slice(2) : p.images;
-const image = imagesProduit?.[0]?.src || "";
+  const imagesSource = Array.isArray(p.images) ? p.images : [];
+
+  // Correction spéciale pour la Cartier : retirer la mauvaise photo CE1.
+  const imagesProduit = String(p.id) === "30716"
+    ? imagesSource.filter(img =>
+        !/\/CE1\.jpeg(?:\?.*)?$/i.test(img.src || "")
+      )
+    : imagesSource;
+
+  const galerie = imagesProduit
+    .map(img => img.src)
+    .filter(Boolean);
 
   return {
     id: String(p.id),
@@ -62,10 +72,10 @@ const image = imagesProduit?.[0]?.src || "";
     categorie: categories[0] || "accessoires",
     categories: categories.length ? categories : ["accessoires"],
     prix: prix,
-    ancienPrix:
-      prixNormal > prix ? prixNormal : null,
+    ancienPrix: prixNormal > prix ? prixNormal : null,
     devise: "EUR",
-    image: image,
+    image: galerie[0] || "",
+    images: galerie,
     actif: true,
     description: nettoyerDescription(p.description),
     ficheSource: p.permalink || ""
@@ -112,7 +122,6 @@ async function chargerTousLesProduits() {
   return produitsImportes;
 }
 
-// Tableau conservé pour compatibilité avec le site existant.
 window.produits = [];
 
 window.produitsReady = chargerTousLesProduits()
