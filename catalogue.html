@@ -277,7 +277,7 @@
     </section>
   </main>
 
-  <script src="produits.js?v=catalogue-identique-20261107"></script>
+  <script src="produits.js?v=prix-nuls-corriges-20261107"></script>
 
   <script>
     "use strict";
@@ -327,7 +327,7 @@
     function formaterPrix(prix) {
       const montant = Number(prix);
 
-      if (!Number.isFinite(montant)) {
+      if (prix === null || prix === undefined || prix === "" || !Number.isFinite(montant) || montant <= 0) {
         return "Prix sur demande";
       }
 
@@ -414,11 +414,19 @@
       }
 
       if (tri === "prix-croissant") {
-        produits.sort((a, b) => Number(a.prix) - Number(b.prix));
+        produits.sort((a, b) => {
+          const prixA = Number(a.prix) > 0 ? Number(a.prix) : Number.POSITIVE_INFINITY;
+          const prixB = Number(b.prix) > 0 ? Number(b.prix) : Number.POSITIVE_INFINITY;
+          return prixA - prixB;
+        });
       }
 
       if (tri === "prix-decroissant") {
-        produits.sort((a, b) => Number(b.prix) - Number(a.prix));
+        produits.sort((a, b) => {
+          const prixA = Number(a.prix) > 0 ? Number(a.prix) : Number.NEGATIVE_INFINITY;
+          const prixB = Number(b.prix) > 0 ? Number(b.prix) : Number.NEGATIVE_INFINITY;
+          return prixB - prixA;
+        });
       }
 
       if (tri === "nom") {
