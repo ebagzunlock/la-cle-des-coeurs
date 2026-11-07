@@ -9,9 +9,10 @@ const API_PRODUITS =
   "https://la-cle-des-coeurs-api.bagzful.workers.dev/wp-json/wc/store/v1/products";
 
 const IMAGES_CARTIER = [
-  "https://www.watchesofswitzerland.com/cdn/shop/files/926-CRWGBA0025_1_8b8b16c7-b0ce-4f5a-b949-7baa591c569a.jpg?width=1200",
-  "https://www.watchesofswitzerland.com/cdn/shop/files/926-CRWGBA0025_4_fea54808-353b-414a-a1a9-2059147e57c0.jpg?width=1200",
-  "https://www.watchesofswitzerland.com/cdn/shop/files/926-CRWGBA0025_5_425d5a57-ee4f-4b2e-8a76-d2a2b1586d7c.jpg?width=1200"
+  "https://pisa1940.com/cdn/shop/files/SOLD_115_e13845bd-fce8-4eeb-8067-a5a86ae5bad8.png?v=1793283493",
+  "https://pisa1940.com/cdn/shop/files/w1242_tpadding12_20_3__8_56539df2-8927-4022-9f58-d1892be7478d.webp?v=1793283493",
+  "https://pisa1940.com/cdn/shop/files/w1242_tpadding12_20_1__8.webp?v=1793283492",
+  "https://pisa1940.com/cdn/shop/files/w1242_tpadding12_20_2__7.webp?v=1793283492"
 ];
 
 const CATEGORIES = {
