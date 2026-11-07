@@ -40,7 +40,7 @@ function convertirCategorie(categorie) {
   if (/ap.*swatch|swatch.*ap/.test(valeur)) return "ap-swatch";
   if (/femme|women|woman|ladies/.test(valeur)) return "femme";
   if (/homme|men|man|gentlemen/.test(valeur)) return "homme";
-  if (/accessoir|bracelet|bijou|jewel|accessor/.test(valeur)) return "accessoires";
+  if (/accessoir|accessor|bracelet|bijou|jewel|bague|ring|collier|necklace|earring|boucle/.test(valeur)) return "accessoires";
 
   return null;
 }
@@ -133,11 +133,23 @@ function convertirProduit(p) {
     || prixVente
     || null;
 
+  const categoriesSource = Array.isArray(p.categories) ? p.categories : [];
   const categories = [
-    ...new Set((Array.isArray(p.categories) ? p.categories : [])
-      .map(convertirCategorie)
-      .filter(Boolean))
+    ...new Set(categoriesSource.map(convertirCategorie).filter(Boolean))
   ];
+
+  // Certains produits de la boutique source ont une catégorie vide ou
+  // un libellé différent. On récupère alors les bijoux par leur famille
+  // de termes, sans reclasser les montres déjà correctement catégorisées.
+  if (!categories.length) {
+    const texteProduit = normaliserTexteCategorie(
+      [p.name, p.short_description, p.description]
+        .filter(Boolean).join(" ")
+    );
+    if (/bracelet|bague|ring|collier|necklace|boucle-d-oreille|earring|bijou|jewel|broche|pendentif/.test(texteProduit)) {
+      categories.push("accessoires");
+    }
+  }
 
   const imagesSource = Array.isArray(p.images) ? p.images : [];
 
