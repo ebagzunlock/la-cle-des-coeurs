@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Votre espace client LA CLÉ DES CŒURS.">
+  <title>Mon compte | LA CLÉ DES CŒURS</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .account-page{max-width:760px;margin:55px auto 80px;padding:0 20px}
+    .account-heading{text-align:center;margin-bottom:35px}
+    .account-heading h1{font:500 clamp(34px,5vw,48px)/1.2 Georgia,serif;color:#302820}
+    .account-card{background:#fff;border:1px solid #e7e0d7;padding:30px;margin-bottom:20px}
+    .account-tabs{display:flex;gap:10px;margin-bottom:24px}
+    .account-tabs button{flex:1;padding:12px;border:1px solid #c7aa7b;background:#fff;color:#514238;cursor:pointer}
+    .account-tabs button[aria-selected=true]{background:#514238;color:#fff}
+    .account-form label{display:block;margin:14px 0 6px;color:#55483d}
+    .account-form input{width:100%;padding:13px;border:1px solid #ded5c9;background:#fff;font:inherit}
+    .account-submit{width:100%;margin-top:22px;padding:15px;border:0;background:#8b745c;color:#fff;cursor:pointer;letter-spacing:1px}
+    .account-submit:disabled{opacity:.6;cursor:wait}
+    .account-message{margin:15px 0;padding:12px;background:#f5f2ed;color:#514238;white-space:pre-wrap}
+    .account-message[hidden]{display:none}
+    .account-orders{margin-top:25px}
+    .account-order{padding:16px 0;border-top:1px solid #e7e0d7}
+    .account-logout{padding:10px 18px;border:1px solid #8b745c;background:transparent;color:#514238;cursor:pointer}
+    @media(max-width:600px){.account-card{padding:20px}}
+  </style>
+</head>
+<body>
+  <div class="announcement">BIENVENUE CHEZ LA CLÉ DES CŒURS</div>
+  <header class="header">
+    <div></div>
+    <a href="index.html" class="brand brand-home-link" title="Retour à l’accueil" aria-label="LA CLÉ DES CŒURS — Accueil">
+      <span class="brand-monogram">CDC</span><span class="brand-name">LA CLÉ DES CŒURS</span><span class="brand-tagline">BIJOUX FINS &amp; RAFFINÉS</span>
+    </a>
+    <div class="header-actions">
+      <a href="compte.html" aria-label="Mon compte" title="Mon compte">♙</a>
+      <a href="favoris.html" aria-label="Favoris">♡</a>
+      <a href="panier.html" aria-label="Panier">♧</a>
+    </div>
+  </header>
+  <nav class="main-nav" aria-label="Navigation principale">
+    <a href="index.html">Accueil</a><a href="catalogue.html">Catalogue</a>
+    <a href="qui-sommes-nous.html">Qui sommes-nous</a><a href="contact.html">Contact</a>
+  </nav>
+
+  <main class="account-page">
+    <div class="account-heading">
+      <p class="eyebrow">LA CLÉ DES CŒURS</p>
+      <h1>Mon espace client</h1>
+      <p>Retrouvez vos informations et vos commandes.</p>
+    </div>
+    <section class="account-card" id="authPanel">
+      <div class="account-tabs" role="tablist" aria-label="Accès au compte">
+        <button type="button" id="loginTab" aria-selected="true">Connexion</button>
+        <button type="button" id="registerTab" aria-selected="false">Créer un compte</button>
+      </div>
+      <p class="account-message" id="accountMessage" role="status" hidden></p>
+      <form class="account-form" id="accountForm">
+        <div id="nameFields" hidden>
+          <label for="firstName">Prénom</label><input id="firstName" name="firstName" autocomplete="given-name">
+          <label for="lastName">Nom</label><input id="lastName" name="lastName" autocomplete="family-name">
+        </div>
+        <label for="email">Adresse e-mail</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+        <label for="password">Mot de passe</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" minlength="10" required>
+        <p id="passwordHint" class="checkout-notice" hidden>Utilisez au moins 10 caractères.</p>
+        <button class="account-submit" id="submitButton" type="submit">ME CONNECTER</button>
+      </form>
+    </section>
+
+    <section class="account-card" id="profilePanel" hidden>
+      <p class="eyebrow">BIENVENUE</p>
+      <h2 id="profileName"></h2>
+      <p id="profileEmail"></p>
+      <div class="account-orders">
+        <h2>Mes commandes</h2>
+        <div id="ordersList"><p>Chargement de vos commandes…</p></div>
+      </div>
+      <button class="account-logout" id="logoutButton" type="button">ME DÉCONNECTER</button>
+    </section>
+  </main>
+
+  <script>
+    "use strict";
+    const API = "https://la-cle-des-coeurs-api.bagzful.workers.dev";
+    const form = document.getElementById("accountForm");
+    const message = document.getElementById("accountMessage");
+    const loginTab = document.getElementById("loginTab");
+    const registerTab = document.getElementById("registerTab");
+    const nameFields = document.getElementById("nameFields");
+    const passwordHint = document.getElementById("passwordHint");
+    const submitButton = document.getElementById("submitButton");
+    let mode = "login";
+
+    function showMessage(text, isError) {
+      message.hidden = !text;
+      message.textContent = text || "";
+      message.style.borderLeft = isError ? "3px solid #a34d42" : "3px solid #8b745c";
+    }
+    function setMode(next) {
+      mode = next;
+      const registering = mode === "register";
+      loginTab.setAttribute("aria-selected", String(!registering));
+      registerTab.setAttribute("aria-selected", String(registering));
+      nameFields.hidden = !registering;
+      document.getElementById("firstName").required = registering;
+      document.getElementById("lastName").required = registering;
+      passwordHint.hidden = !registering;
+      document.getElementById("password").autocomplete = registering ? "new-password" : "current-password";
+      submitButton.textContent = registering ? "CRÉER MON COMPTE" : "ME CONNECTER";
+      showMessage("", false);
+    }
+    loginTab.addEventListener("click", () => setMode("login"));
+    registerTab.addEventListener("click", () => setMode("register"));
+
+    async function api(path, options = {}) {
+      const response = await fetch(API + path, {
+        ...options,
+        credentials: "include",
+        headers: { "Content-Type": "application/json", ...(options.headers || {}) }
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.erreur || "Une erreur est survenue. Réessayez.");
+      return data;
+    }
+    function showProfile(user, orders) {
+      document.getElementById("authPanel").hidden = true;
+      document.getElementById("profilePanel").hidden = false;
+      document.getElementById("profileName").textContent = [user.first_name, user.last_name].filter(Boolean).join(" ");
+      document.getElementById("profileEmail").textContent = user.email || "";
+      const list = document.getElementById("ordersList");
+      list.replaceChildren();
+      if (!orders || !orders.length) {
+        list.textContent = "Aucune commande associée à ce compte pour le moment.";
+      } else {
+        orders.forEach(order => {
+          const item = document.createElement("div");
+          item.className = "account-order";
+          const date = new Date(Number(order.created_at) * 1000);
+          const title = document.createElement("strong");
+          title.textContent = "Commande du " + date.toLocaleDateString("fr-FR");
+          const detail = document.createElement("p");
+          detail.textContent = (Number(order.amount_total || 0) / 100).toLocaleString("fr-FR", {style:"currency",currency:String(order.currency || "EUR").toUpperCase()}) + " · " + (order.payment_status || "Statut indisponible");
+          item.append(title, detail);
+          list.append(item);
+        });
+      }
+    }
+    async function loadAccount() {
+      try {
+        const data = await api("/account/me");
+        const orders = await api("/account/orders");
+        showProfile(data.user, orders.orders || []);
+      } catch (_) {
+        document.getElementById("authPanel").hidden = false;
+        document.getElementById("profilePanel").hidden = true;
+      }
+    }
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      submitButton.disabled = true;
+      const oldText = submitButton.textContent;
+      submitButton.textContent = "VEUILLEZ PATIENTER…";
+      showMessage("", false);
+      try {
+        const payload = {
+          email: document.getElementById("email").value.trim(),
+          password: document.getElementById("password").value
+        };
+        if (mode === "register") {
+          payload.firstName = document.getElementById("firstName").value.trim();
+          payload.lastName = document.getElementById("lastName").value.trim();
+        }
+        const data = await api(mode === "register" ? "/account/register" : "/account/login", {
+          method: "POST", body: JSON.stringify(payload)
+        });
+        const orders = await api("/account/orders");
+        showProfile(data.user, orders.orders || []);
+      } catch (error) {
+        showMessage(error.message, true);
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = oldText;
+      }
+    });
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+      try { await api("/account/logout", {method:"POST", body:"{}"}); }
+      finally {
+        document.getElementById("profilePanel").hidden = true;
+        document.getElementById("authPanel").hidden = false;
+        form.reset(); setMode("login");
+        showMessage("Vous êtes déconnecté(e).", false);
+      }
+    });
+    loadAccount();
+  </script>
+  <script src="langue.js?v=f408f38"></script>
+</body>
+</html>
