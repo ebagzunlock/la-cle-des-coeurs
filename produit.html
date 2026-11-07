@@ -23,15 +23,15 @@
       font-size: 13px;
     }
 
-    .back-link:hover {
-      text-decoration: underline;
-    }
-
     .product-detail {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 55px;
       align-items: start;
+    }
+
+    .product-gallery {
+      min-width: 0;
     }
 
     .product-detail-image {
@@ -51,6 +51,32 @@
       height: 100%;
       object-fit: contain;
       display: block;
+    }
+
+    .product-thumbnails {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .product-thumbnail {
+      width: 75px;
+      height: 75px;
+      padding: 3px;
+      border: 1px solid #d8cbbb;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .product-thumbnail.active {
+      border: 2px solid #9a8060;
+    }
+
+    .product-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .product-detail-info {
@@ -90,7 +116,6 @@
       color: #71695f;
       font-size: 14px;
       line-height: 1.9;
-      white-space: pre-line;
       margin-bottom: 25px;
     }
 
@@ -307,11 +332,19 @@
         produit.description || "Découvrez ce modèle de notre sélection LA CLÉ DES CŒURS."
       );
       const reference = echapperHTML(produit.reference || "");
-      const image = produit.image ? echapperHTML(produit.image) : "";
 
-      const visuel = image
-        ? `<img src="${image}" alt="${nom}">`
-        : `<span>Photo à intégrer</span>`;
+      const images = [
+        ...new Set(
+          (Array.isArray(produit.images) ? produit.images : [])
+            .filter(Boolean)
+        )
+      ];
+
+      if (produit.image && !images.includes(produit.image)) {
+        images.unshift(produit.image);
+      }
+
+      const premiereImage = images[0] || "";
 
       const ancienPrix = produit.ancienPrix
         ? `<span class="detail-old-price">${formaterPrix(produit.ancienPrix)}</span>`
@@ -321,8 +354,31 @@
 
       contenuProduit.innerHTML = `
         <article class="product-detail">
-          <div class="product-detail-image">
-            ${visuel}
+
+          <div class="product-gallery">
+            <div class="product-detail-image">
+              ${
+                premiereImage
+                  ? `<img id="photoPrincipale" src="${echapperHTML(premiereImage)}" alt="${nom}">`
+                  : `<span>Photo à intégrer</span>`
+              }
+            </div>
+
+            <div class="product-thumbnails">
+              ${images.map((url, index) => `
+                <button
+                  type="button"
+                  class="product-thumbnail ${index === 0 ? "active" : ""}"
+                  data-index="${index}"
+                  aria-label="Afficher la photo ${index + 1}"
+                >
+                  <img
+                    src="${echapperHTML(url)}"
+                    alt="${nom} - photo ${index + 1}"
+                  >
+                </button>
+              `).join("")}
+            </div>
           </div>
 
           <div class="product-detail-info">
@@ -353,8 +409,27 @@
               </button>
             </div>
           </div>
+
         </article>
       `;
+
+      document.querySelectorAll(".product-thumbnail").forEach(function(bouton) {
+        bouton.addEventListener("click", function() {
+          const index = Number(bouton.dataset.index);
+          const image = images[index];
+          const photoPrincipale = document.getElementById("photoPrincipale");
+
+          if (image && photoPrincipale) {
+            photoPrincipale.src = image;
+
+            document.querySelectorAll(".product-thumbnail").forEach(function(element) {
+              element.classList.remove("active");
+            });
+
+            bouton.classList.add("active");
+          }
+        });
+      });
 
       document.getElementById("ajouterPanier").addEventListener("click", function() {
         ajouterAuPanier(produit);
@@ -367,6 +442,8 @@
 
     if (!idProduit) {
       afficherErreur("Aucun produit n'a été sélectionné.");
+    } else if (!window.produitsReady) {
+      afficherErreur("Le catalogue n'a pas pu démarrer.");
     } else {
       window.produitsReady
         .then(function() {
