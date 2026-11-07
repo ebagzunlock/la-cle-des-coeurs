@@ -140,7 +140,7 @@
             left: 50% !important; top: 50% !important;
             transform: translate(-50%,-50%) !important;
             width: max-content !important;
-            max-width: calc(100% - 190px) !important;
+            max-width: calc(100% - 178px) !important;
             min-width: 0 !important;
             display: flex !important;
             flex-direction: row !important;
@@ -168,15 +168,15 @@
             z-index: 3 !important;
           }
           .header-actions a, #cdc-language-button {
-            flex: 0 0 31px !important;
-            width: 31px !important; min-width: 31px !important;
+            flex: 0 0 28px !important;
+            width: 28px !important; min-width: 28px !important;
             height: 34px !important; min-height: 34px !important;
             padding: 3px !important; box-sizing: border-box !important;
             display: inline-flex !important;
             align-items: center !important; justify-content: center !important;
           }
-          .header-actions a svg, #cdc-language-button svg { width: 19px !important; height: 19px !important; }
-          #cdc-language-switcher { flex: 0 0 31px !important; width: 31px !important; margin: 0 !important; }
+          .header-actions a svg, #cdc-language-button svg { width: 18px !important; height: 18px !important; }
+          #cdc-language-switcher { flex: 0 0 28px !important; width: 28px !important; margin: 0 !important; }
           .main-nav.is-open {
             flex-direction: column; align-items: stretch; gap: 0; padding: 5px 20px;
           }
