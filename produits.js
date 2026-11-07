@@ -5,7 +5,7 @@
    ========================================= */
 
 const API_PRODUITS =
-  "https://bijouterielamalmaison.fr/wp-json/wc/store/v1/products";
+"https://la-cle-des-coeurs-api.bagzful.workers.dev/wp-json/wc/store/v1/products";
 
 const CATEGORIES = {
   "ap-x-swatch": "ap-swatch",
