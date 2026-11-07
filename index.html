@@ -14,7 +14,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=signature-minerale-20261107-2">
+  <link rel="stylesheet" href="styles.css?v=espresso-mobile-fix-20261107-3">
 
   <style>
     .main-nav.is-open {
@@ -448,7 +448,7 @@
   </script>
   <script>
     (function() {
-      const zones = document.querySelectorAll("[data-category-image]");
+      const zones = Array.from(document.querySelectorAll("[data-category-image]"));
       if (!zones.length || !window.produitsReady) return;
 
       const euro = value => new Intl.NumberFormat("fr-FR", {
@@ -463,9 +463,9 @@
         zones.forEach(function(zone, zoneIndex) {
           const categorie = zone.dataset.categoryImage;
           const selection = produits.filter(function(produit) {
-            if (!produit || produit.actif === false || !produit.image) return false;
-            const categories = Array.isArray(produit.categories) ? produit.categories : [];
-            return categories.includes(categorie);
+            return produit && produit.actif !== false && produit.image &&
+              Array.isArray(produit.categories) &&
+              produit.categories.includes(categorie);
           });
 
           if (!selection.length) {
@@ -476,21 +476,21 @@
 
           const piste = document.createElement("div");
           piste.className = "category-product-track";
+          const largeur = Math.max(180, Math.round(zone.getBoundingClientRect().width));
 
-          // La deuxième série rend le défilement continu, propre à cette catégorie.
           selection.concat(selection).forEach(function(produit, index) {
             const lien = document.createElement("a");
             lien.className = "category-product-item";
             lien.href = "produit.html?id=" + encodeURIComponent(produit.id);
+            lien.style.width = largeur + "px";
+            lien.style.flex = "0 0 " + largeur + "px";
             lien.setAttribute("aria-label", (produit.nom || "Découvrir le produit") + " — " + euro(produit.prix));
 
             const image = document.createElement("img");
             image.src = produit.image;
             image.alt = produit.nom || "Produit de la collection";
             image.loading = index < 2 ? "eager" : "lazy";
-            image.onerror = function() {
-              lien.remove();
-            };
+            image.onerror = function() { lien.remove(); };
 
             const infos = document.createElement("span");
             infos.className = "category-product-info";
@@ -503,12 +503,12 @@
             piste.appendChild(lien);
           });
 
+          piste.style.width = (largeur * selection.length * 2) + "px";
           zone.replaceChildren(piste);
           zone.classList.add("category-image-moving");
-          zone.style.setProperty("--category-count", selection.length);
-          zone.style.setProperty("--category-duration", Math.max(16, selection.length * 5.5) + "s");
-          zone.style.setProperty("--category-delay", (zoneIndex * -2.3) + "s");
-          zone.setAttribute("aria-label", selection.length + " produits défilent automatiquement dans cette catégorie. Survolez une photo pour afficher ses détails.");
+          zone.style.setProperty("--category-duration", Math.max(18, selection.length * 6) + "s");
+          zone.style.setProperty("--category-delay", (zoneIndex * -2.1) + "s");
+          zone.setAttribute("aria-label", "Défilement indépendant des produits de la catégorie " + categorie);
         });
       }).catch(function() {
         zones.forEach(function(zone) { zone.classList.add("category-image-empty"); });
