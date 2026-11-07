@@ -35,49 +35,24 @@
     }
 
     .product-detail-image {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background: #f5f2ed;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      color: #948879;
-      font-size: 14px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      background: transparent;
+      overflow: visible;
     }
 
     .product-detail-image img {
       width: 100%;
-      height: 100%;
+      aspect-ratio: 1 / 1;
+      height: auto;
       object-fit: contain;
       display: block;
+      background: #f5f2ed;
+      border: 1px solid #eee7df;
     }
 
-    .product-thumbnails {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .product-thumbnail {
-      width: 75px;
-      height: 75px;
-      padding: 3px;
-      border: 1px solid #d8cbbb;
-      background: #fff;
-      cursor: pointer;
-    }
-
-    .product-thumbnail.active {
-      border: 2px solid #9a8060;
-    }
-
-    .product-thumbnail img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
+    .product-thumbnails { display: none; }
 
     .product-detail-info {
       padding-top: 15px;
@@ -361,28 +336,16 @@
 
           <div class="product-gallery">
             <div class="product-detail-image">
-              ${
-                premiereImage
-                  ? `<img id="photoPrincipale" src="${echapperHTML(premiereImage)}" alt="${nom}">`
-                  : `<span>Photo à intégrer</span>`
+              ${images.length
+                ? images.map((url, index) => `
+                    <img
+                      src="${echapperHTML(url)}"
+                      alt="${nom} - photo ${index + 1}"
+                      loading="eager"
+                    >
+                  `).join("")
+                : `<span>Photo à intégrer</span>`
               }
-            </div>
-
-            <div class="product-thumbnails">
-              ${imagesMiniatures.map((url, index) => `
-                <button
-                  type="button"
-                  class="product-thumbnail"
-                  data-index="${index + 1}"
-                  aria-label="Afficher la photo ${index + 2}"
-                >
-                  <img
-                    src="${echapperHTML(url)}"
-                    alt="${nom} - photo ${index + 2}"
-                    loading="lazy"
-                  >
-                </button>
-              `).join("")}
             </div>
           </div>
 
