@@ -13,7 +13,14 @@
     .cart-item-image { height:85px; display:grid; place-items:center; background:#e8dfd2; color:#514238; font:30px "Cormorant Garamond",serif; }
     .cart-item h2 { font:500 22px "Cormorant Garamond",serif; color:#302820; }
     .cart-item p { font-size:12px; }
-    .cart-item input { width:65px; padding:8px; border:1px solid #ddd2c4; }
+    .cart-item select {
+      width:92px; min-height:42px; padding:9px 34px 9px 12px;
+      border:1px solid #b99b68; border-radius:2px;
+      background:#fffdf9; color:#34251f; font:500 13px "Manrope",sans-serif;
+      cursor:pointer; appearance:auto;
+    }
+    .cart-item select:focus { outline:2px solid #b99b68; outline-offset:2px; }
+    .cart-item-line-total { margin-top:7px; color:#755b42; font-weight:600; }
     .cart-remove { border:0; background:transparent; color:#795e4b; cursor:pointer; text-decoration:underline; font-size:12px; }
     .cart-summary { max-width:420px; margin:30px 0 0 auto; padding:25px; background:#f2eee7; }
     .cart-total { display:flex; justify-content:space-between; font-size:18px; margin-bottom:20px; }
@@ -157,22 +164,29 @@
         const name = document.createElement("h2");
         name.textContent = item.name || "Article";
         const priceText = document.createElement("p");
-        priceText.textContent = formatPrice(price);
-        details.append(name, priceText);
+        priceText.textContent = "Prix unitaire : " + formatPrice(price);
+        const lineTotal = document.createElement("p");
+        lineTotal.className = "cart-item-line-total";
+        lineTotal.textContent = "Sous-total : " + formatPrice(price * quantity);
+        details.append(name, priceText, lineTotal);
 
         const actions = document.createElement("div");
         actions.className = "cart-item-actions";
 
-        const quantityInput = document.createElement("input");
-        quantityInput.type = "number";
-        quantityInput.min = "1";
-        quantityInput.max = "10";
-        quantityInput.value = quantity;
-        quantityInput.setAttribute("aria-label", "Quantité");
+        const quantityInput = document.createElement("select");
+        quantityInput.setAttribute("aria-label", "Choisir la quantité pour " + (item.name || "cet article"));
+        quantityInput.title = "Choisir une quantité";
+        for (let q = 1; q <= 10; q++) {
+          const option = document.createElement("option");
+          option.value = String(q);
+          option.textContent = q + (q === 1 ? " article" : " articles");
+          quantityInput.appendChild(option);
+        }
+        quantityInput.value = String(quantity);
         quantityInput.addEventListener("change", () => {
           const updated = readCart();
           if (!updated[index]) return;
-          updated[index].quantity = Math.min(10, Math.max(1, Number(quantityInput.value) || 1));
+          updated[index].quantity = Number(quantityInput.value);
           saveCart(updated);
         });
 
@@ -198,6 +212,6 @@
 
     renderCart();
   </script>
-  <script src="langue.js?v=toast-footer-20261107-2"></script>
+  <script src="langue.js?v=footer-categories-20261107-3"></script>
 </body>
 </html>
