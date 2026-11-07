@@ -323,15 +323,38 @@ html body header.header>.header-actions svg,html body header.header #cdc-languag
     }
   }
 
-  function installGlobalFooter() {
-    let footer = document.querySelector("footer.footer, body > footer, main ~ footer, footer");
-    if (!footer) {
-      footer = document.createElement("footer");
-      footer.className = "footer";
-      document.body.appendChild(footer);
+  function installGlobalCountBadges() {
+    const readArray = key => { try { const value = JSON.parse(localStorage.getItem(key) || '[]'); return Array.isArray(value) ? value : []; } catch { return []; } };
+    const refresh = () => {
+      const favoriteCount = readArray('cdc_favorites').length;
+      const cartCount = readArray('cdc_cart').reduce((sum,item) => sum + Math.max(0,Number(item.quantity)||1),0);
+      document.querySelectorAll('.header-actions a').forEach(link => {
+        const href=(link.getAttribute('href')||'').toLowerCase();
+        const type=href.includes('favoris')?'favorites':href.includes('panier')?'cart':'';
+        if(!type)return;
+        let badge=link.querySelector('.cdc-count-badge');
+        if(!badge){badge=document.createElement('span');badge.className='cdc-count-badge';link.appendChild(badge);}
+        const count=type==='favorites'?favoriteCount:cartCount;
+        badge.textContent=count>99?'99+':String(count);badge.hidden=count<1;
+        link.setAttribute('data-count',String(count));
+        link.setAttribute('aria-label',(type==='favorites'?'Mes favoris':'Mon panier')+' ('+count+')');
+      });
+    };
+    if(!window.__cdcStorageCounterHook){
+      window.__cdcStorageCounterHook=true;
+      const originalSet=Storage.prototype.setItem;
+      Storage.prototype.setItem=function(key,value){const result=originalSet.call(this,key,value);if(key==='cdc_cart'||key==='cdc_favorites')window.dispatchEvent(new Event('cdc:counts-changed'));return result;};
+      const originalRemove=Storage.prototype.removeItem;
+      Storage.prototype.removeItem=function(key){const result=originalRemove.call(this,key);if(key==='cdc_cart'||key==='cdc_favorites')window.dispatchEvent(new Event('cdc:counts-changed'));return result;};
     }
-
-    footer.classList.add("cdc-global-footer");
+    window.addEventListener('cdc:counts-changed',refresh);window.addEventListener('storage',refresh);window.addEventListener('pageshow',refresh);window.addEventListener('focus',refresh);refresh();
+  }
+  function installGlobalFooter() {
+    const oldFooters = Array.from(document.querySelectorAll("footer"));
+    let footer = oldFooters.find(item => item.classList.contains("footer")) || oldFooters[0];
+    if (!footer) { footer = document.createElement("footer"); document.body.appendChild(footer); }
+    oldFooters.forEach(item => { if (item !== footer) item.remove(); });
+    footer.className = "footer cdc-global-footer";
     footer.innerHTML = `
       <div class="footer-brand">
         <a class="cdc-footer-home" href="index.html" aria-label="LA CLÉ DES CŒURS — Retour à l’accueil">
@@ -394,6 +417,28 @@ html body header.header>.header-actions svg,html body header.header #cdc-languag
           letter-spacing:1.5px; text-align:center;
         }
         .cdc-global-footer .footer-column a { cursor: pointer; }
+        .cdc-global-footer{position:relative!important;display:grid!important;grid-template-columns:1.4fr 1fr 1.5fr!important;gap:32px!important;padding:58px 7% 24px!important;background:linear-gradient(125deg,#29231f,#40352e)!important;color:#eee4d6!important;border-top:1px solid #b69a70!important}
+        .cdc-global-footer .footer-brand{display:flex!important;align-items:flex-start!important;justify-content:center!important}
+        .cdc-global-footer .footer-brand a{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important;text-decoration:none!important}
+        .cdc-global-footer .footer-brand .brand-monogram{width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;flex:0 0 48px!important;margin:0 auto 8px!important;border:1px solid #c7aa7b!important;border-radius:50%!important;outline:1px solid rgba(199,170,123,.42)!important;outline-offset:3px!important;background:radial-gradient(circle at 35% 25%,#665344,#302820 78%)!important;color:#ead7b5!important}
+        .cdc-global-footer .footer-brand .brand-initials{display:block!important;color:#ead7b5!important;font:600 11px/1 Montserrat,Arial,sans-serif!important;letter-spacing:1px!important}
+        .cdc-global-footer .footer-brand h3{display:block!important;margin:0!important;color:#f0e5d2!important;font:600 17px/1.15 'Cormorant Garamond',Georgia,serif!important;letter-spacing:1.1px!important;text-align:center!important;white-space:nowrap!important}
+        .cdc-global-footer .footer-brand p{display:block!important;margin:4px 0 0!important;color:#d2bd99!important;font:7px/1.3 Montserrat,Arial,sans-serif!important;letter-spacing:1.5px!important;text-align:center!important}
+        .cdc-global-footer .footer-column h4{color:#ead9bc!important}.cdc-global-footer .footer-column a,.cdc-global-footer .footer-bottom{color:#e5dbce!important}.cdc-global-footer .footer-column a:hover{color:#d7b985!important}
+        @media(max-width:700px){.cdc-global-footer{grid-template-columns:1fr 1fr!important;gap:24px 16px!important;padding:42px 6% 22px!important}.cdc-global-footer .footer-brand,.cdc-global-footer .footer-bottom{grid-column:1/-1!important}.cdc-global-footer .footer-bottom{text-align:center!important}}
+        html,body{background:#e7e0d6!important;color:#403831!important}
+        body{background:radial-gradient(ellipse at 15% 0%,rgba(250,245,235,.28),transparent 38%),linear-gradient(145deg,#e9e3da 0%,#ded6cb 52%,#e7e0d6 100%) fixed!important;color:#403831!important}
+        .header,.main-nav,.utility-bar{background:#e2dbd0!important;border-color:rgba(104,86,68,.22)!important}
+        main,.welcome-section,.featured-section,.contact-strip{background:transparent!important}
+        .categories-section{background:linear-gradient(135deg,#d9d0c4,#e5ddd2)!important}
+        .category-card,.featured-home-card,.featured-placeholder,.product-card,.product-item,.catalogue-card,.favorite-card,.checkout-card,.account-card,.delivery-section,.contact-form,.cart-item,.cart-summary,.cart-empty{background:#eee8df!important;color:#403831!important;border-color:#cfc4b6!important}
+        .category-image,.category-product-item,.category-product-item img,.product-image,.favorite-image,.cart-item-image,.featured-home-card img{background:#ddd4c8!important}
+        .category-card h3,.featured-home-card h3,.cart-item h2,.cart-page h1{color:#352d27!important}
+        input,select,textarea{background:#f0ebe3!important;color:#352d27!important;border-color:#c5b8a7!important}
+        input::placeholder,textarea::placeholder{color:#766b5f!important;opacity:1!important}
+        .header-actions a{position:relative!important;overflow:visible!important}
+        .cdc-count-badge{position:absolute!important;top:-5px!important;right:-5px!important;z-index:8!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:16px!important;height:16px!important;padding:0 4px!important;border:1px solid #f0e7d8!important;border-radius:999px!important;background:#9b7448!important;color:#fffaf1!important;font:700 9px/1 Arial,sans-serif!important;box-shadow:0 1px 4px rgba(0,0,0,.2)!important;pointer-events:none!important}
+        .cdc-count-badge[hidden]{display:none!important}
       `;
       document.head.appendChild(style);
     }
@@ -534,6 +579,7 @@ html body header.header>.header-actions svg,html body header.header #cdc-languag
     installGlobalNavigation();
     installCartToast();
     installGlobalFooter();
+    installGlobalCountBadges();
     installSwitcher();
   }
   if (document.readyState === "loading") {
