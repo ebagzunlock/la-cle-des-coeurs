@@ -267,13 +267,17 @@
             <input type="checkbox" id="acceptTerms" name="acceptTerms" required>
             <span>J’accepte les <a href="conditions-generales.html" target="_blank" rel="noopener">conditions générales de vente (CGV)</a>.</span>
           </label>
-          <button class="checkout-button" type="submit">PAYER</button>
+          <button class="checkout-button" type="submit">ACCÉDER AU PAIEMENT SÉCURISÉ</button>
+          <div id="embedded-checkout-container" hidden style="margin-top:22px;"></div>
+          <p id="paymentStatus" class="checkout-notice" role="status" aria-live="polite"></p>
         </section>
 
       </form>
 
     </div>
   </main>
+
+  <script src="https://js.stripe.com/v3/"></script>
 
   <script>
     // Tous les pays ISO (et Kosovo) avec affichage du nom en français.
@@ -297,6 +301,7 @@
     console.info(countryOptions.length + " pays et territoires disponibles dans la liste de livraison.");
 
     const CART_KEY = "cdc_cart";
+    const STRIPE_PUBLISHABLE_KEY = "pk_live_51UYnKB8R9yJlbTy40jlXgQ6VY17BUzg4r1uYaO9K7DGvn6iBCZzBsqpnnjeP6craQlZXYQ6mlFh49IFE1ISJuMyf00LnUjFMgF;
 
     function getCart() {
       try {
@@ -420,13 +425,13 @@
       const button = form.querySelector(".checkout-button");
       const originalText = button.textContent;
       button.disabled = true;
-      button.textContent = "REDIRECTION VERS LE PAIEMENT…";
+      button.textContent = "PRÉPARATION DU PAIEMENT SÉCURISÉ…";
 
       try {
         const formData = new FormData(form);
 
         const fullName = String(formData.get("fullName") || "").trim();
-        const nameParts = fullName.split(/\\s+/);
+        const nameParts = fullName.split(/\s+/);
         const customer = {
           firstName: nameParts[0] || "",
           lastName: nameParts.slice(1).join(" ") || nameParts[0] || "",
@@ -459,14 +464,29 @@
 
         const result = await response.json();
 
-        if (!response.ok || !result.url) {
-          throw new Error(result.erreur || "Impossible de préparer le paiement Stripe.");
+        if (!response.ok || !result.clientSecret) {
+          throw new Error(result.erreur || "Impossible de préparer le paiement intégré.");
         }
 
-        window.location.assign(result.url);
+        if (!window.Stripe) {
+          throw new Error("Le module de paiement sécurisé n'a pas pu être chargé. Actualisez la page et réessayez.");
+        }
+
+        button.hidden = true;
+        document.getElementById("acceptTerms").closest(".payment-option").hidden = true;
+        const paymentContainer = document.getElementById("embedded-checkout-container");
+        paymentContainer.hidden = false;
+        document.getElementById("paymentStatus").textContent = "Paiement sécurisé — vos informations bancaires sont traitées directement par Stripe.";
+
+        const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+        const checkout = await stripe.initEmbeddedCheckout({
+          clientSecret: result.clientSecret
+        });
+        checkout.mount("#embedded-checkout-container");
       } catch (error) {
         alert(error.message || "Une erreur est survenue. Votre paiement n'a pas été lancé.");
         button.disabled = false;
+        button.hidden = false;
         button.textContent = originalText;
       }
     });
