@@ -11,10 +11,10 @@
   ];
 
   function currentLanguage() {
-    const match = document.cookie.match(/(?:^|;\\s*)googtrans=\\/fr\\/([^;]+)/);
-    return match ? decodeURIComponent(match[1]) : "fr";
+    const cookie = document.cookie.split(";").map(part => part.trim());
+    const entry = cookie.find(part => part.startsWith("googtrans=/fr/"));
+    return entry ? decodeURIComponent(entry.slice("googtrans=/fr/".length)) : "fr";
   }
-
   window.googleTranslateElementInit = function () {
     if (!window.google || !window.google.translate) return;
     new window.google.translate.TranslateElement({
