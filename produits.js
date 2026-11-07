@@ -23,27 +23,26 @@ const IMAGES_CARTIER = [
   "https://cartier.vtexassets.com/arquivos/ids/240059-800-auto?aspect=true&height=auto&v=638675391069000000&width=800"
 ];
 
-const CATEGORIES = {
-  "ap-x-swatch": "ap-swatch",
-  "ap-swatch": "ap-swatch",
-  "femme": "femme",
-  "women": "femme",
-  "homme": "homme",
-  "men": "homme"
-};
+function normaliserTexteCategorie(valeur) {
+  return String(valeur || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\\u0300-\\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
 
 function convertirCategorie(categorie) {
-  const slug = (categorie.slug || "").toLowerCase();
-  const nom = (categorie.name || "").toLowerCase();
+  const slug = normaliserTexteCategorie(categorie && categorie.slug);
+  const nom = normaliserTexteCategorie(categorie && categorie.name);
+  const valeur = slug + "-" + nom;
 
-  if (CATEGORIES[slug]) return CATEGORIES[slug];
-  if (CATEGORIES[nom]) return CATEGORIES[nom];
+  if (/ap.*swatch|swatch.*ap/.test(valeur)) return "ap-swatch";
+  if (/femme|women|woman|ladies/.test(valeur)) return "femme";
+  if (/homme|men|man|gentlemen/.test(valeur)) return "homme";
+  if (/accessoir|bracelet|bijou|jewel|accessor/.test(valeur)) return "accessoires";
 
-  if (slug.includes("femme") || slug.includes("women")) return "femme";
-  if (slug.includes("homme") || slug.includes("men")) return "homme";
-  if (slug.includes("ap-swatch")) return "ap-swatch";
-
-  return "accessoires";
+  return null;
 }
 
 function nettoyerDescription(html) {
@@ -112,7 +111,9 @@ function convertirProduit(p) {
     || null;
 
   const categories = [
-    ...new Set((p.categories || []).map(convertirCategorie))
+    ...new Set((Array.isArray(p.categories) ? p.categories : [])
+      .map(convertirCategorie)
+      .filter(Boolean))
   ];
 
   const imagesSource = Array.isArray(p.images) ? p.images : [];
@@ -138,11 +139,9 @@ function convertirProduit(p) {
 
     reference: estCartier ? "WGBA0025" : p.sku || "",
 
-    categorie: estCartier ? "femme" : categories[0] || "accessoires",
+    categorie: estCartier ? "femme" : categories[0] || "",
 
-    categories: estCartier
-      ? ["femme"]
-      : categories.length ? categories : ["accessoires"],
+    categories: estCartier ? ["femme"] : categories,
 
     prix: estCartier ? 16000 : prixCatalogue,
 
@@ -180,12 +179,22 @@ async function chargerTousLesProduits() {
     const url =
       `${API_PRODUITS}?per_page=${limite}&page=${page}`;
 
-    const reponse = await fetch(url);
+    let reponse;
+
+    try {
+      reponse = await fetch(url, { cache: "no-store" });
+    } catch (erreur) {
+      if (page === 1) throw erreur;
+      console.warn("Fin du chargement paginé après la page", page - 1, erreur);
+      break;
+    }
 
     if (!reponse.ok) {
-      throw new Error(
-        `Erreur API : ${reponse.status} (page ${page})`
-      );
+      if (page === 1) {
+        throw new Error(`Erreur API : ${reponse.status} (page ${page})`);
+      }
+      console.warn("La page catalogue suivante n'est pas disponible :", page);
+      break;
     }
 
     const donnees = await reponse.json();
