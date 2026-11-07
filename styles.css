@@ -3479,3 +3479,6 @@ input::placeholder,textarea::placeholder {
   }
   .brand-name { font-size:9px !important;letter-spacing:.35px !important; }
 }
+
+.menu-button,#menuButton { display:none !important; }
+@media(max-width:760px) { .menu-button,#menuButton { display:inline-flex !important; } }
