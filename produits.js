@@ -12,13 +12,6 @@ const DETAILS_PRODUCT_ID = "987654321";
 const DETAILS_IMAGE =
   "https://shop.pinetti.it/cdn/shop/products/prestigebox_zoom-Pinetti.png?v=1611572510";
 
-const IMAGES_CARTIER = [
-  "https://pisa1940.com/cdn/shop/files/SOLD_115_e13845bd-fce8-4eeb-8067-a5a86ae5bad8.png?v=1793283493",
-  "https://pisa1940.com/cdn/shop/files/w1242_tpadding12_20_3__8_56539df2-8927-4022-9f58-d1892be7478d.webp?v=1793283493",
-  "https://pisa1940.com/cdn/shop/files/w1242_tpadding12_20_1__8.webp?v=1793283492",
-  "https://pisa1940.com/cdn/shop/files/w1242_tpadding12_20_2__7.webp?v=1793283492"
-];
-
 const CATEGORIES = {
   "ap-x-swatch": "ap-swatch",
   "ap-swatch": "ap-swatch",
@@ -57,7 +50,6 @@ function nettoyerDescription(html) {
 
 function convertirProduit(p) {
   const id = String(p.id);
-  const estCartier = id === "30716";
   const estDetails = id === DETAILS_PRODUCT_ID;
 
   if (estDetails) {
@@ -84,8 +76,10 @@ function convertirProduit(p) {
     };
   }
 
-  const prix = Number(p.prices?.price) / 100;
-  const prixNormal = Number(p.prices?.regular_price) / 100;
+  const prixBrut = p.prices?.price;
+  const prix = prixBrut === undefined || prixBrut === null || prixBrut === "" ? null : Number(prixBrut) / 100;
+  const prixNormalBrut = p.prices?.regular_price;
+  const prixNormal = prixNormalBrut === undefined || prixNormalBrut === null || prixNormalBrut === "" ? null : Number(prixNormalBrut) / 100;
 
   const categories = [
     ...new Set((p.categories || []).map(convertirCategorie))
@@ -101,51 +95,35 @@ function convertirProduit(p) {
     )
   ];
 
-  const galerie = estCartier
-    ? IMAGES_CARTIER
-    : galerieOriginale;
+  const galerie = galerieOriginale;
 
   return {
     id,
 
-    nom: estCartier
-      ? "Cartier Baignoire Petit WGBA0025 « Femme » Quartz Or Jaune (2025) Taille 16 NEUF"
-      : p.name || "",
+    nom: p.name || "",
 
-    marque: estCartier
-      ? "Cartier"
-      : p.brands?.[0]?.name || "",
+    marque: p.brands?.[0]?.name || "",
 
-    reference: estCartier
-      ? "WGBA0025"
-      : p.sku || "",
+    reference: p.sku || "",
 
-    categorie: estCartier
-      ? "femme"
-      : categories[0] || "accessoires",
+    categorie: categories[0] || "accessoires",
 
-    categories: estCartier
-      ? ["femme"]
-      : categories.length ? categories : ["accessoires"],
+    categories: categories.length ? categories : ["accessoires"],
 
-    prix: estCartier ? 16000 : (Number.isFinite(prix) && prix > 0 ? prix : null),
+    prix: Number.isFinite(prix) && prix >= 0 ? prix : null,
 
-    ancienPrix: estCartier
-      ? null
-      : prixNormal > prix ? prixNormal : null,
+    ancienPrix: Number.isFinite(prixNormal) && Number.isFinite(prix) && prixNormal > prix ? prixNormal : null,
 
     devise: "EUR",
     image: galerie[0] || "",
     images: galerie,
     actif: true,
-    enStock: estCartier ? true : p.is_in_stock !== false,
-    enPromo: estCartier ? false : Boolean(p.is_on_sale),
-    note: estCartier ? 0 : Number(p.average_rating || 0),
-    nombreAvis: estCartier ? 0 : Number(p.review_count || 0),
+    enStock: p.is_in_stock !== false,
+    enPromo: Boolean(p.is_on_sale),
+    note: Number(p.average_rating || 0),
+    nombreAvis: Number(p.review_count || 0),
 
-    description: estCartier
-      ? "Montre Cartier Baignoire petit modèle, référence WGBA0025. Mouvement quartz, boîtier et bracelet rigide intégrés en or jaune 18 carats, cadran argenté avec chiffres romains et aiguilles bleuies. Taille 16."
-      : nettoyerDescription(p.description),
+    description: nettoyerDescription(p.description),
 
     ficheSource: p.permalink || ""
   };
