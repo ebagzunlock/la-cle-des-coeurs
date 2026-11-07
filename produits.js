@@ -14,7 +14,13 @@ const DETAILS_IMAGE =
 
 // Image dédiée au modèle Cartier Baignoire Petit WGBA0025.
 const IMAGES_CARTIER = [
-  "images/cartier-baignoire-wgba0025.jpg"
+  "https://cartier.vtexassets.com/arquivos/ids/240053-800-auto?aspect=true&height=auto&v=638675391038230000&width=800",
+  "https://cartier.vtexassets.com/arquivos/ids/240054-800-auto?aspect=true&height=auto&v=638675391042800000&width=800",
+  "https://cartier.vtexassets.com/arquivos/ids/240055-800-auto?aspect=true&height=auto&v=638675391047770000&width=800",
+  "https://cartier.vtexassets.com/arquivos/ids/240056-800-auto?aspect=true&height=auto&v=638675391052900000&width=800",
+  "https://cartier.vtexassets.com/arquivos/ids/240057-800-auto?aspect=true&height=auto&v=638675391057600000&width=800",
+  "https://cartier.vtexassets.com/arquivos/ids/240058-800-auto?aspect=true&height=auto&v=638675391063370000&width=800",
+  "https://cartier.vtexassets.com/arquivos/ids/240059-800-auto?aspect=true&height=auto&v=638675391069000000&width=800"
 ];
 
 const CATEGORIES = {
