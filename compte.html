@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Votre espace client LA CLÉ DES CŒURS.">
   <title>Mon compte | LA CLÉ DES CŒURS</title>
-  <link rel="stylesheet" href="styles.css?v=charte-premiere-version-20261107-23">
+  <link rel="stylesheet" href="styles.css?v=cdc-collections-logo-20261107-24">
   <style>
     .account-page{max-width:760px;margin:55px auto 80px;padding:0 20px}
     .account-heading{text-align:center;margin-bottom:35px}
@@ -36,6 +36,7 @@
 <a href="index.html" class="brand brand-home-link" title="Retour à l’accueil" aria-label="LA CLÉ DES CŒURS — Accueil">
       <span class="brand-monogram" aria-label="CDC"><span class="brand-initials">CDC</span></span>
       <span class="brand-name">LA CLÉ DES CŒURS</span>
+      <span class="brand-tagline">BIJOUX FINS &amp; RAFFINÉS</span>
     </a>
     <div class="header-actions">
       <a class="header-search-link" href="index.html#searchForm" aria-label="Rechercher" title="Rechercher"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></a>
@@ -284,15 +285,6 @@
     if(active){link.setAttribute("aria-current","page");link.classList.add("is-current");}
     else {link.removeAttribute("aria-current");link.classList.remove("is-current");}
   });
-  const nav=document.querySelector(".main-nav");
-  if(nav&&!document.querySelector(".page-location")){
-    const crumb=document.createElement("div");
-    crumb.className="page-location";
-    crumb.setAttribute("aria-label","Emplacement sur le site");
-    crumb.innerHTML='<span>Vous êtes ici</span><span class="location-separator">›</span><strong></strong>';
-    crumb.querySelector("strong").textContent=currentLabel;
-    nav.insertAdjacentElement("afterend",crumb);
-  }
 })();
 </script>
 

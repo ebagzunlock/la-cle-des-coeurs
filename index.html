@@ -14,7 +14,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=charte-premiere-version-20261107-23">
+  <link rel="stylesheet" href="styles.css?v=cdc-collections-logo-20261107-24">
 
   <style>
     .main-nav.is-open {
@@ -110,10 +110,11 @@
     <a href="index.html" class="brand brand-home-link" title="Retour à l’accueil">
       <span class="brand-monogram" aria-label="CDC"><span class="brand-initials">CDC</span></span>
       <span class="brand-name">LA CLÉ DES CŒURS</span>
-      <span class="brand-tagline">BIJOUX FINS & RAFFINÉS</span>
+      <span class="brand-tagline">BIJOUX FINS &amp; RAFFINÉS</span>
     </a>
 
     <div class="header-actions">
+      <a class="header-search-link" href="index.html#searchForm" aria-label="Rechercher" title="Rechercher"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></a>
       <a href="compte.html" aria-label="Mon compte" title="Mon compte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.7-3.4 3-5.2 6.5-5.2s5.8 1.8 6.5 5.2"/></svg></a>
       <a href="favoris.html" aria-label="Favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 8.8c0 4.2-8.4 10-8.4 10S3.6 13 3.6 8.8A4.3 4.3 0 0 1 12 6.5a4.3 4.3 0 0 1 8.4 2.3Z"/></svg></a>
       <a href="panier.html" aria-label="Panier"><svg class="header-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.4L22 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg> <span id="cartCount">0</span></a>
@@ -453,112 +454,56 @@
     (function() {
       const zones = Array.from(document.querySelectorAll("[data-category-image]"));
       if (!zones.length) return;
-
-      const euro = value => new Intl.NumberFormat("fr-FR", {
-        style: "currency", currency: "EUR"
-      }).format(Number(value) || 0);
-
-      const escapeHTML = value => String(value || "").replace(/[&<>"']/g, ch => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
-      }[ch]));
-
-      const charger = window.produitsReady
-        ? window.produitsReady
-        : new Promise((resolve, reject) => {
-            window.addEventListener("produits:loaded", () => resolve(window.produits || []), { once: true });
-            window.addEventListener("produits:error", () => reject(new Error("Catalogue indisponible")), { once: true });
-          });
-
+      const normaliser = value => String(value || "").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").replace(/[^a-z0-9]+/g, "-");
+      function appartient(produit, categorie) {
+        const categories = Array.isArray(produit && produit.categories) ? produit.categories : [];
+        const valeurs = [...categories, produit && produit.categorie, produit && produit.nom, produit && produit.marque, produit && produit.reference, produit && produit.description].map(normaliser).join(" ");
+        if (categorie === "ap-swatch") return /ap-x-swatch|ap-swatch|swatch/.test(valeurs);
+        if (categorie === "femme") return categories.includes("femme") || /montre-femme|femme|women|woman|ladies/.test(valeurs);
+        if (categorie === "homme") return categories.includes("homme") || /montre-homme|homme|men|mens|gentlemen/.test(valeurs);
+        if (categorie === "accessoires") return categories.includes("accessoires") || /accessoir|bracelet|bague|ring|collier|necklace|boucle-d-oreille|earring|bijou|jewel|broche|pendentif/.test(valeurs);
+        return categories.includes(categorie) || normaliser(produit && produit.categorie) === categorie;
+      }
+      const charger = window.produitsReady ? window.produitsReady : new Promise((resolve,reject) => {
+        window.addEventListener("produits:loaded",() => resolve(window.produits || []),{once:true});
+        window.addEventListener("produits:error",() => reject(new Error("Catalogue indisponible")),{once:true});
+      });
       charger.then(function(produits) {
-        zones.forEach(function(zone, zoneIndex) {
-          const categorie = zone.dataset.categoryImage;
-          const selection = produits.filter(function(produit) {
-            const categories = Array.isArray(produit && produit.categories) ? produit.categories : [];
-            return produit && produit.actif !== false && produit.image &&
-              (categories.includes(categorie) || produit.categorie === categorie);
-          });
-
-          const carte = zone.closest(".category-card");
-          const destination = "catalogue.html?categorie=" + encodeURIComponent(categorie);
-          if (carte) {
-            carte.dataset.categoryHref = destination;
-            carte.setAttribute("role", "link");
-            carte.setAttribute("tabindex", "0");
-            carte.setAttribute("aria-label", "Voir toute la catégorie " + categorie);
-            carte.addEventListener("click", function(event) {
-              if (event.target.closest("a, button")) return;
-              window.location.href = destination;
-            });
-            carte.addEventListener("keydown", function(event) {
-              if (event.key === "Enter" || event.key === " ") {
-                if (event.target === carte || event.target === zone || event.target.closest("h3")) {
-                  event.preventDefault();
-                  window.location.href = destination;
-                }
+        zones.forEach(function(zone,zoneIndex) {
+          const categorie=zone.dataset.categoryImage;
+          const selection=produits.filter(produit => produit && produit.actif!==false && produit.image && appartient(produit,categorie));
+          const carte=zone.closest(".category-card");
+          const destination="catalogue.html?categorie="+encodeURIComponent(categorie);
+          if(carte) {
+            carte.dataset.categoryHref=destination;carte.setAttribute("role","link");carte.setAttribute("tabindex","0");
+            carte.addEventListener("click",event => {if(!event.target.closest("a,button"))window.location.href=destination;});
+            carte.addEventListener("keydown",event => {
+              if((event.key==="Enter"||event.key===" ")&&(event.target===carte||event.target===zone||event.target.closest("h3"))){
+                event.preventDefault();window.location.href=destination;
               }
             });
           }
-
-          if (!selection.length) {
-            zone.classList.add("category-image-empty");
-            zone.setAttribute("aria-label", "Aucun produit disponible dans cette catégorie pour le moment");
-            return;
-          }
-
-          const largeur = Math.max(150, Math.round(zone.clientWidth || zone.getBoundingClientRect().width || 260));
-          const piste = document.createElement("div");
-          piste.className = "category-product-track";
-          piste.style.width = (largeur * selection.length * 2) + "px";
-
-          selection.concat(selection).forEach(function(produit, index) {
-            const lien = document.createElement("a");
-            lien.className = "category-product-item";
-            lien.href = "produit.html?id=" + encodeURIComponent(produit.id);
-            lien.style.setProperty("--category-slide-width", largeur + "px");
-            lien.style.width = largeur + "px";
-            lien.style.flex = "0 0 " + largeur + "px";
-            lien.setAttribute("aria-label", (produit.nom || "Découvrir le produit") + " — " + euro(produit.prix));
-
-            const image = document.createElement("img");
-            const images = [...new Set([...(Array.isArray(produit.images) ? produit.images : []), produit.image].filter(Boolean))];
-            let imageIndex = 0;
-            image.alt = produit.nom || "Produit de la collection";
-            image.loading = index < 2 ? "eager" : "lazy";
-            image.decoding = "async";
-            image.src = images[imageIndex] || "";
-            image.addEventListener("error", function() {
-              imageIndex += 1;
-              if (imageIndex < images.length) {
-                image.src = images[imageIndex];
-              } else {
-                lien.classList.add("category-product-image-unavailable");
-                image.remove();
-              }
-            });
-
-            const infos = document.createElement("span");
-            infos.className = "category-product-info";
-            infos.innerHTML = '<span class="category-product-name">' +
-              escapeHTML(produit.nom || "Découvrir la pièce") +
-              '</span><span class="category-product-price">' +
-              escapeHTML(euro(produit.prix)) + '</span>';
-
-            lien.append(image, infos);
-            piste.appendChild(lien);
+          if(!selection.length){zone.classList.add("category-image-empty");zone.setAttribute("aria-label","Collection bientôt disponible");return;}
+          const largeur=Math.max(180,Math.round(zone.clientWidth||zone.getBoundingClientRect().width||260));
+          const piste=document.createElement("div");piste.className="category-product-track";piste.style.width=(largeur*selection.length*2)+"px";
+          selection.concat(selection).forEach(function(produit,index) {
+            const lien=document.createElement("a");lien.className="category-product-item";lien.href="produit.html?id="+encodeURIComponent(produit.id);
+            lien.style.setProperty("--category-slide-width",largeur+"px");lien.style.width=largeur+"px";lien.style.flex="0 0 "+largeur+"px";
+            lien.setAttribute("aria-label",produit.nom||"Découvrir le produit");
+            const image=document.createElement("img");
+            const images=[...new Set([...(Array.isArray(produit.images)?produit.images:[]),produit.image].filter(Boolean))];
+            let imageIndex=0;image.alt=produit.nom||"Produit de la collection";image.loading=index<2?"eager":"lazy";image.decoding="async";image.src=images[imageIndex]||"";
+            image.addEventListener("error",function(){imageIndex++;if(imageIndex<images.length)image.src=images[imageIndex];else{lien.classList.add("category-product-image-unavailable");image.remove();}});
+            lien.appendChild(image);piste.appendChild(lien);
           });
-
-          zone.replaceChildren(piste);
-          zone.classList.add("category-image-moving");
-          zone.style.setProperty("--category-duration", Math.max(12, selection.length * 5) + "s");
-          zone.style.setProperty("--category-delay", (zoneIndex * -1.7) + "s");
-          zone.setAttribute("aria-label", "Produits de la catégorie " + categorie + " — défilement indépendant");
+          zone.replaceChildren(piste);zone.classList.add("category-image-moving");
+          zone.style.setProperty("--category-duration",Math.max(14,selection.length*5)+"s");
+          zone.style.setProperty("--category-delay",(zoneIndex*-1.7)+"s");
+          zone.setAttribute("aria-label","Images des produits de la catégorie "+categorie);
         });
-      }).catch(function(error) {
-        console.error("Carrousels des catégories :", error);
-        zones.forEach(function(zone) {
-          zone.classList.add("category-image-empty");
-          zone.setAttribute("aria-label", "Catalogue momentanément indisponible");
-        });
+      }).catch(function(error){
+        console.error("Carrousels des catégories :",error);
+        zones.forEach(zone=>{zone.classList.add("category-image-empty");zone.setAttribute("aria-label","Catalogue momentanément indisponible");});
       });
     })();
   </script>
@@ -616,15 +561,6 @@
     if(active){link.setAttribute("aria-current","page");link.classList.add("is-current");}
     else {link.removeAttribute("aria-current");link.classList.remove("is-current");}
   });
-  const nav=document.querySelector(".main-nav");
-  if(nav&&!document.querySelector(".page-location")){
-    const crumb=document.createElement("div");
-    crumb.className="page-location";
-    crumb.setAttribute("aria-label","Emplacement sur le site");
-    crumb.innerHTML='<span>Vous êtes ici</span><span class="location-separator">›</span><strong></strong>';
-    crumb.querySelector("strong").textContent=currentLabel;
-    nav.insertAdjacentElement("afterend",crumb);
-  }
 })();
 </script>
 

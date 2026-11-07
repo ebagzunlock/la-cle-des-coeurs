@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mon panier | LA CLÉ DES CŒURS</title>
-  <link rel="stylesheet" href="styles.css?v=charte-premiere-version-20261107-23">
+  <link rel="stylesheet" href="styles.css?v=cdc-collections-logo-20261107-24">
   <style>
     .cart-page { max-width:1000px; margin:auto; padding:60px 5%; }
     .cart-page h1 { text-align:center; font:500 48px "Cormorant Garamond",serif; color:#302820; margin-bottom:35px; }
@@ -41,6 +41,7 @@
     <a href="index.html" class="brand brand-home-link" title="Retour à l’accueil">
       <span class="brand-monogram" aria-label="CDC"><span class="brand-initials">CDC</span></span>
       <span class="brand-name">LA CLÉ DES CŒURS</span>
+      <span class="brand-tagline">BIJOUX FINS &amp; RAFFINÉS</span>
       
     </a>
     <div class="header-actions">
@@ -285,15 +286,6 @@
     if(active){link.setAttribute("aria-current","page");link.classList.add("is-current");}
     else {link.removeAttribute("aria-current");link.classList.remove("is-current");}
   });
-  const nav=document.querySelector(".main-nav");
-  if(nav&&!document.querySelector(".page-location")){
-    const crumb=document.createElement("div");
-    crumb.className="page-location";
-    crumb.setAttribute("aria-label","Emplacement sur le site");
-    crumb.innerHTML='<span>Vous êtes ici</span><span class="location-separator">›</span><strong></strong>';
-    crumb.querySelector("strong").textContent=currentLabel;
-    nav.insertAdjacentElement("afterend",crumb);
-  }
 })();
 </script>
 
