@@ -221,6 +221,13 @@
         <option value="homme">Montres homme</option>
       </select>
 
+      <label class="price-filter" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        Prix min €
+        <input id="prixMinimum" type="number" min="0" step="1" inputmode="decimal" placeholder="0" aria-label="Prix minimum" style="width:95px;padding:10px;">
+        Prix max €
+        <input id="prixMaximum" type="number" min="0" step="1" inputmode="decimal" placeholder="Illimité" aria-label="Prix maximum" style="width:105px;padding:10px;">
+      </label>
+
       <select id="filtreDisponibilite" aria-label="Filtrer par disponibilité">
         <option value="">Tous les stocks</option>
         <option value="stock">En stock</option>
@@ -261,6 +268,8 @@
     const triProduits = document.getElementById("triProduits");
     const filtreDisponibilite = document.getElementById("filtreDisponibilite");
     const filtrePromotion = document.getElementById("filtrePromotion");
+    const prixMinimum = document.getElementById("prixMinimum");
+    const prixMaximum = document.getElementById("prixMaximum");
     const nombreProduits = document.getElementById("nombreProduits");
 
     const parametres = new URLSearchParams(window.location.search);
@@ -338,6 +347,8 @@
       const tri = triProduits.value;
       const disponibilite = filtreDisponibilite.value;
       const promotion = filtrePromotion.value;
+      const minPrix = prixMinimum.value === "" ? null : Number(prixMinimum.value);
+      const maxPrix = prixMaximum.value === "" ? null : Number(prixMaximum.value);
 
       if (terme) {
         produits = produits.filter(function(produit) {
@@ -372,6 +383,14 @@
 
       if (promotion === "promo") {
         produits = produits.filter(produit => produit.enPromo === true);
+      }
+
+      if (minPrix !== null && Number.isFinite(minPrix)) {
+        produits = produits.filter(produit => Number(produit.prix) >= minPrix);
+      }
+
+      if (maxPrix !== null && Number.isFinite(maxPrix)) {
+        produits = produits.filter(produit => Number(produit.prix) <= maxPrix);
       }
 
       if (tri === "prix-croissant") {
@@ -548,6 +567,8 @@
     triProduits.addEventListener("change", afficherProduits);
     filtreDisponibilite.addEventListener("change", afficherProduits);
     filtrePromotion.addEventListener("change", afficherProduits);
+    prixMinimum.addEventListener("input", afficherProduits);
+    prixMaximum.addEventListener("input", afficherProduits);
 
     // Attendre le chargement du catalogue original
     if (window.produitsReady) {
