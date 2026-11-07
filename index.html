@@ -425,7 +425,7 @@
     actualiserCompteurPanier();
   </script>
 
-  <script src="produits.js?v=categories-carousel-fix-20261107-5"></script>
+  <script src="produits.js?v=categories-carousel-fix-20261107-6"></script>
   <script>
     (function() {
       const zone = document.getElementById("featuredProducts");
@@ -511,6 +511,7 @@
             const lien = document.createElement("a");
             lien.className = "category-product-item";
             lien.href = "produit.html?id=" + encodeURIComponent(produit.id);
+            lien.style.setProperty("--category-slide-width", largeur + "px");
             lien.style.width = largeur + "px";
             lien.style.flex = "0 0 " + largeur + "px";
             lien.setAttribute("aria-label", (produit.nom || "Découvrir le produit") + " — " + euro(produit.prix));
