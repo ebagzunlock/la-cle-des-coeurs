@@ -101,6 +101,28 @@
       <a href="contact.html">Contact</a>
     `;
 
+    // Repérer visuellement la rubrique et l'icône correspondant à la page ouverte.
+    const currentFile = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+    const params = new URLSearchParams(location.search);
+    const currentCategory = (params.get("categorie") || "").toLowerCase();
+    nav.querySelectorAll("a").forEach(link => {
+      const url = new URL(link.href, location.href);
+      const targetFile = (url.pathname.split("/").pop() || "index.html").toLowerCase();
+      const targetCategory = (url.searchParams.get("categorie") || "").toLowerCase();
+      const active = targetFile === currentFile &&
+        (!targetCategory || !currentCategory || targetCategory === currentCategory);
+      if (active) link.setAttribute("aria-current", "page");
+    });
+    header.querySelectorAll(".header-actions a").forEach(link => {
+      const targetFile = (new URL(link.href, location.href).pathname.split("/").pop() || "").toLowerCase();
+      if (targetFile && targetFile === currentFile) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+    const searchForm = header.querySelector(".header-search-form");
+    if (searchForm && (currentFile === "catalogue.html" && (params.has("recherche") || params.has("q")))) {
+      searchForm.setAttribute("aria-current", "page");
+    } else if (searchForm) searchForm.removeAttribute("aria-current");
+
     button.setAttribute("aria-expanded", "false");
     button.setAttribute("aria-controls", "mainNav");
 
