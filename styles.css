@@ -3985,3 +3985,57 @@ input::placeholder,textarea::placeholder{color:#777d80!important;opacity:1!impor
 .cdc-site-footer .cdc-footer-links{display:flex;flex-wrap:wrap;gap:12px 22px}
 .cdc-site-footer .cdc-footer-links a{font-size:12px;text-decoration:none}
 @media(max-width:760px){.header{background:#fbfaf7!important;min-height:90px!important}.brand-monogram{width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;margin-bottom:4px!important}.brand-initials{font-size:9px!important}.brand-name{font-size:clamp(10px,2.8vw,13px)!important;letter-spacing:.65px!important}.main-nav{background:#34393c!important}.cdc-site-footer{align-items:flex-start!important;flex-direction:column!important}}
+
+
+/* CDC — THÈME NOIR SOBRE SUR TOUT LE SITE */
+:root{
+ --cdc-page:#090909;
+ --cdc-panel:#151515;
+ --cdc-panel-alt:#1d1d1d;
+ --cdc-ink:#f4f1eb;
+ --cdc-body:#d0ceca;
+ --cdc-muted:#a5a29c;
+ --cdc-gold:#b69a70;
+ --cdc-border:#34312d;
+}
+html,body,body main{background:#090909!important;color:#d0ceca!important}
+body{background:#090909!important;color:#d0ceca!important}
+body *{text-shadow:none!important}
+main,main section,section,.welcome-section,.featured-section,.contact-strip,.product-page,.catalogue-page,.account-page,.cart-page,.favourites-page,.favorites-page,.contact-page,.editorial-section,.categories-section,.hero,.contact-hero{background-color:transparent!important;color:#d0ceca!important}
+h1,h2,h3,h4,h5,h6,.section-heading,.product-name,.product-name a,.product-price,.product-brand,.cart-item h2,.cart-summary h2,.account-page h2,.catalogue-heading h1{color:#f4f1eb!important}
+p,li,label,small,.description,.product-description,.product-details,.editorial-content,.editorial-content p,.section-heading p,.welcome-section p,.contact-strip p{color:#d0ceca!important}
+a{color:#c4a77b}
+.announcement{background:#050505!important;color:#e8e3d9!important;border-bottom:1px solid #292621!important}
+.header{background:#090909!important;color:#f4f1eb!important;border-bottom:1px solid #34312d!important}
+.brand-name{color:#f4f1eb!important}
+.brand-monogram{border-color:#b69a70!important;background:transparent!important}
+.brand-initials{color:#f4f1eb!important}
+.brand-tagline{display:none!important}
+.main-nav{background:#111!important;color:#f4f1eb!important;border-top:1px solid #242424!important;border-bottom:1px solid #b69a70!important}
+.main-nav a{color:#e8e5df!important}
+.main-nav a:hover,.main-nav a[aria-current=page],.main-nav a.is-current{color:#d2b68c!important;background:#1b1b1b!important;box-shadow:inset 0 -2px 0 #b69a70!important}
+.page-location{background:#111!important;color:#aaa69e!important;border-color:#302d28!important}
+.page-location strong{color:#f4f1eb!important}
+.category-card,.featured-home-card,.product-card,.cart-item,.cart-summary,.cart-empty,.account-panel,.account-card,.favourites-empty,.favorites-empty,.product-detail-card,.contact-information,.contact-form-box,.legal-card,.content-card,.product-info,.product-details,.filter-panel,.catalogue-filters,.search-panel,.modal-content,.dropdown-menu{background:#151515!important;color:#d0ceca!important;border:1px solid #34312d!important;box-shadow:0 8px 24px rgba(0,0,0,.28)!important}
+.category-card h3,.featured-home-card h3,.product-card h2,.product-card h3,.product-name,.product-name a,.product-price,.product-brand,.cart-item h2,.cart-summary h2,.account-page h2,.contact-information h2,.contact-form-box h2{color:#f4f1eb!important}
+.product-card p,.product-description,.product-details p,.cart-item p,.cart-summary p,.account-card p,.contact-information p,.contact-form-box p{color:#d0ceca!important}
+.product-image,.category-image,.featured-home-card img{background:#202020!important}
+button,.primary-button,.checkout-button,button.primary,.account-tabs button,.contact-submit,.product-actions button{background:#b69a70!important;color:#101010!important;border:1px solid #b69a70!important}
+button:hover,.primary-button:hover,.checkout-button:hover,button.primary:hover,.contact-submit:hover,.product-actions button:hover{background:#d0b78f!important;color:#090909!important;border-color:#d0b78f!important}
+input,select,textarea{background:#171717!important;color:#f4f1eb!important;border:1px solid #48433b!important}
+input::placeholder,textarea::placeholder{color:#a5a29c!important;opacity:1!important}
+input:focus,select:focus,textarea:focus{outline:1px solid #b69a70!important;border-color:#b69a70!important}
+.footer,.cdc-site-footer,footer{background:#050505!important;color:#e8e3d9!important;border-top:1px solid #b69a70!important}
+.footer h3,.footer h4,.footer p,.footer a,.footer-bottom,footer h3,footer h4,footer p,footer a{color:#e8e3d9!important}
+.footer-brand .brand-monogram,.cdc-footer-brand .brand-monogram{border-color:#b69a70!important}
+.footer-brand .brand-initials,.cdc-footer-brand .brand-initials{color:#f4f1eb!important}
+.footer-brand h3,.cdc-footer-brand h3{color:#f4f1eb!important}
+.footer-brand p,.cdc-footer-brand p{color:#aaa69e!important}
+hr,.divider{border-color:#34312d!important}
+@media(max-width:760px){
+ .header{background:#090909!important;min-height:90px!important}
+ .brand-name{color:#f4f1eb!important;font-size:clamp(10px,2.8vw,13px)!important}
+ .brand-monogram{border-color:#b69a70!important}
+ .brand-initials{color:#f4f1eb!important}
+ .main-nav{background:#111!important}
+}
