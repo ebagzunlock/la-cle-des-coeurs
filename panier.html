@@ -79,7 +79,6 @@
     <div class="footer-bottom">©️ LA CLÉ DES CŒURS. Tous droits réservés.</div>
   </footer>
 
-  <script src="app.js"></script>
   <script>
     const contents = document.getElementById("cartContents");
     const summary = document.getElementById("cartSummary");
@@ -87,7 +86,8 @@
 
     function readCart() {
       try {
-        return JSON.parse(localStorage.getItem("cdc_cart")) || [];
+        const data = JSON.parse(localStorage.getItem("cdc_cart") || "[]");
+        return Array.isArray(data) ? data : [];
       } catch {
         return [];
       }
@@ -96,12 +96,21 @@
     function saveCart(cart) {
       localStorage.setItem("cdc_cart", JSON.stringify(cart));
       renderCart();
-      if (typeof updateCartCount === "function") updateCartCount();
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const count = readCart().reduce((sum, item) => sum + Math.max(1, Number(item.quantity) || 1), 0);
+      document.querySelectorAll("#cartCount").forEach(el => el.textContent = count);
+    }
+
+    function formatPrice(value) {
+      return Number(value).toLocaleString("fr-FR", { style: "currency", currency: "EUR" });
     }
 
     function renderCart() {
       const cart = readCart();
-      contents.innerHTML = "";
+      contents.replaceChildren();
 
       if (!cart.length) {
         contents.innerHTML = `
@@ -112,34 +121,40 @@
             <a class="primary-button" href="catalogue.html">DÉCOUVRIR LE CATALOGUE</a>
           </div>`;
         summary.hidden = true;
+        updateCartCount();
         return;
       }
 
       let total = 0;
-
       cart.forEach((item, index) => {
         const price = Number(item.price);
-        const quantity = Math.max(1, Number(item.quantity) || 1);
-
+        const quantity = Math.min(10, Math.max(1, Number(item.quantity) || 1));
         if (!Number.isFinite(price) || price < 0) return;
-
         total += price * quantity;
 
         const article = document.createElement("article");
         article.className = "cart-item";
 
-        const image = document.createElement("div");
-        image.className = "cart-item-image";
-        image.textContent = "CDC";
+        const imageWrap = document.createElement("a");
+        imageWrap.className = "cart-item-image";
+        imageWrap.href = item.id ? `produit.html?id=${encodeURIComponent(item.id)}` : "catalogue.html";
+        if (item.image) {
+          const image = document.createElement("img");
+          image.src = item.image;
+          image.alt = item.name || "Produit LA CLÉ DES CŒURS";
+          image.loading = "lazy";
+          image.style.cssText = "width:100%;height:100%;object-fit:contain;background:#fff;";
+          image.onerror = () => { image.remove(); imageWrap.textContent = "CDC"; };
+          imageWrap.appendChild(image);
+        } else {
+          imageWrap.textContent = "CDC";
+        }
 
         const details = document.createElement("div");
         const name = document.createElement("h2");
         name.textContent = item.name || "Article";
         const priceText = document.createElement("p");
-        priceText.textContent = price.toLocaleString("fr-FR", {
-          style: "currency",
-          currency: "EUR"
-        });
+        priceText.textContent = formatPrice(price);
         details.append(name, priceText);
 
         const actions = document.createElement("div");
@@ -151,15 +166,16 @@
         quantityInput.max = "10";
         quantityInput.value = quantity;
         quantityInput.setAttribute("aria-label", "Quantité");
-
         quantityInput.addEventListener("change", () => {
           const updated = readCart();
+          if (!updated[index]) return;
           updated[index].quantity = Math.min(10, Math.max(1, Number(quantityInput.value) || 1));
           saveCart(updated);
         });
 
         const remove = document.createElement("button");
         remove.className = "cart-remove";
+        remove.type = "button";
         remove.textContent = "Supprimer";
         remove.addEventListener("click", () => {
           const updated = readCart();
@@ -168,16 +184,13 @@
         });
 
         actions.append(quantityInput, document.createElement("br"), remove);
-        article.append(image, details, actions);
+        article.append(imageWrap, details, actions);
         contents.append(article);
       });
 
-      totalElement.textContent = total.toLocaleString("fr-FR", {
-        style: "currency",
-        currency: "EUR"
-      });
-
+      totalElement.textContent = formatPrice(total);
       summary.hidden = total === 0;
+      updateCartCount();
     }
 
     renderCart();
