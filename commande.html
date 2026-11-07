@@ -452,37 +452,14 @@
           throw new Error("Un article du panier ne possède pas d'identifiant valide. Retournez au catalogue.");
         }
 
-        const response = await fetch(
-          "https://la-cle-des-coeurs-api.bagzful.workers.dev/create-checkout-session",
-          {
-            method: "POST",
-            credentials: "include",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ items, customer })
-          }
-        );
-
-        const result = await response.json();
-
-        if (!response.ok || !result.clientSecret) {
-          throw new Error(result.erreur || "Impossible de préparer le paiement intégré.");
-        }
-
-        if (!window.Stripe) {
-          throw new Error("Le module de paiement sécurisé n'a pas pu être chargé. Actualisez la page et réessayez.");
-        }
-
-        button.hidden = true;
-        document.getElementById("acceptTerms").closest(".payment-option").hidden = true;
-        const paymentContainer = document.getElementById("embedded-checkout-container");
-        paymentContainer.hidden = false;
-        document.getElementById("paymentStatus").textContent = "Paiement sécurisé — vos informations bancaires sont traitées directement par Stripe.";
-
-        const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-        const checkout = await stripe.initEmbeddedCheckout({
-          clientSecret: result.clientSecret
-        });
-        checkout.mount("#embedded-checkout-container");
+        const orderPayload = {
+          items,
+          customer,
+          orderReference,
+          createdAt: new Date().toISOString()
+        };
+        localStorage.setItem("cdc_pending_payment", JSON.stringify(orderPayload));
+        window.location.href = "paiement.html";
       } catch (error) {
         alert(error.message || "Une erreur est survenue. Votre paiement n'a pas été lancé.");
         button.disabled = false;
