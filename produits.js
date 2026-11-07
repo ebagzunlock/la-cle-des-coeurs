@@ -108,6 +108,10 @@ function convertirProduit(p) {
     image: galerie[0] || "",
     images: galerie,
     actif: true,
+    enStock: estCartier ? true : p.is_in_stock !== false,
+    enPromo: estCartier ? false : Boolean(p.is_on_sale),
+    note: estCartier ? 0 : Number(p.average_rating || 0),
+    nombreAvis: estCartier ? 0 : Number(p.review_count || 0),
 
     description: estCartier
       ? "Montre Cartier Baignoire petit modèle, référence WGBA0025. Mouvement quartz, boîtier et bracelet rigide intégrés en or jaune 18 carats, cadran argenté avec chiffres romains et aiguilles bleuies. Taille 16."
