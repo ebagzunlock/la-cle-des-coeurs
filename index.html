@@ -14,7 +14,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=charte-premiere-version-20261107-21">
+  <link rel="stylesheet" href="styles.css?v=charte-premiere-version-20261107-22">
 
   <style>
     .main-nav.is-open {
@@ -96,16 +96,24 @@
 
   <header class="header">
 
-    <button class="menu-button" id="menuButton" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainNav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <button
+      class="menu-button"
+      id="menuButton"
+      type="button"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+      aria-controls="mainNav"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
 
     <a href="index.html" class="brand brand-home-link" title="Retour à l’accueil">
       <span class="brand-monogram" aria-label="CDC"><span class="brand-initials">CDC</span></span>
       <span class="brand-name">LA CLÉ DES CŒURS</span>
-      
+      <span class="brand-tagline">BIJOUX FINS & RAFFINÉS</span>
     </a>
 
     <div class="header-actions">
-      <form class="search-form header-search-form" id="searchForm"><input type="search" id="searchInput" placeholder="Rechercher..." aria-label="Rechercher un produit"><button type="submit" aria-label="Rechercher"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button></form>
       <a href="compte.html" aria-label="Mon compte" title="Mon compte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.7-3.4 3-5.2 6.5-5.2s5.8 1.8 6.5 5.2"/></svg></a>
       <a href="favoris.html" aria-label="Favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 8.8c0 4.2-8.4 10-8.4 10S3.6 13 3.6 8.8A4.3 4.3 0 0 1 12 6.5a4.3 4.3 0 0 1 8.4 2.3Z"/></svg></a>
       <a href="panier.html" aria-label="Panier"><svg class="header-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.4L22 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg> <span id="cartCount">0</span></a>
@@ -113,16 +121,56 @@
 
   </header>
 
-  <nav class="main-nav" id="mainNav" aria-label="Navigation principale">
-  <a href="index.html">Accueil</a>
-  <a href="catalogue.html?categorie=homme">Montres homme</a>
-  <a href="catalogue.html?categorie=femme">Montres femme</a>
-  <a href="catalogue.html?categorie=accessoires">Accessoires et bracelets</a>
-  <a href="catalogue.html?categorie=ap-swatch">AP x Swatch</a>
-  <a href="catalogue.html">Tout le catalogue</a>
-  <a href="qui-sommes-nous.html">Qui sommes-nous</a>
-  <a href="contact.html">Contact</a>
-</nav>
+  <nav class="main-nav" id="mainNav">
+
+    <a href="index.html">Accueil</a>
+
+    <a href="catalogue.html?categorie=accessoires">
+      Accessoires et bracelets
+    </a>
+
+    <a href="catalogue.html?categorie=ap-swatch">
+      AP x Swatch
+    </a>
+
+    <a href="catalogue.html?categorie=femme">
+      Montres femme
+    </a>
+
+    <a href="catalogue.html?categorie=homme">
+      Montres homme
+    </a>
+
+    <a href="qui-sommes-nous.html">
+      Qui sommes-nous
+    </a>
+
+    <a href="contact.html">
+      Contact
+    </a>
+
+  </nav>
+
+  <div class="utility-bar">
+
+    <form class="search-form" id="searchForm">
+
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Rechercher un produit..."
+        aria-label="Rechercher un produit"
+      >
+
+      <button type="submit" aria-label="Rechercher">
+        ⌕
+      </button>
+
+    </form>
+
+    
+
+  </div>
 
   <main>
 
@@ -284,7 +332,7 @@
 
       <h4>INFORMATIONS</h4>
 
-      <a href="compte.html">Ma commande</a>
+      <a href="commande.html">Ma commande</a>
       <a href="livraison-retours.html">Livraison et retours</a>
       <a href="conditions-generales.html">Conditions générales de vente</a>
       <a href="mentions-legales.html">Mentions légales</a>
@@ -307,9 +355,6 @@
     // Menu de navigation mobile
     const menuButton = document.getElementById("menuButton");
     const mainNav = document.getElementById("mainNav");
-
-    // Signale au script global que le menu de l’accueil a déjà son gestionnaire.
-    menuButton.dataset.cdcMenuReady = "true";
 
     menuButton.addEventListener("click", function() {
       const menuOuvert = mainNav.classList.toggle("is-open");
@@ -465,11 +510,11 @@
           selection.concat(selection).forEach(function(produit, index) {
             const lien = document.createElement("a");
             lien.className = "category-product-item";
-            lien.href = destination;
+            lien.href = "produit.html?id=" + encodeURIComponent(produit.id);
             lien.style.setProperty("--category-slide-width", largeur + "px");
             lien.style.width = largeur + "px";
             lien.style.flex = "0 0 " + largeur + "px";
-            lien.setAttribute("aria-label", "Découvrir la catégorie " + categorie);
+            lien.setAttribute("aria-label", (produit.nom || "Découvrir le produit") + " — " + euro(produit.prix));
 
             const image = document.createElement("img");
             const images = [...new Set([...(Array.isArray(produit.images) ? produit.images : []), produit.image].filter(Boolean))];
@@ -488,7 +533,14 @@
               }
             });
 
-            lien.appendChild(image);
+            const infos = document.createElement("span");
+            infos.className = "category-product-info";
+            infos.innerHTML = '<span class="category-product-name">' +
+              escapeHTML(produit.nom || "Découvrir la pièce") +
+              '</span><span class="category-product-price">' +
+              escapeHTML(euro(produit.prix)) + '</span>';
+
+            lien.append(image, infos);
             piste.appendChild(lien);
           });
 
@@ -508,86 +560,5 @@
     })();
   </script>
   <script src="langue.js?v=identite-lisible-20261107-1"></script>
-
-<script id="cdc-active-navigation-20261107">
-(() => {
-  const page = (location.pathname.split("/").pop() || "index.html").toLowerCase();
-  const targets = { "compte.html":"compte", "favoris.html":"favoris", "panier.html":"panier" };
-  document.querySelectorAll(".header-actions a").forEach(link => {
-    const href = (link.getAttribute("href") || "").split("?")[0].toLowerCase();
-    const key = targets[page];
-    if (key && href === key + ".html") link.setAttribute("aria-current", "page");
-  });
-  document.querySelectorAll(".main-nav a").forEach(link => {
-    const href = (link.getAttribute("href") || "").split("?")[0].toLowerCase();
-    if (href === page) link.setAttribute("aria-current", "page");
-    else if (page === "produit.html" && href === "catalogue.html") link.setAttribute("aria-current", "page");
-  });
-  const search = document.querySelector(".header-search-form");
-  if (search) {
-    const input = search.querySelector("input");
-    if (input) input.addEventListener("focus", () => search.setAttribute("aria-current", "page"));
-    if (input) input.addEventListener("blur", () => search.removeAttribute("aria-current"));
-  }
-})();
-</script>
-
-<script id="cdc-page-location-20261107">
-(function(){
-  const path=(location.pathname.split("/").pop()||"index.html").toLowerCase();
-  const params=new URLSearchParams(location.search);
-  const category=(params.get("categorie")||params.get("category")||"").toLowerCase();
-  const labels={
-    "index.html":"Accueil","catalogue.html":"Tout le catalogue","produit.html":"Fiche produit",
-    "panier.html":"Mon panier","commande.html":"Finaliser ma commande","compte.html":"Mon compte",
-    "favoris.html":"Mes favoris","contact.html":"Contact","qui-sommes-nous.html":"Qui sommes-nous",
-    "conditions-generales.html":"Conditions générales de vente","confidentialite.html":"Politique de confidentialité",
-    "livraison-retours.html":"Livraison et retours","mentions-legales.html":"Mentions légales"
-  };
-  const categoryLabels={homme:"Montres homme",femme:"Montres femme",accessoires:"Accessoires et bracelets",bracelets:"Accessoires et bracelets",ap:"AP x Swatch", "ap-swatch":"AP x Swatch"};
-  const links=[...document.querySelectorAll(".main-nav a")];
-  let currentLabel=labels[path]||"Page";
-  if(path==="catalogue.html"&&categoryLabels[category]) currentLabel=categoryLabels[category];
-  links.forEach(link=>{
-    const href=(link.getAttribute("href")||"").toLowerCase();
-    let active=false;
-    if(path==="index.html") active=href==="index.html";
-    else if(path==="catalogue.html"&&categoryLabels[category]){
-      active=href.includes("categorie="+encodeURIComponent(category)) ||
-        (category==="bracelets"&&href.includes("categorie=accessoires"));
-    } else if(path==="catalogue.html") active=href==="catalogue.html";
-    else if(path==="produit.html") active=href.startsWith("catalogue.html");
-    else active=href.split("?")[0]===path;
-    if(active){link.setAttribute("aria-current","page");link.classList.add("is-current");}
-    else {link.removeAttribute("aria-current");link.classList.remove("is-current");}
-  });
-  const nav=document.querySelector(".main-nav");
-  if(nav&&!document.querySelector(".page-location")){
-    const crumb=document.createElement("div");
-    crumb.className="page-location";
-    crumb.setAttribute("aria-label","Emplacement sur le site");
-    crumb.innerHTML='<span>Vous êtes ici</span><span class="location-separator">›</span><strong></strong>';
-    crumb.querySelector("strong").textContent=currentLabel;
-    nav.insertAdjacentElement("afterend",crumb);
-  }
-})();
-</script>
-
-<script id="cdc-universal-footer-brand">
-(() => {
- const logo = '<div class="cdc-footer-brand"><span class="brand-monogram" aria-label="CDC"><span class="brand-initials">CDC</span></span><h3>LA CLÉ DES CŒURS</h3><p>BIJOUX FINS &amp; RAFFINÉS</p></div>';
- let footer=document.querySelector("footer");
- if(!footer){
-   footer=document.createElement("footer");
-   footer.className="cdc-site-footer";
-   footer.innerHTML=logo+'<nav class="cdc-footer-links" aria-label="Informations"><a href="catalogue.html">Catalogue</a><a href="contact.html">Contact</a><a href="livraison-retours.html">Livraison et retours</a><a href="mentions-legales.html">Mentions légales</a><a href="conditions-generales.html">Conditions générales</a></nav><p class="footer-bottom">© LA CLÉ DES CŒURS — Tous droits réservés.</p>';
-   document.body.appendChild(footer);
- } else if(!footer.querySelector(".footer-brand,.cdc-footer-brand")){
-   footer.insertAdjacentHTML("afterbegin",logo);
- }
- const old=footer.querySelector(".footer-brand .brand-monogram");
- if(old) old.outerHTML='<span class="brand-monogram" aria-label="CDC"><span class="brand-initials">CDC</span></span>';
-})();
-</script>
 </body>
 </html>
