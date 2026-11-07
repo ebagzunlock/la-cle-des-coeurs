@@ -54,7 +54,7 @@
       button.className = "menu-button";
       button.id = "menuButton";
       button.type = "button";
-      button.textContent = "☰";
+      button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
       button.setAttribute("aria-label", "Ouvrir les catégories");
       const brand = header.querySelector(".brand");
       const emptySlot = header.firstElementChild;
@@ -67,6 +67,27 @@
 
     nav.id = "mainNav";
     nav.setAttribute("aria-label", "Navigation principale");
+    // Icônes vectorielles sobres pour le compte, les favoris et le panier.
+    header.querySelectorAll(".header-actions a").forEach(link => {
+      const href = link.getAttribute("href") || "";
+      let icon = "";
+      if (href.includes("compte")) {
+        icon = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.7-3.4 3-5.2 6.5-5.2s5.8 1.8 6.5 5.2"/></svg>';
+      } else if (href.includes("favoris")) {
+        icon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 8.8c0 4.2-8.4 10-8.4 10S3.6 13 3.6 8.8A4.3 4.3 0 0 1 12 6.5a4.3 4.3 0 0 1 8.4 2.3Z"/></svg>';
+      } else if (href.includes("panier")) {
+        icon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 4.5h2l2.1 10.2a1.8 1.8 0 0 0 1.8 1.5h8.8a1.8 1.8 0 0 0 1.8-1.4L22 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>';
+      }
+      if (icon) {
+        const count = link.querySelector("#cartCount");
+        link.innerHTML = icon + (count ? count.outerHTML : "");
+      }
+    });
+
+    if (button && !button.querySelector("svg")) {
+      button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+    }
+
     nav.innerHTML = `
       <a href="index.html">Accueil</a>
       <a href="catalogue.html?categorie=accessoires">Accessoires et bracelets</a>
@@ -113,14 +134,14 @@
           const opened = nav.classList.toggle("is-open");
           button.setAttribute("aria-expanded", String(opened));
           button.setAttribute("aria-label", opened ? "Fermer les catégories" : "Ouvrir les catégories");
-          button.textContent = opened ? "✕" : "☰";
+          button.innerHTML = opened ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
         });
       }
       nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
         nav.classList.remove("is-open");
         button.setAttribute("aria-expanded", "false");
         button.setAttribute("aria-label", "Ouvrir les catégories");
-        button.textContent = "☰";
+        button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
       }));
     }
   }
