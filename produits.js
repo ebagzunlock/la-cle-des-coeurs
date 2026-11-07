@@ -12,16 +12,9 @@ const DETAILS_PRODUCT_ID = "987654321";
 const DETAILS_IMAGE =
   "https://shop.pinetti.it/cdn/shop/products/prestigebox_zoom-Pinetti.png?v=1611572510";
 
-// Les quatre vues du même modèle Cartier Baignoire WGBA0025,
-// retrouvées dans l'historique du dépôt.
+// Image dédiée au modèle Cartier Baignoire Petit WGBA0025.
 const IMAGES_CARTIER = [
-  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE1.jpeg",
-  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE2.jpeg",
-  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE3.jpeg",
-  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE5.jpeg",
-  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE6.jpeg",
-  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE7.jpeg",
-  "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE9.jpeg"
+  "images/cartier-baignoire-wgba0025.jpg"
 ];
 
 const CATEGORIES = {
