@@ -3594,3 +3594,202 @@ input,select,textarea { background:#fff !important; color:#292d32 !important; bo
 @media(max-width:370px) {
   .brand-name { font-size:9px !important; letter-spacing:.3px !important; }
 }
+
+
+/* CDC — CORRECTION FINALE PRIORITAIRE : LOGO VERTICAL ET THÈME SOBRE */
+:root {
+  --cdc-bg:#e8e1d6;
+  --cdc-surface:#f1ece4;
+  --cdc-ink:#29251f;
+  --cdc-muted:#71685d;
+  --cdc-gold:#ad8958;
+  --cdc-line:#d1c4b2;
+}
+html, body {
+  background:#e8e1d6 !important;
+  color:#29251f !important;
+}
+body {
+  background:linear-gradient(180deg,#eee9e0 0%,#e4ddd2 100%) fixed !important;
+  color:#29251f !important;
+}
+.announcement {
+  background:#29251f !important;
+  color:#f4eee5 !important;
+  border:0 !important;
+}
+.header {
+  background:#eee9e0 !important;
+  color:#29251f !important;
+  border-bottom:1px solid #d4c8b8 !important;
+}
+.brand {
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:0 !important;
+}
+.brand-monogram {
+  position:relative !important;
+  display:block !important;
+  box-sizing:border-box !important;
+  width:44px !important;
+  min-width:44px !important;
+  height:44px !important;
+  min-height:44px !important;
+  margin:0 auto 5px !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  overflow:visible !important;
+}
+.brand-monogram::before {
+  content:"" !important;
+  position:absolute !important;
+  top:0 !important;
+  left:50% !important;
+  width:42px !important;
+  height:42px !important;
+  transform:translateX(-50%) !important;
+  border:1.4px solid #ad8958 !important;
+  border-radius:50% !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.brand-initials {
+  position:absolute !important;
+  z-index:2 !important;
+  inset:0 !important;
+  width:100% !important;
+  height:42px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  color:#29251f !important;
+  font-family:"Cormorant Garamond",Georgia,serif !important;
+  font-size:19px !important;
+  font-weight:700 !important;
+  line-height:1 !important;
+  letter-spacing:.35px !important;
+}
+.brand-monogram svg { display:none !important; }
+.brand-name {
+  display:block !important;
+  margin:0 !important;
+  padding:0 !important;
+  color:#29251f !important;
+  font-family:"Cormorant Garamond",Georgia,serif !important;
+  font-size:16px !important;
+  font-weight:700 !important;
+  line-height:1.15 !important;
+  letter-spacing:1.35px !important;
+  text-align:center !important;
+  white-space:nowrap !important;
+}
+.brand-tagline {
+  display:block !important;
+  margin:4px 0 0 !important;
+  color:#766b5d !important;
+  font-size:8px !important;
+  letter-spacing:1.35px !important;
+  text-align:center !important;
+}
+.main-nav {
+  background:#29251f !important;
+  color:#f4eee5 !important;
+  border:0 !important;
+  border-bottom:2px solid #ad8958 !important;
+}
+.main-nav a {
+  color:#f4eee5 !important;
+  font-size:11px !important;
+  letter-spacing:1px !important;
+}
+.main-nav a:hover,.main-nav a[aria-current="page"],.main-nav a.is-current {
+  color:#e1c49b !important;
+  background:transparent !important;
+  box-shadow:inset 0 -2px 0 #ad8958 !important;
+}
+main, main section, .welcome-section, .featured-section,
+.contact-strip, .product-page, .catalogue-page, .account-page,
+.cart-page, .favourites-page {
+  background-color:transparent !important;
+  color:#29251f !important;
+}
+.categories-section,.editorial-section {
+  background:#e2dacf !important;
+}
+.category-card,.featured-home-card,.product-card,.cart-item,
+.cart-summary,.cart-empty,.account-panel,.account-card,
+.favourites-empty,.product-detail-card {
+  background:#f1ece4 !important;
+  color:#29251f !important;
+  border:1px solid #d7cbbb !important;
+  box-shadow:0 6px 20px rgba(45,36,26,.07) !important;
+}
+h1,h2,h3,h4,.category-card h3,.featured-home-card h3,
+.product-name,.product-name a,.product-price,.product-brand,
+.cart-item h2,.cart-summary h2,.account-page h2,
+.catalogue-heading h1 {
+  color:#29251f !important;
+}
+p,.welcome-section p:not(.eyebrow),.section-heading p:not(.eyebrow),
+.editorial-content p:not(.eyebrow),.contact-strip p:not(.eyebrow) {
+  color:#5e564d !important;
+}
+.eyebrow { color:#927044 !important; }
+.product-image,.category-image,.featured-home-card img {
+  background:#ded6ca !important;
+}
+.product-actions button,.primary-button,.checkout-button,
+button.primary,.account-tabs button {
+  background:#29251f !important;
+  color:#f8f2e9 !important;
+  border:1px solid #ad8958 !important;
+}
+.product-actions button:hover,.primary-button:hover,
+.checkout-button:hover,button.primary:hover {
+  background:#ad8958 !important;
+  border-color:#ad8958 !important;
+  color:#fff !important;
+}
+input,select,textarea {
+  background:#f7f3ed !important;
+  color:#29251f !important;
+  border-color:#cfc2b1 !important;
+}
+.footer {
+  background:#29251f !important;
+  color:#f4eee5 !important;
+  border-top:2px solid #ad8958 !important;
+}
+.footer h3,.footer h4,.footer p,.footer a,.footer-bottom {
+  color:#f4eee5 !important;
+}
+.header-actions a,.header-actions button,.menu-button,#menuButton {
+  color:#5d4a34 !important;
+}
+@media(max-width:760px) {
+  .header { background:#eee9e0 !important; min-height:96px !important; }
+  .brand-monogram {
+    width:38px !important; min-width:38px !important;
+    height:38px !important; min-height:38px !important;
+    margin-bottom:4px !important;
+  }
+  .brand-monogram::before {
+    width:36px !important; height:36px !important;
+  }
+  .brand-initials {
+    height:36px !important;
+    font-size:17px !important;
+  }
+  .brand-name {
+    font-size:clamp(9px,2.7vw,12px) !important;
+    letter-spacing:.65px !important;
+  }
+  .brand-tagline { font-size:6px !important; letter-spacing:.8px !important; }
+  .main-nav { background:#29251f !important; }
+}
