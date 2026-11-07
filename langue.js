@@ -628,11 +628,51 @@ html body header.header>.header-actions svg,html body header.header #cdc-languag
     installSwitcher();
   }
 
+
+  function installThemeSwitcher() {
+    const actions = document.querySelector(".header-actions");
+    if (!actions || document.getElementById("cdc-theme-toggle")) return;
+    const key = "cdc_theme_preference";
+    const choices = ["auto", "light", "dark"];
+    const labels = { auto: "Automatique", light: "Clair", dark: "Sombre" };
+    const button = document.createElement("button");
+    button.id = "cdc-theme-toggle";
+    button.type = "button";
+    button.textContent = "◐";
+    button.setAttribute("aria-label", "Thème : Automatique");
+    button.title = "Thème : Automatique — appuyer pour changer";
+    const read = () => {
+      try { const value = localStorage.getItem(key); return choices.includes(value) ? value : "auto"; }
+      catch { return "auto"; }
+    };
+    let preference = read();
+    const apply = () => {
+      const dark = preference === "dark" || (preference === "auto" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      document.documentElement.setAttribute("data-cdc-theme", dark ? "dark" : "light");
+      button.textContent = dark ? "☾" : "☀";
+      button.setAttribute("aria-label", "Thème actuel : " + labels[preference] + ". Appuyer pour changer.");
+      button.title = "Thème : " + labels[preference] + " — appuyer pour changer";
+    };
+    button.addEventListener("click", () => {
+      preference = choices[(choices.indexOf(preference) + 1) % choices.length];
+      try { localStorage.setItem(key, preference); } catch {}
+      apply();
+    });
+    if (window.matchMedia) {
+      const media = window.matchMedia("(prefers-color-scheme: dark)");
+      if (media.addEventListener) media.addEventListener("change", () => { if (preference === "auto") apply(); });
+      else if (media.addListener) media.addListener(() => { if (preference === "auto") apply(); });
+    }
+    actions.appendChild(button);
+    apply();
+  }
+
   function initializeCdcEnhancements() {
     installGlobalNavigation();
     installCartToast();
     installGlobalFooter();
     installGlobalCountBadges();
+    installThemeSwitcher();
     installWhiteBackgroundCleanup();
     installSwitcher();
   }
