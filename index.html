@@ -356,6 +356,9 @@
     const menuButton = document.getElementById("menuButton");
     const mainNav = document.getElementById("mainNav");
 
+    // Signale au script global que le menu de l’accueil a déjà son gestionnaire.
+    menuButton.dataset.cdcMenuReady = "true";
+
     menuButton.addEventListener("click", function() {
       const menuOuvert = mainNav.classList.toggle("is-open");
 
@@ -559,6 +562,6 @@
       });
     })();
   </script>
-  <script src="langue.js?v=espresso-final-20261107-7"></script>
+  <script src="langue.js?v=espresso-final-20261107-8"></script>
 </body>
 </html>
