@@ -2792,3 +2792,224 @@ hr,table,th,td { border-color:var(--cdc-border) !important; }
   .brand-tagline { font-size:6px !important;letter-spacing:.8px !important; }
   .hero h1 { font-size:clamp(42px,12vw,56px) !important; }
 }
+
+/* CDC — LOGO SIGNATURE FINAL ET CONTRASTE ÉDITORIAL */
+.brand.brand-home-link {
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:0 !important;
+  text-align:center !important;
+}
+.brand-monogram {
+  position:relative !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  box-sizing:border-box !important;
+  width:62px !important;
+  min-width:62px !important;
+  height:auto !important;
+  min-height:51px !important;
+  margin:0 auto !important;
+  padding:3px 3px 15px !important;
+  border:0 !important;
+  border-radius:0 !important;
+  outline:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  overflow:visible !important;
+}
+.brand-monogram::before {
+  content:"" !important;
+  position:absolute !important;
+  z-index:0 !important;
+  inset:0 0 15px !important;
+  border:1px solid rgba(224,189,128,.72) !important;
+  border-radius:1px !important;
+  background:transparent !important;
+  pointer-events:none !important;
+}
+.brand-initials {
+  position:relative !important;
+  z-index:1 !important;
+  display:block !important;
+  color:#edcf9d !important;
+  font-family:"Cormorant Garamond",Georgia,serif !important;
+  font-size:31px !important;
+  font-weight:400 !important;
+  line-height:1 !important;
+  letter-spacing:4px !important;
+  padding-left:4px !important;
+  white-space:nowrap !important;
+}
+.brand-monogram svg {
+  position:absolute !important;
+  z-index:2 !important;
+  top:calc(100% - 14px) !important;
+  left:50% !important;
+  transform:translateX(-50%) !important;
+  display:block !important;
+  width:43px !important;
+  height:10px !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:visible !important;
+  color:#e0bd80 !important;
+  background:transparent !important;
+  border:0 !important;
+}
+.brand-name {
+  display:block !important;
+  margin:0 !important;
+  padding:0 !important;
+  color:#fff8ed !important;
+  font-family:"Cormorant Garamond",Georgia,serif !important;
+  font-size:15px !important;
+  font-weight:400 !important;
+  line-height:1.15 !important;
+  letter-spacing:1.45px !important;
+  text-align:center !important;
+  white-space:nowrap !important;
+}
+.brand-tagline {
+  display:block !important;
+  margin-top:2px !important;
+  color:#e8dece !important;
+  font-size:6px !important;
+  line-height:1.2 !important;
+  letter-spacing:1px !important;
+  text-align:center !important;
+}
+/* Le texte éditorial de l'accueil et les descriptions ne doivent jamais redevenir noirs. */
+main .welcome-section h2,
+main .welcome-section p:not(.eyebrow),
+main .section-heading h2,
+main .section-heading p:not(.eyebrow),
+main .editorial-content h2,
+main .editorial-content p:not(.eyebrow),
+main .contact-strip h2,
+main .contact-strip p:not(.eyebrow) {
+  color:#fff8ed !important;
+}
+main .welcome-section,
+main .featured-section,
+main .contact-strip {
+  background:transparent !important;
+}
+main .categories-section,
+main .category-card {
+  color:#fff8ed !important;
+}
+main .category-card h3,
+main .category-card p,
+main .featured-home-card h3,
+main .featured-home-card p,
+main .featured-home-card .product-name,
+main .featured-home-card .product-price {
+  color:#fff8ed !important;
+}
+main .category-card .category-link,
+main .featured-home-card a:not(.primary-button) {
+  color:#e8c991 !important;
+}
+/* En-tête mobile : CDC au centre, clé juste dessous, actions conservées à droite. */
+@media(max-width:700px) {
+  .header {
+    display:grid !important;
+    grid-template-columns:32px minmax(0,1fr) auto !important;
+    align-items:center !important;
+    column-gap:4px !important;
+    min-height:104px !important;
+    height:auto !important;
+    padding:7px 7px 5px !important;
+  }
+  .header > .brand,
+  .header > .brand-home-link {
+    grid-column:2 !important;
+    grid-row:1 !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-self:center !important;
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    gap:0 !important;
+    white-space:nowrap !important;
+  }
+  .header > .brand .brand-monogram,
+  .header > .brand-home-link .brand-monogram {
+    display:flex !important;
+    width:52px !important;
+    min-width:52px !important;
+    min-height:46px !important;
+    padding:2px 2px 13px !important;
+  }
+  .header > .brand .brand-monogram::before,
+  .header > .brand-home-link .brand-monogram::before {
+    inset:0 0 13px !important;
+  }
+  .header > .brand .brand-initials,
+  .header > .brand-home-link .brand-initials {
+    font-size:27px !important;
+    letter-spacing:3px !important;
+    padding-left:3px !important;
+  }
+  .header > .brand .brand-monogram svg,
+  .header > .brand-home-link .brand-monogram svg {
+    width:37px !important;
+    height:9px !important;
+    top:calc(100% - 12px) !important;
+  }
+  .header > .brand .brand-name,
+  .header > .brand-home-link .brand-name {
+    margin:0 !important;
+    font-size:clamp(9px,2.7vw,12px) !important;
+    letter-spacing:.65px !important;
+    line-height:1.1 !important;
+  }
+  .header > .brand .brand-tagline,
+  .header > .brand-home-link .brand-tagline {
+    margin-top:2px !important;
+    font-size:5px !important;
+    letter-spacing:.7px !important;
+  }
+  .header > .menu-button,
+  .header > #menuButton {
+    grid-column:1 !important;
+    grid-row:1 !important;
+  }
+  .header > .header-actions {
+    grid-column:3 !important;
+    grid-row:1 !important;
+    justify-self:end !important;
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    align-items:center !important;
+    gap:3px !important;
+    min-width:0 !important;
+  }
+  .header-actions a,
+  .header-actions .header-search-form {
+    flex:0 0 27px !important;
+    width:27px !important;
+    min-width:27px !important;
+    max-width:27px !important;
+    height:31px !important;
+    min-height:31px !important;
+    padding:2px !important;
+  }
+  .header-actions a svg { width:17px !important;height:17px !important; }
+}
+@media(max-width:370px) {
+  .header { grid-template-columns:27px minmax(0,1fr) auto !important; }
+  .header-actions { gap:1px !important; }
+  .header-actions a,.header-actions .header-search-form {
+    flex-basis:24px !important;width:24px !important;min-width:24px !important;max-width:24px !important;
+  }
+  .header > .brand .brand-name,
+  .header > .brand-home-link .brand-name { font-size:9px !important;letter-spacing:.35px !important; }
+}
