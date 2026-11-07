@@ -2415,3 +2415,51 @@ input::placeholder,textarea::placeholder { color:#cbbda8 !important; opacity:1 !
   .brand-name { font-size:14px !important; letter-spacing:1.3px !important; }
   .brand-tagline { font-size:6px !important; letter-spacing:1px !important; }
 }
+
+
+/* Icône de recherche compacte et cohérente avec les autres actions */
+.header-actions .header-search-form {
+  box-sizing:border-box !important; width:44px !important; min-width:44px !important;
+  height:44px !important; flex:0 0 44px !important; display:flex !important;
+  align-items:center !important; justify-content:center !important;
+  padding:0 !important; overflow:hidden !important; border-radius:50% !important;
+  transition:width .2s ease, flex-basis .2s ease, border-radius .2s ease !important;
+}
+.header-actions .header-search-form input {
+  width:0 !important; max-width:0 !important; min-width:0 !important;
+  padding:0 !important; border:0 !important; opacity:0 !important;
+}
+.header-actions .header-search-form button {
+  width:42px !important; min-width:42px !important; height:42px !important;
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  padding:0 !important; border:0 !important; background:transparent !important;
+}
+.header-actions .header-search-form:focus-within {
+  width:190px !important; flex-basis:190px !important; border-radius:24px !important;
+}
+.header-actions .header-search-form:focus-within input {
+  width:140px !important; max-width:140px !important; opacity:1 !important;
+  padding:7px 4px 7px 12px !important;
+}
+.header-actions .header-search-form:focus-within button {
+  width:38px !important; min-width:38px !important;
+}
+.header-actions .header-search-link { flex:0 0 44px !important; }
+@media(max-width:800px) {
+  .header-actions .header-search-form,.header-actions .header-search-link {
+    width:36px !important; min-width:36px !important; height:36px !important; flex-basis:36px !important;
+  }
+  .header-actions .header-search-form button { width:34px !important; min-width:34px !important; height:34px !important; }
+  .header-actions .header-search-form:focus-within { width:125px !important; flex-basis:125px !important; }
+  .header-actions .header-search-form:focus-within input { width:78px !important; max-width:78px !important; }
+}
+@media(max-width:390px) {
+  .header-actions .header-search-form,.header-actions .header-search-link,
+  .header-actions a:not(.header-search-link) {
+    width:29px !important; min-width:29px !important; max-width:29px !important;
+    height:29px !important; min-height:29px !important; flex-basis:29px !important;
+  }
+  .header-actions .header-search-form button { width:27px !important; min-width:27px !important; height:27px !important; }
+  .header-actions .header-search-form:focus-within { width:112px !important; flex-basis:112px !important; }
+  .header-actions .header-search-form:focus-within input { width:68px !important; max-width:68px !important; }
+}
