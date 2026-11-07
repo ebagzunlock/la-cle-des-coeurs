@@ -20,6 +20,8 @@
     .cart-checkout { display:block; text-align:center; padding:15px; background:#514238; color:white; letter-spacing:2px; font-size:11px; }
     .cart-empty { text-align:center; padding:45px 15px; background:#f2eee7; }
     @media(max-width:550px) { .cart-item { grid-template-columns:65px 1fr; gap:12px; } .cart-item-image { height:65px; } .cart-item-actions { grid-column:2; } .cart-page h1 { font-size:38px; } }
+  
+    .header-cart-icon { width: 22px; height: 22px; display: inline-block; vertical-align: middle; }
   </style>
 </head>
 <body>
@@ -33,7 +35,7 @@
     </a>
     <div class="header-actions">
       <a href="favoris.html">♡</a>
-      <a href="panier.html">♧ <span id="cartCount">0</span></a>
+      <a href="panier.html" aria-label="Panier"><svg class="header-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.4L22 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg> <span id="cartCount">0</span></a>
     </div>
   </header>
   <nav class="main-nav" id="mainNav">
