@@ -332,6 +332,46 @@
       document.getElementById("total").textContent = formatPrice(subtotal);
     }
 
+    async function verifierRetourStripe() {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get("session_id");
+      if (!sessionId) return false;
+
+      const form = document.getElementById("checkoutForm");
+      const button = form.querySelector(".checkout-button");
+      button.disabled = true;
+      button.textContent = "VÉRIFICATION DU PAIEMENT…";
+
+      try {
+        const response = await fetch(
+          "https://la-cle-des-coeurs-api.bagzful.workers.dev/checkout-session?session_id=" +
+          encodeURIComponent(sessionId)
+        );
+        const result = await response.json();
+
+        if (!response.ok || result.payment_status !== "paid") {
+          throw new Error("Le paiement n'est pas encore confirmé. Ne recommencez pas le paiement ; contactez-nous si le montant a été débité.");
+        }
+
+        localStorage.removeItem(CART_KEY);
+        document.querySelector(".checkout-title").innerHTML =
+          "<p>LA CLÉ DES CŒURS</p><h1>Merci pour votre commande</h1><p>Votre paiement a été confirmé par Stripe.</p>";
+        form.innerHTML =
+          '<section class="checkout-card"><h2>Paiement confirmé</h2><p>Votre paiement a bien été enregistré. Conservez la confirmation envoyée par Stripe.</p><a class="checkout-button" href="catalogue.html">RETOURNER À LA BOUTIQUE</a></section>';
+        document.querySelector(".checkout-summary").hidden = true;
+        return true;
+      } catch (error) {
+        document.querySelector(".checkout-title").insertAdjacentHTML(
+          "beforeend",
+          '<p class="checkout-notice" role="alert"></p>'
+        );
+        document.querySelector(".checkout-title [role=alert]").textContent = error.message;
+        button.disabled = false;
+        button.textContent = "RÉESSAYER LA VÉRIFICATION";
+        return true;
+      }
+    }
+
     document.getElementById("checkoutForm").addEventListener("submit", async event => {
       event.preventDefault();
 
@@ -358,7 +398,6 @@
           lastName: String(formData.get("lastName") || "").trim(),
           email: String(formData.get("email") || "").trim(),
           phone: String(formData.get("phone") || "").trim(),
-          country: String(formData.get("country") || "").trim(),
           country: String(formData.get("country") || "").trim()
         };
 
@@ -394,7 +433,7 @@
       }
     });
 
-    displayOrderSummary();
+    verifierRetourStripe().then(traite => { if (!traite) displayOrderSummary(); });
   </script>
 
 </body>
