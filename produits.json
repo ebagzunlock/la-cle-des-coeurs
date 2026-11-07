@@ -1,0 +1,26 @@
+{
+  "products": [
+    {
+      "id": "987654321",
+      "nom": "DETAILS",
+      "marque": "LA CLÉ DES CŒURS",
+      "reference": "TEST-DETAILS",
+      "categorie": "accessoires",
+      "categories": [
+        "accessoires"
+      ],
+      "prix": 2,
+      "ancienPrix": null,
+      "devise": "EUR",
+      "image": "",
+      "images": [],
+      "actif": true,
+      "enStock": true,
+      "enPromo": false,
+      "note": 0,
+      "nombreAvis": 0,
+      "description": "Article de démonstration à 2 € destiné aux essais de commande et de paiement. Aucun bijou physique n’est associé à cet article.",
+      "ficheSource": ""
+    }
+  ]
+}
