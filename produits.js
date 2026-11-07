@@ -51,16 +51,10 @@ function convertirProduit(p) {
     ...new Set((p.categories || []).map(convertirCategorie))
   ];
 
+  // Conservation de toutes les photos originales, dans leur ordre.
   const imagesSource = Array.isArray(p.images) ? p.images : [];
 
-  // Correction spéciale pour la Cartier : retirer la mauvaise photo CE1.
-  const imagesProduit = String(p.id) === "30716"
-    ? imagesSource.filter(img =>
-        !/\/CE1\.jpeg(?:\?.*)?$/i.test(img.src || "")
-      )
-    : imagesSource;
-
-  const galerie = imagesProduit
+  const galerie = imagesSource
     .map(img => img.src)
     .filter(Boolean);
 
