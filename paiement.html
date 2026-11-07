@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Paiement sécurisé LA CLÉ DES CŒURS">
+<title>Paiement sécurisé | LA CLÉ DES CŒURS</title>
+<link rel="stylesheet" href="styles.css?v=zone-tactile-20261107-35">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+.payment-page{max-width:900px;margin:42px auto;padding:0 18px 70px;color:inherit}
+.payment-brand{text-align:center;margin:0 auto 30px}
+.payment-brand .brand-monogram{margin:0 auto 10px}
+.payment-brand h1{font-family:Georgia,serif;font-weight:400;letter-spacing:2px;font-size:26px}
+.payment-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);gap:22px}
+.payment-card{background:#f0ebe3;color:#40352d;border:1px solid #c7b9a8;padding:24px;border-radius:4px}
+.payment-card h2{font:400 21px Georgia,serif;margin:0 0 18px;color:#40352d}
+.payment-line{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid #d7cbbb;font-size:14px;color:#40352d}
+.payment-line.total{font-weight:700;font-size:18px;border-bottom:0;padding-top:18px}
+.payment-meta{font-size:13px;line-height:1.7;color:#625548}
+#payment-element{margin:18px 0}
+#payButton{width:100%;padding:16px;border:0;background:#8b745c;color:#fff;letter-spacing:1px;cursor:pointer}
+#payButton:disabled{opacity:.55;cursor:wait}
+#paymentMessage{min-height:24px;margin-top:14px;font-size:13px;line-height:1.6}
+.payment-success{text-align:center;padding:30px 12px}
+@media(max-width:700px){.payment-grid{grid-template-columns:1fr}.payment-page{margin-top:24px}.payment-card{padding:19px}}
+</style>
+</head>
+<body>
+<div class="announcement">BIENVENUE CHEZ LA CLÉ DES CŒURS</div>
+<header class="header">
+<a href="index.html" class="brand brand-home-link" title="Retour à l’accueil" aria-label="LA CLÉ DES CŒURS — Accueil">
+<span class="brand-monogram" aria-label="CDC"><span class="brand-initials">CDC</span></span>
+<span class="brand-name">LA CLÉ DES CŒURS</span><span class="brand-tagline">BIJOUX FINS &amp; RAFFINÉS</span>
+</a>
+</header>
+<main class="payment-page">
+<div class="payment-brand">
+<h1 id="pageTitle">Paiement sécurisé</h1>
+<p class="payment-meta">Votre commande est traitée en toute sécurité.</p>
+</div>
+<div id="successPanel" class="payment-card payment-success" hidden>
+<h2>Paiement confirmé</h2>
+<p>Merci pour votre commande auprès de LA CLÉ DES CŒURS.</p>
+<a href="catalogue.html">RETOURNER À LA BOUTIQUE</a>
+</div>
+<div id="paymentLayout" class="payment-grid">
+<section class="payment-card">
+<h2>Votre commande</h2>
+<p class="payment-meta" id="orderRef"></p>
+<div id="customerSummary" class="payment-meta"></div>
+<div id="itemsSummary"></div>
+<div class="payment-line"><span>Sous-total</span><strong id="subtotal">—</strong></div>
+<div class="payment-line"><span>Livraison</span><strong id="shipping">15,62 €</strong></div>
+<div class="payment-line total"><span>Total à payer</span><strong id="total">—</strong></div>
+</section>
+<section class="payment-card">
+<h2>Choisissez votre moyen de paiement</h2>
+<div id="payment-element"></div>
+<button id="payButton" type="button" disabled>CHARGEMENT DU PAIEMENT…</button>
+<p id="paymentMessage" class="payment-meta" role="status" aria-live="polite">Connexion sécurisée à Stripe…</p>
+<p class="payment-meta">Vos données bancaires sont saisies directement dans le formulaire sécurisé Stripe. Elles ne sont jamais enregistrées par notre boutique.</p>
+</section>
+</div>
+</main>
+<script>
+(() => {
+"use strict";
+const API="https://la-cle-des-coeurs-api.bagzful.workers.dev";
+const KEY="pk_live_51UYnKB8R9yJlbTy40jlXgQ6VY17BUzg4r1uYaO9K7DGvn6iBCZzBsqpnnjeP6craQlZXYQ6mlFh49IFE1ISJuMyf00LnUjFMgF";
+const CART_KEY="cdc_cart", SHIPPING=15.62;
+const money=n=>Number(n||0).toLocaleString("fr-FR",{style:"currency",currency:"EUR"});
+const msg=document.getElementById("paymentMessage");
+const button=document.getElementById("payButton");
+const params=new URLSearchParams(location.search);
+if(params.get("redirect_status")==="succeeded"){
+ document.getElementById("paymentLayout").hidden=true;
+ document.getElementById("successPanel").hidden=false;
+ document.getElementById("pageTitle").textContent="Merci pour votre commande";
+ localStorage.removeItem(CART_KEY);localStorage.removeItem("cdc_buy_now");localStorage.removeItem("cdc_pending_payment");
+ return;
+}
+let order;
+try{order=JSON.parse(localStorage.getItem("cdc_pending_payment")||"null");}catch{}
+if(!order||!Array.isArray(order.items)||!order.items.length||!order.customer){
+ msg.textContent="Votre commande est introuvable. Retournez au panier pour recommencer.";
+ button.textContent="RETOURNER AU PANIER";button.disabled=false;
+ button.onclick=()=>location.href="panier.html";return;
+}
+document.getElementById("orderRef").textContent="Référence : "+(order.orderReference||"—");
+const customer=order.customer;
+document.getElementById("customerSummary").textContent=[customer.firstName+" "+customer.lastName,customer.email,customer.phone,[customer.address,customer.postalCode,customer.city,customer.country].filter(Boolean).join(", ")].filter(Boolean).join(" · ");
+let cart=[];try{cart=JSON.parse(localStorage.getItem("cdc_buy_now")||"[]");if(!cart.length)cart=JSON.parse(localStorage.getItem(CART_KEY)||"[]");}catch{}
+const lines=document.getElementById("itemsSummary");let subtotal=0;
+for(const item of cart){const qty=Math.max(1,Number(item.quantity)||1),price=Number(item.price)||0;subtotal+=qty*price;
+const row=document.createElement("div");row.className="payment-line";
+const name=document.createElement("span");name.textContent=(item.name||"Article")+" × "+qty;
+const amount=document.createElement("strong");amount.textContent=money(qty*price);row.append(name,amount);lines.append(row);}
+document.getElementById("subtotal").textContent=money(subtotal);
+document.getElementById("shipping").textContent=money(SHIPPING);
+document.getElementById("total").textContent=money(subtotal+SHIPPING);
+async function start(){
+ try{
+  if(!window.Stripe)throw new Error("Le module Stripe n'a pas pu être chargé.");
+  const response=await fetch(API+"/create-payment-intent",{method:"POST",credentials:"include",headers:{"Content-Type":"application/json"},body:JSON.stringify({items:order.items,customer:order.customer,orderReference:order.orderReference})});
+  const result=await response.json();
+  if(!response.ok||!result.clientSecret)throw new Error(result.erreur||"Le serveur de paiement doit être mis à jour pour activer cette nouvelle page.");
+  const stripe=Stripe(KEY);
+  const elements=stripe.elements({clientSecret:result.clientSecret,appearance:{theme:"stripe",variables:{colorPrimary:"#8b745c",borderRadius:"3px"}}});
+  const paymentElement=elements.create("payment");paymentElement.mount("#payment-element");
+  button.disabled=false;button.textContent="PAYER MAINTENANT";
+  button.addEventListener("click",async()=>{
+   button.disabled=true;button.textContent="PAIEMENT EN COURS…";msg.textContent="Vérification sécurisée de votre paiement…";
+   const {error}=await stripe.confirmPayment({elements,confirmParams:{return_url:location.origin+location.pathname},redirect:"if_required"});
+   if(error){msg.textContent=error.message||"Le paiement n'a pas pu être confirmé.";button.disabled=false;button.textContent="RÉESSAYER LE PAIEMENT";return;}
+   msg.textContent="Paiement transmis. Vérification de la confirmation…";
+   location.href=location.pathname+"?redirect_status=succeeded";
+  });
+  msg.textContent="Choisissez votre moyen de paiement puis confirmez.";
+ }catch(e){msg.textContent=e.message||"Impossible de préparer le paiement.";button.disabled=true;button.textContent="PAIEMENT INDISPONIBLE";}
+}
+start();
+})();
+</script>
+<script src="langue.js?v=theme-icone-espace-20261107-8"></script>
+</body></html>
