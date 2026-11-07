@@ -51,12 +51,24 @@ function convertirProduit(p) {
     ...new Set((p.categories || []).map(convertirCategorie))
   ];
 
-  // Conservation de toutes les photos originales, dans leur ordre.
   const imagesSource = Array.isArray(p.images) ? p.images : [];
 
-  const galerie = imagesSource
-    .map(img => img.src)
-    .filter(Boolean);
+  // Photos vérifiées sur la fiche originale de la Cartier.
+  const imagesCartier = [
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE1-150x135.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE2-150x144.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE3-150x147.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE4-150x144.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE5-150x141.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE6-150x145.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE7-150x147.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE8-150x135.jpeg",
+    "https://bijouterielamalmaison.fr/wp-content/uploads/2026/05/CE9-150x146.jpeg"
+  ];
+
+  const galerie = String(p.id) === "30716"
+    ? imagesCartier
+    : imagesSource.map(img => img.src).filter(Boolean);
 
   return {
     id: String(p.id),
