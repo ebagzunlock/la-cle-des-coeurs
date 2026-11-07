@@ -12,9 +12,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=joaillerie-taupe-20261107-1">
+  <link rel="stylesheet" href="styles.css?v=signature-minerale-20261107-2">
 
   <style>
     .main-nav.is-open {
@@ -104,7 +104,7 @@
       aria-expanded="false"
       aria-controls="mainNav"
     >
-      ☰
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
 
     <a href="index.html" class="brand brand-home-link" title="Retour à l’accueil">
@@ -116,7 +116,7 @@
     <div class="header-actions">
       <a href="compte.html" aria-label="Mon compte" title="Mon compte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.7-3.4 3-5.2 6.5-5.2s5.8 1.8 6.5 5.2"/></svg></a>
       <a href="favoris.html" aria-label="Favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 8.8c0 4.2-8.4 10-8.4 10S3.6 13 3.6 8.8A4.3 4.3 0 0 1 12 6.5a4.3 4.3 0 0 1 8.4 2.3Z"/></svg></a>
-      <a href="panier.html" aria-label="Panier" aria-label="Panier"><svg class="header-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.4L22 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg> <span id="cartCount">0</span></a>
+      <a href="panier.html" aria-label="Panier"><svg class="header-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.4L22 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg> <span id="cartCount">0</span></a>
     </div>
 
   </header>
@@ -222,29 +222,29 @@
 
       <div class="category-grid">
 
-        <a href="catalogue.html?categorie=accessoires" class="category-card">
-          <div class="category-image category-accessories" data-category-image="accessoires" aria-label="Défilement des accessoires et bracelets"></div>
+        <article class="category-card">
+          <div class="category-image category-accessories" data-category-image="accessoires" aria-label="Produits de la catégorie Accessoires et bracelets"></div>
           <h3>Accessoires et bracelets</h3>
-          <span class="category-link">DÉCOUVRIR</span>
-        </a>
+          <a class="category-link" href="catalogue.html?categorie=accessoires">DÉCOUVRIR</a>
+        </article>
 
-        <a href="catalogue.html?categorie=ap-swatch" class="category-card">
-          <div class="category-image category-ap" data-category-image="ap-swatch" aria-label="Défilement des montres AP x Swatch"></div>
+        <article class="category-card">
+          <div class="category-image category-ap" data-category-image="ap-swatch" aria-label="Produits de la catégorie AP x Swatch"></div>
           <h3>AP x Swatch</h3>
-          <span class="category-link">DÉCOUVRIR</span>
-        </a>
+          <a class="category-link" href="catalogue.html?categorie=ap-swatch">DÉCOUVRIR</a>
+        </article>
 
-        <a href="catalogue.html?categorie=femme" class="category-card">
-          <div class="category-image category-women" data-category-image="femme" aria-label="Défilement des montres femme"></div>
+        <article class="category-card">
+          <div class="category-image category-women" data-category-image="femme" aria-label="Produits de la catégorie Montres femme"></div>
           <h3>Montres femme</h3>
-          <span class="category-link">DÉCOUVRIR</span>
-        </a>
+          <a class="category-link" href="catalogue.html?categorie=femme">DÉCOUVRIR</a>
+        </article>
 
-        <a href="catalogue.html?categorie=homme" class="category-card">
-          <div class="category-image category-men" data-category-image="homme" aria-label="Défilement des montres homme"></div>
+        <article class="category-card">
+          <div class="category-image category-men" data-category-image="homme" aria-label="Produits de la catégorie Montres homme"></div>
           <h3>Montres homme</h3>
-          <span class="category-link">DÉCOUVRIR</span>
-        </a>
+          <a class="category-link" href="catalogue.html?categorie=homme">DÉCOUVRIR</a>
+        </article>
 
       </div>
 
@@ -451,48 +451,69 @@
       const zones = document.querySelectorAll("[data-category-image]");
       if (!zones.length || !window.produitsReady) return;
 
-      const noms = {
-        accessoires: "accessoire et bracelet",
-        "ap-swatch": "montre AP x Swatch",
-        femme: "montre femme",
-        homme: "montre homme"
-      };
+      const euro = value => new Intl.NumberFormat("fr-FR", {
+        style: "currency", currency: "EUR"
+      }).format(Number(value) || 0);
+
+      const escapeHTML = value => String(value || "").replace(/[&<>"']/g, ch => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+      }[ch]));
 
       window.produitsReady.then(function(produits) {
-        zones.forEach(function(zone) {
+        zones.forEach(function(zone, zoneIndex) {
           const categorie = zone.dataset.categoryImage;
-          const selection = produits.filter(function(p) {
-            return p && p.actif !== false && p.image &&
-              (p.categorie === categorie ||
-               (Array.isArray(p.categories) && p.categories.includes(categorie)));
+          const selection = produits.filter(function(produit) {
+            if (!produit || produit.actif === false || !produit.image) return false;
+            const categories = Array.isArray(produit.categories) ? produit.categories : [];
+            return produit.categorie === categorie || categories.includes(categorie);
           });
+
           if (!selection.length) {
             zone.classList.add("category-image-empty");
+            zone.setAttribute("aria-label", "Collection bientôt disponible");
             return;
           }
 
           const piste = document.createElement("div");
           piste.className = "category-product-track";
-          const produitsAffiches = selection.concat(selection);
-          produitsAffiches.forEach(function(produit, index) {
+
+          // La deuxième série rend le défilement continu, propre à cette catégorie.
+          selection.concat(selection).forEach(function(produit, index) {
+            const lien = document.createElement("a");
+            lien.className = "category-product-item";
+            lien.href = "produit.html?id=" + encodeURIComponent(produit.id);
+            lien.setAttribute("aria-label", (produit.nom || "Découvrir le produit") + " — " + euro(produit.prix));
+
             const image = document.createElement("img");
             image.src = produit.image;
-            image.alt = noms[categorie] || "Produit de la catégorie";
-            image.loading = index < 3 ? "eager" : "lazy";
-            image.onerror = function() { image.remove(); };
-            piste.appendChild(image);
+            image.alt = produit.nom || "Produit de la collection";
+            image.loading = index < 2 ? "eager" : "lazy";
+            image.onerror = function() {
+              lien.remove();
+            };
+
+            const infos = document.createElement("span");
+            infos.className = "category-product-info";
+            infos.innerHTML = '<span class="category-product-name">' +
+              escapeHTML(produit.nom || "Découvrir la pièce") +
+              '</span><span class="category-product-price">' +
+              escapeHTML(euro(produit.prix)) + '</span>';
+
+            lien.append(image, infos);
+            piste.appendChild(lien);
           });
+
           zone.replaceChildren(piste);
-          if (selection.length > 1) {
-            zone.classList.add("category-image-moving");
-            piste.style.setProperty("--category-duration", Math.max(18, selection.length * 5) + "s");
-          }
+          zone.classList.add("category-image-moving");
+          zone.style.setProperty("--category-duration", Math.max(16, selection.length * 5.5) + "s");
+          zone.style.setProperty("--category-delay", (zoneIndex * -2.3) + "s");
+          zone.setAttribute("aria-label", selection.length + " produits défilent automatiquement dans cette catégorie. Survolez une photo pour afficher ses détails.");
         });
       }).catch(function() {
         zones.forEach(function(zone) { zone.classList.add("category-image-empty"); });
       });
     })();
   </script>
-  <script src="langue.js?v=joaillerie-icons-20261107-1"></script>
+  <script src="langue.js?v=signature-minerale-20261107-2"></script>
 </body>
 </html>
