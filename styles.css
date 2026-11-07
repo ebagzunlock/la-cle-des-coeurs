@@ -1576,3 +1576,11 @@ input, select, textarea, #cdc-language-menu, #cdc-language-select {
   .header > .brand { max-width: calc(100% - 165px) !important; gap: 5px !important; }
   .header > .brand .brand-name { font-size: 9px !important; letter-spacing: .35px !important; }
 }
+
+/* Le défilement des collections reste actif sur les téléphones, même si le système réduit les animations. */
+@media (prefers-reduced-motion: reduce) {
+  .category-product-track {
+    animation: cdc-category-marquee var(--category-duration,24s) linear infinite !important;
+    animation-delay: var(--category-delay,0s) !important;
+  }
+}
