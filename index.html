@@ -223,33 +223,25 @@
       <div class="category-grid">
 
         <a href="catalogue.html?categorie=accessoires" class="category-card">
-          <div class="category-image category-accessories" data-category-image="accessoires">
-            <span>01</span>
-          </div>
+          <div class="category-image category-accessories" data-category-image="accessoires" aria-label="Défilement des accessoires et bracelets"></div>
           <h3>Accessoires et bracelets</h3>
           <span class="category-link">DÉCOUVRIR</span>
         </a>
 
         <a href="catalogue.html?categorie=ap-swatch" class="category-card">
-          <div class="category-image category-ap" data-category-image="ap-swatch">
-            <span>02</span>
-          </div>
+          <div class="category-image category-ap" data-category-image="ap-swatch" aria-label="Défilement des montres AP x Swatch"></div>
           <h3>AP x Swatch</h3>
           <span class="category-link">DÉCOUVRIR</span>
         </a>
 
         <a href="catalogue.html?categorie=femme" class="category-card">
-          <div class="category-image category-women" data-category-image="femme">
-            <span>03</span>
-          </div>
+          <div class="category-image category-women" data-category-image="femme" aria-label="Défilement des montres femme"></div>
           <h3>Montres femme</h3>
           <span class="category-link">DÉCOUVRIR</span>
         </a>
 
         <a href="catalogue.html?categorie=homme" class="category-card">
-          <div class="category-image category-men" data-category-image="homme">
-            <span>04</span>
-          </div>
+          <div class="category-image category-men" data-category-image="homme" aria-label="Défilement des montres homme"></div>
           <h3>Montres homme</h3>
           <span class="category-link">DÉCOUVRIR</span>
         </a>
@@ -456,28 +448,49 @@
   </script>
   <script>
     (function() {
-      if (!window.produitsReady) return;
+      const zones = document.querySelectorAll("[data-category-image]");
+      if (!zones.length || !window.produitsReady) return;
+
+      const noms = {
+        accessoires: "accessoire et bracelet",
+        "ap-swatch": "montre AP x Swatch",
+        femme: "montre femme",
+        homme: "montre homme"
+      };
+
       window.produitsReady.then(function(produits) {
-        document.querySelectorAll("[data-category-image]").forEach(function(zone) {
+        zones.forEach(function(zone) {
           const categorie = zone.dataset.categoryImage;
-          const produit = produits.find(function(p) {
-            return p && p.image && (p.categorie === categorie ||
-              (Array.isArray(p.categories) && p.categories.includes(categorie)));
+          const selection = produits.filter(function(p) {
+            return p && p.actif !== false && p.image &&
+              (p.categorie === categorie ||
+               (Array.isArray(p.categories) && p.categories.includes(categorie)));
           });
-          if (!produit) return;
-          const image = document.createElement("img");
-          image.src = produit.image;
-          image.alt = "Exemple de " + ({
-            accessoires: "accessoire et bracelet",
-            "ap-swatch": "montre AP x Swatch",
-            femme: "montre femme",
-            homme: "montre homme"
-          }[categorie] || "produit de la catégorie");
-          image.loading = "lazy";
-          image.onerror = function() { image.remove(); };
-          zone.prepend(image);
+          if (!selection.length) {
+            zone.classList.add("category-image-empty");
+            return;
+          }
+
+          const piste = document.createElement("div");
+          piste.className = "category-product-track";
+          const produitsAffiches = selection.concat(selection);
+          produitsAffiches.forEach(function(produit, index) {
+            const image = document.createElement("img");
+            image.src = produit.image;
+            image.alt = noms[categorie] || "Produit de la catégorie";
+            image.loading = index < 3 ? "eager" : "lazy";
+            image.onerror = function() { image.remove(); };
+            piste.appendChild(image);
+          });
+          zone.replaceChildren(piste);
+          if (selection.length > 1) {
+            zone.classList.add("category-image-moving");
+            piste.style.setProperty("--category-duration", Math.max(18, selection.length * 5) + "s");
+          }
         });
-      }).catch(function() {});
+      }).catch(function() {
+        zones.forEach(function(zone) { zone.classList.add("category-image-empty"); });
+      });
     })();
   </script>
   <script src="langue.js?v=footer-categories-20261107-3"></script>
