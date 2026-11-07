@@ -1058,10 +1058,10 @@ p, a, button, input, select, label, .main-nav {
   background: linear-gradient(145deg, #c4b8a9, #d8cfc3) !important;
   overflow: hidden;
 }
-.category-product-track {
+ .category-product-track {
   display: flex;
   align-items: stretch;
-  width: 100%;
+  width: max-content;
   height: 100%;
   animation: cdc-category-marquee var(--category-duration, 24s) linear infinite;
   animation-delay: var(--category-delay, 0s);
@@ -1074,8 +1074,8 @@ p, a, button, input, select, label, .main-nav {
 .category-product-item {
   position: relative;
   display: block;
-  flex: 0 0 100%;
-  width: 100%;
+  flex: 0 0 calc((min(90vw, 1250px) - 60px) / 4);
+  width: calc((min(90vw, 1250px) - 60px) / 4);
   height: 100%;
   overflow: hidden;
   background: linear-gradient(145deg, #c4b8a9, #d8cfc3);
@@ -1163,10 +1163,18 @@ p, a, button, input, select, label, .main-nav {
 }
 @media (max-width: 900px) {
   .category-image { height: 260px; }
+  .category-product-item {
+    flex-basis: calc((min(90vw, 1250px) - 20px) / 2);
+    width: calc((min(90vw, 1250px) - 20px) / 2);
+  }
 }
 @media (max-width: 600px) {
   .category-grid { gap: 12px; }
   .category-image { height: 205px; }
+  .category-product-item {
+    flex-basis: calc((100vw - 40px) / 2);
+    width: calc((100vw - 40px) / 2);
+  }
   .category-product-item img { padding: 10px; }
   .category-product-info {
     opacity: 1;
