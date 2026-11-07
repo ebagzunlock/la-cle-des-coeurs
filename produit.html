@@ -365,9 +365,11 @@
       });
     }
 
-    if (!idProduit) {
-      afficherErreur("Aucun produit n'a été sélectionné.");
-    } else {
+ if (!idProduit) {
+  afficherErreur("Aucun produit n'a été sélectionné.");
+} else {
+  window.produitsReady
+    .then(function() {
       const produit = obtenirProduit();
 
       if (produit) {
@@ -375,6 +377,12 @@
       } else {
         afficherErreur("Ce produit est introuvable dans notre catalogue.");
       }
+    })
+    .catch(function(erreur) {
+      console.error(erreur);
+      afficherErreur("Impossible de charger le catalogue. Réessayez plus tard.");
+    });
+}
     }
   </script>
 
