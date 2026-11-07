@@ -1807,3 +1807,10 @@ input, select, textarea, .catalogue-filters input, .catalogue-filters select, .c
   }
   #cdc-language-button {height:21px!important;min-height:21px!important;}
 }
+
+
+/* VERSION 26 — LOGO CDC AVEC CLÉ, IDENTIQUE SUR TOUTES LES PAGES */
+.brand-monogram{position:relative!important;isolation:isolate!important;}
+.brand-monogram .brand-key-icon{position:absolute!important;right:6px!important;bottom:6px!important;width:12px!important;height:12px!important;display:block!important;fill:none!important;stroke:#ead7b5!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important;opacity:.98!important;filter:drop-shadow(0 0 1px rgba(48,40,32,.45))!important;}
+.header .brand-monogram .brand-key-icon{right:5px!important;bottom:5px!important;width:11px!important;height:11px!important;}
+.footer-brand .brand-monogram .brand-key-icon{right:6px!important;bottom:6px!important;width:12px!important;height:12px!important;}
