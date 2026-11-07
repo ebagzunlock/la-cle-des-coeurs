@@ -435,6 +435,7 @@
           "https://la-cle-des-coeurs-api.bagzful.workers.dev/create-checkout-session",
           {
             method: "POST",
+            credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ items, customer })
           }
