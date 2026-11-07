@@ -193,7 +193,7 @@
     </div>
   </main>
 
-  <script src="produits.js"></script>
+  <script src="produits.js?v=cartier-30716-fix-20261107"></script>
 
   <script>
     "use strict";
@@ -455,6 +455,18 @@
           const produit = obtenirProduit();
 
           if (produit) {
+            if (String(idProduit) === "30716") {
+              produit.nom = "Cartier Baignoire Petit WGBA0025 « Femme » Quartz Or Jaune (2025) Taille 16 NEUF";
+              produit.marque = "Cartier";
+              produit.reference = "WGBA0025";
+              produit.categorie = "femme";
+              produit.categories = ["femme"];
+              produit.prix = 16000;
+              produit.ancienPrix = null;
+              produit.image = "https://content.thewosgroup.com/productimage/17311580/17311580_2.jpg?impolicy=hero&imwidth=600";
+              produit.images = [produit.image];
+              produit.description = "Montre Cartier Baignoire petit modèle, référence WGBA0025. Mouvement quartz, boîtier et bracelet rigide intégrés en or jaune 18 carats, cadran argenté avec chiffres romains et aiguilles bleuies. Taille 16.";
+            }
             afficherProduit(produit);
           } else {
             afficherErreur("Ce produit est introuvable dans notre catalogue.");
