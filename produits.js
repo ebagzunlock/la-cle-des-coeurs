@@ -182,15 +182,7 @@ async function chargerTousLesProduits() {
       if (dejaVus.has(id)) continue;
       dejaVus.add(id);
 
-      // Garder DETAILS et Cartier ; masquer les autres produits gratuits
-      if (id !== DETAILS_PRODUCT_ID && id !== "30716") {
-        const prixCentimes = Number(produit.prices?.price);
-
-        if (!Number.isSafeInteger(prixCentimes) || prixCentimes <= 0) {
-          continue;
-        }
-      }
-
+      // Conserver tous les produits du catalogue d'origine, quel que soit leur prix.
       produitsImportes.push(convertirProduit(produit));
     }
 
@@ -213,7 +205,7 @@ window.produitsReady = chargerTousLesProduits()
     );
 
     console.log(
-      `${produitsImportes.length} produits importés ; produits sans prix exclus.`
+      `${produitsImportes.length} produits importés depuis le catalogue d'origine, plus DETAILS si présent.`
     );
 
     window.dispatchEvent(new Event("produits:loaded"));
