@@ -325,7 +325,7 @@ html body header.header>.header-actions svg,html body header.header #cdc-languag
 
   function installWhiteBackgroundCleanup() {
     const isNearWhite = value => {
-      const match = String(value || "").match(/rgba?\\(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+)/i);
+      const match = String(value || "").match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
       return !!match && Number(match[1]) >= 238 && Number(match[2]) >= 238 && Number(match[3]) >= 238;
     };
     const paint = root => {
