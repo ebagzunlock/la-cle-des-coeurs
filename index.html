@@ -7,7 +7,7 @@
   <title>LA CLÉ DES CŒURS | Bijoux fins & raffinés</title>
 
   <meta name="description" content="Découvrez LA CLÉ DES CŒURS, une sélection de bijoux et de montres fins et raffinés.">
-  <meta name="theme-color" content="#f8f5f0">
+  <meta name="theme-color" content="#39332e">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,7 +46,7 @@
         width: 100%;
         gap: 12px;
         padding: 18px;
-        background: #f8f5f0;
+        background: #39332e;
         position: relative;
         z-index: 20;
       }
@@ -60,8 +60,8 @@
       padding:0 20px;
     }
     .featured-home-card {
-      border:1px solid #eee9e1;
-      background:#fff;
+      border:1px solid rgba(190,166,126,.28);
+      background:#39332e;
       text-align:center;
       padding-bottom:16px;
       min-width:0;
@@ -465,7 +465,7 @@
           const selection = produits.filter(function(produit) {
             if (!produit || produit.actif === false || !produit.image) return false;
             const categories = Array.isArray(produit.categories) ? produit.categories : [];
-            return produit.categorie === categorie || categories.includes(categorie);
+            return categories.includes(categorie);
           });
 
           if (!selection.length) {
@@ -505,6 +505,7 @@
 
           zone.replaceChildren(piste);
           zone.classList.add("category-image-moving");
+          zone.style.setProperty("--category-count", selection.length);
           zone.style.setProperty("--category-duration", Math.max(16, selection.length * 5.5) + "s");
           zone.style.setProperty("--category-delay", (zoneIndex * -2.3) + "s");
           zone.setAttribute("aria-label", selection.length + " produits défilent automatiquement dans cette catégorie. Survolez une photo pour afficher ses détails.");
