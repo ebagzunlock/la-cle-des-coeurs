@@ -223,7 +223,7 @@
       <div class="category-grid">
 
         <a href="catalogue.html?categorie=accessoires" class="category-card">
-          <div class="category-image category-accessories">
+          <div class="category-image category-accessories" data-category-image="accessoires">
             <span>01</span>
           </div>
           <h3>Accessoires et bracelets</h3>
@@ -231,7 +231,7 @@
         </a>
 
         <a href="catalogue.html?categorie=ap-swatch" class="category-card">
-          <div class="category-image category-ap">
+          <div class="category-image category-ap" data-category-image="ap-swatch">
             <span>02</span>
           </div>
           <h3>AP x Swatch</h3>
@@ -239,7 +239,7 @@
         </a>
 
         <a href="catalogue.html?categorie=femme" class="category-card">
-          <div class="category-image category-women">
+          <div class="category-image category-women" data-category-image="femme">
             <span>03</span>
           </div>
           <h3>Montres femme</h3>
@@ -247,7 +247,7 @@
         </a>
 
         <a href="catalogue.html?categorie=homme" class="category-card">
-          <div class="category-image category-men">
+          <div class="category-image category-men" data-category-image="homme">
             <span>04</span>
           </div>
           <h3>Montres homme</h3>
@@ -454,6 +454,32 @@
       }).catch(() => { zone.textContent = "La sélection est momentanément indisponible."; });
     })();
   </script>
-  <script src="langue.js?v=toast-footer-20261107-2"></script>
+  <script>
+    (function() {
+      if (!window.produitsReady) return;
+      window.produitsReady.then(function(produits) {
+        document.querySelectorAll("[data-category-image]").forEach(function(zone) {
+          const categorie = zone.dataset.categoryImage;
+          const produit = produits.find(function(p) {
+            return p && p.image && (p.categorie === categorie ||
+              (Array.isArray(p.categories) && p.categories.includes(categorie)));
+          });
+          if (!produit) return;
+          const image = document.createElement("img");
+          image.src = produit.image;
+          image.alt = "Exemple de " + ({
+            accessoires: "accessoire et bracelet",
+            "ap-swatch": "montre AP x Swatch",
+            femme: "montre femme",
+            homme: "montre homme"
+          }[categorie] || "produit de la catégorie");
+          image.loading = "lazy";
+          image.onerror = function() { image.remove(); };
+          zone.prepend(image);
+        });
+      }).catch(function() {});
+    })();
+  </script>
+  <script src="langue.js?v=footer-categories-20261107-3"></script>
 </body>
 </html>
