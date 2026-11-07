@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mon panier | LA CLÉ DES CŒURS</title>
-  <link rel="stylesheet" href="styles.css?v=tdc-signature-theme-20261107-5">
+  <link rel="stylesheet" href="styles.css?v=cdc-brand-cart-nav-20261107-6">
   <style>
     .cart-page { max-width:1000px; margin:auto; padding:60px 5%; }
     .cart-page h1 { text-align:center; font:500 48px "Cormorant Garamond",serif; color:#302820; margin-bottom:35px; }
@@ -36,7 +36,7 @@
   <header class="header">
     <button class="menu-button" id="menuButton" aria-label="Ouvrir le menu">☰</button>
     <a href="index.html" class="brand brand-home-link" title="Retour à l’accueil">
-      <span class="brand-monogram" aria-label="Logo TDC avec une clé"><span class="brand-initials">TDC</span><svg viewBox="0 0 80 18" aria-hidden="true"><circle cx="8" cy="9" r="5.2" fill="none" stroke="currentColor" stroke-width="1.25"/><path d="M13.5 9H71m-8 0v4m-8-4v3m16-3v3" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/><path d="M35 5.5h10" stroke="currentColor" stroke-width=".8" opacity=".7"/></svg></span>
+      <span class="brand-monogram" aria-label="Monogramme CDC avec une clé"><span class="brand-initials">CDC</span><svg viewBox="0 0 96 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="6.2" fill="none" stroke="currentColor" stroke-width="1.15"/><path d="M16.5 10H91m-9 0v5m-8-5v4m-8-4v5" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/><path d="M43 5.5h10" fill="none" stroke="currentColor" stroke-width=".7" opacity=".65"/></svg></span>
       <span class="brand-name">LA CLÉ DES CŒURS</span>
       <span class="brand-tagline">BIJOUX FINS & RAFFINÉS</span>
     </a>
@@ -213,5 +213,15 @@
     renderCart();
   </script>
   <script src="langue.js?v=identite-lisible-20261107-1"></script>
+
+<script id="cdc-active-navigation-20261107">
+(() => {
+ const page=(location.pathname.split("/").pop()||"index.html").toLowerCase();
+ const targets={"compte.html":"compte","favoris.html":"favoris","panier.html":"panier"};
+ document.querySelectorAll(".header-actions a").forEach(link=>{const href=(link.getAttribute("href")||"").split("?")[0].toLowerCase();const key=targets[page];if(key&&href===key+".html")link.setAttribute("aria-current","page");});
+ document.querySelectorAll(".main-nav a").forEach(link=>{const href=(link.getAttribute("href")||"").split("?")[0].toLowerCase();if(href===page||(page==="produit.html"&&href==="catalogue.html"))link.setAttribute("aria-current","page");});
+ const search=document.querySelector(".header-search-form");if(search){const input=search.querySelector("input");if(input){input.addEventListener("focus",()=>search.setAttribute("aria-current","page"));input.addEventListener("blur",()=>search.removeAttribute("aria-current"));}}
+})();
+</script>
 </body>
 </html>
