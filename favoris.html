@@ -281,15 +281,17 @@
       }
 
       const cart = getCart();
-      const existing = cart.find(item => item.name === product.name);
+      const existing = cart.find(item => String(item.id || "") === String(product.id || "") && item.name === product.name);
 
       if (existing) {
         existing.quantity = Number(existing.quantity || 0) + 1;
       } else {
         cart.push({
-          name: product.name,
+          id: product.id || "",
+          name: product.name || "Article",
           price: price,
-          quantity: 1
+          quantity: 1,
+          image: product.image || ""
         });
       }
 
