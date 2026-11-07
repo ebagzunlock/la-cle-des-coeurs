@@ -14,7 +14,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=espresso-mobile-fix-20261107-3">
+  <link rel="stylesheet" href="styles.css?v=espresso-polish-20261107-4">
 
   <style>
     .main-nav.is-open {
@@ -449,7 +449,7 @@
   <script>
     (function() {
       const zones = Array.from(document.querySelectorAll("[data-category-image]"));
-      if (!zones.length || !window.produitsReady) return;
+      if (!zones.length) return;
 
       const euro = value => new Intl.NumberFormat("fr-FR", {
         style: "currency", currency: "EUR"
@@ -459,24 +459,53 @@
         "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
       }[ch]));
 
-      window.produitsReady.then(function(produits) {
+      const charger = window.produitsReady
+        ? window.produitsReady
+        : new Promise((resolve, reject) => {
+            window.addEventListener("produits:loaded", () => resolve(window.produits || []), { once: true });
+            window.addEventListener("produits:error", () => reject(new Error("Catalogue indisponible")), { once: true });
+          });
+
+      charger.then(function(produits) {
         zones.forEach(function(zone, zoneIndex) {
           const categorie = zone.dataset.categoryImage;
           const selection = produits.filter(function(produit) {
+            const categories = Array.isArray(produit && produit.categories) ? produit.categories : [];
             return produit && produit.actif !== false && produit.image &&
-              Array.isArray(produit.categories) &&
-              produit.categories.includes(categorie);
+              (categories.includes(categorie) || produit.categorie === categorie);
           });
+
+          const carte = zone.closest(".category-card");
+          const destination = "catalogue.html?categorie=" + encodeURIComponent(categorie);
+          if (carte) {
+            carte.dataset.categoryHref = destination;
+            carte.setAttribute("role", "link");
+            carte.setAttribute("tabindex", "0");
+            carte.setAttribute("aria-label", "Voir toute la catégorie " + categorie);
+            carte.addEventListener("click", function(event) {
+              if (event.target.closest("a, button")) return;
+              window.location.href = destination;
+            });
+            carte.addEventListener("keydown", function(event) {
+              if (event.key === "Enter" || event.key === " ") {
+                if (event.target === carte || event.target === zone || event.target.closest("h3")) {
+                  event.preventDefault();
+                  window.location.href = destination;
+                }
+              }
+            });
+          }
 
           if (!selection.length) {
             zone.classList.add("category-image-empty");
-            zone.setAttribute("aria-label", "Collection bientôt disponible");
+            zone.setAttribute("aria-label", "Aucun produit disponible dans cette catégorie pour le moment");
             return;
           }
 
+          const largeur = Math.max(150, Math.round(zone.clientWidth || zone.getBoundingClientRect().width || 260));
           const piste = document.createElement("div");
           piste.className = "category-product-track";
-          const largeur = Math.max(180, Math.round(zone.getBoundingClientRect().width));
+          piste.style.width = (largeur * selection.length * 2) + "px";
 
           selection.concat(selection).forEach(function(produit, index) {
             const lien = document.createElement("a");
@@ -487,10 +516,21 @@
             lien.setAttribute("aria-label", (produit.nom || "Découvrir le produit") + " — " + euro(produit.prix));
 
             const image = document.createElement("img");
-            image.src = produit.image;
+            const images = [...new Set([...(Array.isArray(produit.images) ? produit.images : []), produit.image].filter(Boolean))];
+            let imageIndex = 0;
             image.alt = produit.nom || "Produit de la collection";
             image.loading = index < 2 ? "eager" : "lazy";
-            image.onerror = function() { lien.remove(); };
+            image.decoding = "async";
+            image.src = images[imageIndex] || "";
+            image.addEventListener("error", function() {
+              imageIndex += 1;
+              if (imageIndex < images.length) {
+                image.src = images[imageIndex];
+              } else {
+                lien.classList.add("category-product-image-unavailable");
+                image.remove();
+              }
+            });
 
             const infos = document.createElement("span");
             infos.className = "category-product-info";
@@ -503,18 +543,21 @@
             piste.appendChild(lien);
           });
 
-          piste.style.width = (largeur * selection.length * 2) + "px";
           zone.replaceChildren(piste);
           zone.classList.add("category-image-moving");
-          zone.style.setProperty("--category-duration", Math.max(18, selection.length * 6) + "s");
-          zone.style.setProperty("--category-delay", (zoneIndex * -2.1) + "s");
-          zone.setAttribute("aria-label", "Défilement indépendant des produits de la catégorie " + categorie);
+          zone.style.setProperty("--category-duration", Math.max(12, selection.length * 5) + "s");
+          zone.style.setProperty("--category-delay", (zoneIndex * -1.7) + "s");
+          zone.setAttribute("aria-label", "Produits de la catégorie " + categorie + " — défilement indépendant");
         });
-      }).catch(function() {
-        zones.forEach(function(zone) { zone.classList.add("category-image-empty"); });
+      }).catch(function(error) {
+        console.error("Carrousels des catégories :", error);
+        zones.forEach(function(zone) {
+          zone.classList.add("category-image-empty");
+          zone.setAttribute("aria-label", "Catalogue momentanément indisponible");
+        });
       });
     })();
   </script>
-  <script src="langue.js?v=signature-minerale-20261107-2"></script>
+  <script src="langue.js?v=espresso-polish-20261107-4"></script>
 </body>
 </html>
