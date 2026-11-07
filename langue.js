@@ -130,6 +130,15 @@
       const style = document.createElement("style");
       style.id = "cdc-global-navigation-style";
       style.textContent = `
+        /* En-tête commun : menu gauche, logo centré, actions droite. */
+html body header.header{display:grid!important;grid-template-columns:minmax(0,1fr) max-content minmax(0,1fr)!important;align-items:center!important;justify-content:stretch!important;column-gap:8px!important;box-sizing:border-box!important;width:100%!important;padding-left:clamp(6px,2vw,24px)!important;padding-right:clamp(6px,2vw,24px)!important}
+html body header.header>.menu-button,html body header.header>#menuButton{grid-column:1!important;justify-self:start!important;position:static!important;transform:none!important;z-index:4!important}
+html body header.header>.brand,html body header.header>.brand-home-link{grid-column:2!important;justify-self:center!important;align-self:center!important;position:static!important;left:auto!important;right:auto!important;transform:none!important;margin:0!important;width:max-content!important;max-width:100%!important;min-width:0!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important;white-space:nowrap!important;z-index:2!important}
+html body header.header>.header-actions{grid-column:3!important;justify-self:end!important;align-self:center!important;position:static!important;transform:none!important;display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:flex-end!important;gap:clamp(1px,.45vw,8px)!important;width:max-content!important;min-width:0!important;max-width:100%!important;margin:0!important;white-space:nowrap!important;z-index:5!important}
+html body header.header>.header-actions>a,html body header.header #cdc-language-switcher,html body header.header #cdc-language-button{flex:0 0 22px!important;width:22px!important;min-width:22px!important;max-width:22px!important;box-sizing:border-box!important}
+html body header.header>.header-actions svg,html body header.header #cdc-language-button svg{width:16px!important;height:16px!important}
+@media(max-width:700px){html body header.header{grid-template-columns:minmax(0,1fr) max-content minmax(0,1fr)!important;min-height:88px!important;column-gap:3px!important;padding:6px 5px!important}html body header.header .brand-monogram{width:39px!important;height:39px!important;min-width:39px!important;min-height:39px!important;flex-basis:39px!important}html body header.header .brand-name{font-size:clamp(7px,2.35vw,10px)!important;letter-spacing:0!important}html body header.header .brand-tagline{font-size:4px!important;letter-spacing:.25px!important}html body header.header>.header-actions{gap:0!important}html body header.header>.header-actions>a,html body header.header #cdc-language-switcher,html body header.header #cdc-language-button{flex-basis:20px!important;width:20px!important;min-width:20px!important;max-width:20px!important}html body header.header>.menu-button,html body header.header>#menuButton{width:23px!important;min-width:23px!important}}
+@media(max-width:360px){html body header.header{column-gap:1px!important;padding-left:3px!important;padding-right:3px!important}html body header.header>.header-actions>a,html body header.header #cdc-language-switcher,html body header.header #cdc-language-button{flex-basis:18px!important;width:18px!important;min-width:18px!important;max-width:18px!important}html body header.header .brand-name{font-size:7px!important}html body header.header .brand-tagline{font-size:3.6px!important}}
         .header { grid-template-columns: 1fr 2fr 1fr; }
         .menu-button {
           display: inline-flex !important; justify-self: start; align-items: center;
@@ -315,7 +324,7 @@
   }
 
   function installGlobalFooter() {
-    let footer = document.querySelector("footer.footer");
+    let footer = document.querySelector("footer.footer, body > footer, main ~ footer, footer");
     if (!footer) {
       footer = document.createElement("footer");
       footer.className = "footer";
