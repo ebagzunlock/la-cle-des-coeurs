@@ -1188,3 +1188,118 @@ p, a, button, input, select, label, .main-nav {
 @media (prefers-reduced-motion: reduce) {
   .category-product-track { animation: none !important; }
 }
+
+
+/* ACCUEIL — THÈME ESPRESSO MINÉRAL, SANS FOND BLANC */
+html, body {
+  min-height: 100%;
+  background: #39332e !important;
+  color: #e9dfd1 !important;
+}
+body {
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(177,151,112,.12), transparent 38%),
+    radial-gradient(ellipse at 85% 44%, rgba(16,13,11,.18), transparent 42%),
+    linear-gradient(145deg, #403a34 0%, #342f2a 48%, #3d3731 100%) !important;
+  background-attachment: fixed !important;
+}
+main, .welcome-section, .featured-section, .contact-strip {
+  background: transparent !important;
+}
+.header, .main-nav, .utility-bar {
+  background: #332e29 !important;
+  border-color: rgba(190,166,126,.24) !important;
+}
+.brand-name, .main-nav a, .header-actions a, .menu-button,
+.utility-bar, .search-form input {
+  color: #e8ddce !important;
+}
+.brand-tagline, .welcome-section p, .featured-section p,
+.section-heading p, .contact-strip p {
+  color: #c7b9a6 !important;
+}
+.brand-monogram { color: #c4a575 !important; }
+.main-nav a:hover, .header-actions a:hover { color: #d0b17b !important; }
+.search-form input {
+  background: #484039 !important;
+  border-color: rgba(190,166,126,.35) !important;
+}
+.search-form input::placeholder { color: #c4b7a5 !important; }
+.categories-section {
+  background: linear-gradient(135deg, #494139 0%, #3d3731 52%, #484037 100%) !important;
+  border-top: 1px solid rgba(190,166,126,.18);
+  border-bottom: 1px solid rgba(190,166,126,.18);
+}
+.section-heading h2, .welcome-section h2, .contact-strip h2 {
+  color: #f0e7da !important;
+}
+.eyebrow { color: #c6a879 !important; }
+.category-card {
+  background: #403932 !important;
+  border-color: rgba(190,166,126,.28) !important;
+  box-shadow: 0 12px 30px rgba(13,10,8,.18) !important;
+}
+.category-image {
+  background: linear-gradient(145deg, #51483f, #39332d) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+/* Une case = une piste dédiée; chaque photo occupe exactement la case. */
+.category-product-track {
+  display: flex !important;
+  width: max-content !important;
+  height: 100% !important;
+  align-items: stretch !important;
+  animation: cdc-category-marquee var(--category-duration, 24s) linear infinite !important;
+  animation-delay: var(--category-delay, 0s) !important;
+}
+.category-product-item {
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  background: linear-gradient(145deg, #51483f, #39332d) !important;
+}
+.category-product-item img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  background: transparent !important;
+}
+.category-card h3 { color: #f0e7da !important; }
+.category-link {
+  color: #d0b17b !important;
+  border-color: #a88a5e !important;
+}
+.featured-home-card, .featured-placeholder {
+  background: #403932 !important;
+  border-color: rgba(190,166,126,.28) !important;
+  color: #eee4d6 !important;
+}
+.featured-home-card h3, .featured-home-card p,
+.featured-home-card a { color: #eee4d6 !important; }
+.featured-home-card img {
+  background: #51483f !important;
+}
+.editorial-section {
+  background: linear-gradient(125deg, #51483f, #403932 55%, #4a4037) !important;
+}
+.editorial-content h2, .editorial-content p { color: #eee4d6 !important; }
+.editorial-content .text-link { color: #d0b17b !important; }
+.footer {
+  background: #28231f !important;
+  color: #e9dfd1 !important;
+  border-top: 1px solid #a88a5e !important;
+}
+@media (max-width: 900px) {
+  .category-product-item { flex-basis: 100% !important; width: 100% !important; }
+}
+@media (max-width: 600px) {
+  body { background-attachment: scroll !important; }
+  .category-product-item { flex-basis: 100% !important; width: 100% !important; }
+  .category-product-info {
+    opacity: 1 !important;
+    transform: none !important;
+    background: linear-gradient(transparent, rgba(25,20,16,.88)) !important;
+  }
+}
