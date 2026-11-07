@@ -369,18 +369,70 @@
       document.getElementById("total").textContent = formatPrice(subtotal);
     }
 
-    document.getElementById("checkoutForm").addEventListener("submit", event => {
+    document.getElementById("checkoutForm").addEventListener("submit", async event => {
       event.preventDefault();
 
-      if (getCart().length === 0) {
+      const cart = getCart();
+
+      if (cart.length === 0) {
         alert("Votre panier est vide. Ajoutez d'abord un article.");
         return;
       }
 
-      alert(
-        "Merci ! Cette page est encore en préparation. " +
-        "Aucune commande n'a été envoyée et aucun paiement n'a été effectué."
-      );
+      const form = event.currentTarget;
+      if (!form.reportValidity()) return;
+
+      const button = form.querySelector(".checkout-button");
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = "REDIRECTION VERS LE PAIEMENT…";
+
+      try {
+        const formData = new FormData(form);
+
+        const customer = {
+          firstName: String(formData.get("firstName") || "").trim(),
+          lastName: String(formData.get("lastName") || "").trim(),
+          email: String(formData.get("email") || "").trim(),
+          phone: String(formData.get("phone") || "").trim(),
+          address: String(formData.get("address") || "").trim(),
+          address2: String(formData.get("address2") || "").trim(),
+          postalCode: String(formData.get("postalCode") || "").trim(),
+          city: String(formData.get("city") || "").trim(),
+          country: String(formData.get("country") || "").trim(),
+          deliveryNote: String(formData.get("deliveryNote") || "").trim()
+        };
+
+        const items = cart.map(item => ({
+          id: Number(item.id),
+          quantity: Math.min(10, Math.max(1, Number(item.quantity) || 1))
+        }));
+
+        if (items.some(item => !Number.isInteger(item.id) || item.id <= 0)) {
+          throw new Error("Un article du panier ne possède pas d'identifiant valide. Retournez au catalogue.");
+        }
+
+        const response = await fetch(
+          "https://la-cle-des-coeurs-api.bagzful.workers.dev/create-checkout-session",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ items, customer })
+          }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok || !result.url) {
+          throw new Error(result.erreur || "Impossible de préparer le paiement Stripe.");
+        }
+
+        window.location.assign(result.url);
+      } catch (error) {
+        alert(error.message || "Une erreur est survenue. Votre paiement n'a pas été lancé.");
+        button.disabled = false;
+        button.textContent = originalText;
+      }
     });
 
     displayOrderSummary();
