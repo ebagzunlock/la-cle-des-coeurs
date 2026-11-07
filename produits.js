@@ -51,7 +51,8 @@ function convertirProduit(p) {
     ...new Set((p.categories || []).map(convertirCategorie))
   ];
 
-  const image = p.images?.[0]?.src || "";
+  const imagesProduit = p.id === 30716 ? p.images?.slice(2) : p.images;
+const image = imagesProduit?.[0]?.src || "";
 
   return {
     id: String(p.id),
