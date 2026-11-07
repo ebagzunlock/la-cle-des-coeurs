@@ -108,12 +108,13 @@
     </button>
 
     <a href="index.html" class="brand brand-home-link" title="Retour à l’accueil">
-      <span class="brand-monogram">CDC</span>
+      <span class="brand-monogram" aria-label="C et C avec une clé"><span class="brand-initials">C&amp;C</span><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="17" cy="24" r="8" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M24 24h17m-5 0v5m-5-5v4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
       <span class="brand-name">LA CLÉ DES CŒURS</span>
       <span class="brand-tagline">BIJOUX FINS & RAFFINÉS</span>
     </a>
 
     <div class="header-actions">
+      <form class="search-form header-search-form" id="searchForm"><input type="search" id="searchInput" placeholder="Rechercher..." aria-label="Rechercher un produit"><button type="submit" aria-label="Rechercher"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button></form>
       <a href="compte.html" aria-label="Mon compte" title="Mon compte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.7-3.4 3-5.2 6.5-5.2s5.8 1.8 6.5 5.2"/></svg></a>
       <a href="favoris.html" aria-label="Favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 8.8c0 4.2-8.4 10-8.4 10S3.6 13 3.6 8.8A4.3 4.3 0 0 1 12 6.5a4.3 4.3 0 0 1 8.4 2.3Z"/></svg></a>
       <a href="panier.html" aria-label="Panier"><svg class="header-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.4L22 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg> <span id="cartCount">0</span></a>
@@ -150,27 +151,6 @@
     </a>
 
   </nav>
-
-  <div class="utility-bar">
-
-    <form class="search-form" id="searchForm">
-
-      <input
-        type="search"
-        id="searchInput"
-        placeholder="Rechercher un produit..."
-        aria-label="Rechercher un produit"
-      >
-
-      <button type="submit" aria-label="Rechercher">
-        ⌕
-      </button>
-
-    </form>
-
-    
-
-  </div>
 
   <main>
 
@@ -307,7 +287,7 @@
 
     <div class="footer-brand">
 
-      <span class="brand-monogram">CDC</span>
+      <span class="brand-monogram" aria-label="C et C avec une clé"><span class="brand-initials">C&amp;C</span><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="17" cy="24" r="8" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M24 24h17m-5 0v5m-5-5v4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
 
       <h3>LA CLÉ DES CŒURS</h3>
 
@@ -513,11 +493,11 @@
           selection.concat(selection).forEach(function(produit, index) {
             const lien = document.createElement("a");
             lien.className = "category-product-item";
-            lien.href = "produit.html?id=" + encodeURIComponent(produit.id);
+            lien.href = destination;
             lien.style.setProperty("--category-slide-width", largeur + "px");
             lien.style.width = largeur + "px";
             lien.style.flex = "0 0 " + largeur + "px";
-            lien.setAttribute("aria-label", (produit.nom || "Découvrir le produit") + " — " + euro(produit.prix));
+            lien.setAttribute("aria-label", "Découvrir la catégorie " + categorie);
 
             const image = document.createElement("img");
             const images = [...new Set([...(Array.isArray(produit.images) ? produit.images : []), produit.image].filter(Boolean))];
@@ -536,14 +516,7 @@
               }
             });
 
-            const infos = document.createElement("span");
-            infos.className = "category-product-info";
-            infos.innerHTML = '<span class="category-product-name">' +
-              escapeHTML(produit.nom || "Découvrir la pièce") +
-              '</span><span class="category-product-price">' +
-              escapeHTML(euro(produit.prix)) + '</span>';
-
-            lien.append(image, infos);
+            lien.appendChild(image);
             piste.appendChild(lien);
           });
 
