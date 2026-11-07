@@ -70,6 +70,9 @@
     // Icônes vectorielles sobres pour le compte, les favoris et le panier.
     header.querySelectorAll(".header-actions a").forEach(link => {
       const href = link.getAttribute("href") || "";
+      if (href.includes("compte")) link.setAttribute("aria-label", "Créer un compte ou se connecter");
+      if (href.includes("favoris")) { link.setAttribute("aria-label", "Mes favoris"); link.setAttribute("title", "Mes favoris"); }
+      if (href.includes("panier")) { link.setAttribute("aria-label", "Mon panier"); link.setAttribute("title", "Mon panier"); }
       let icon = "";
       if (href.includes("compte")) {
         icon = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.7-3.4 3-5.2 6.5-5.2s5.8 1.8 6.5 5.2"/></svg>';
@@ -116,8 +119,64 @@
           display: flex !important; flex-direction: row; justify-content: center;
           align-items: center; flex-wrap: wrap; gap: 22px; padding: 15px 3%;
         }
-        @media (max-width: 600px) {
-          .header { grid-template-columns: 35px 1fr 65px; }
+        @media (max-width: 700px) {
+          .header {
+            position: relative !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 8px !important;
+            min-height: 76px !important;
+            padding: 9px 12px !important;
+            box-sizing: border-box !important;
+          }
+          .header > .menu-button, .header > #menuButton {
+            flex: 0 0 38px !important;
+            width: 38px !important; height: 38px !important;
+            z-index: 2 !important;
+          }
+          .header > .brand {
+            position: absolute !important;
+            left: 50% !important; top: 50% !important;
+            transform: translate(-50%,-50%) !important;
+            width: max-content !important;
+            max-width: calc(100% - 190px) !important;
+            min-width: 0 !important;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 7px !important;
+            z-index: 1 !important;
+          }
+          .header > .brand .brand-monogram { display: inline-flex !important; }
+          .header > .brand .brand-tagline { display: none !important; }
+          .header > .brand .brand-name {
+            font-size: clamp(9px, 2.8vw, 12px) !important;
+            letter-spacing: .8px !important;
+            white-space: nowrap !important;
+          }
+          .header-actions {
+            display: flex !important;
+            flex: 0 0 auto !important;
+            flex-wrap: nowrap !important;
+            align-items: center !important;
+            justify-content: flex-end !important;
+            gap: 4px !important;
+            margin-left: auto !important;
+            position: relative !important;
+            z-index: 3 !important;
+          }
+          .header-actions a, #cdc-language-button {
+            flex: 0 0 31px !important;
+            width: 31px !important; min-width: 31px !important;
+            height: 34px !important; min-height: 34px !important;
+            padding: 3px !important; box-sizing: border-box !important;
+            display: inline-flex !important;
+            align-items: center !important; justify-content: center !important;
+          }
+          .header-actions a svg, #cdc-language-button svg { width: 19px !important; height: 19px !important; }
+          #cdc-language-switcher { flex: 0 0 31px !important; width: 31px !important; margin: 0 !important; }
           .main-nav.is-open {
             flex-direction: column; align-items: stretch; gap: 0; padding: 5px 20px;
           }
@@ -289,14 +348,19 @@
       #cdc-language-switcher { position: relative; display: flex; align-items: center; }
       #cdc-language-button {
         display: inline-flex; align-items: center; justify-content: center;
-        width: 34px; height: 34px; padding: 6px; border: 0;
-        background: transparent; color: inherit; cursor: pointer;
+        width: 36px; height: 36px; padding: 6px;
+        border: 1px solid rgba(198,166,116,.42); border-radius: 50%;
+        background: rgba(198,166,116,.08); color: inherit; cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+      #cdc-language-button:hover, #cdc-language-button:focus-visible {
+        color: #d7b985; border-color: #d7b985; outline: none;
       }
       #cdc-language-button svg { width: 21px; height: 21px; display: block; }
       #cdc-language-menu {
         position: absolute; top: calc(100% + 12px); right: 0; z-index: 100001;
-        width: min(260px, 78vw); padding: 12px; background: #fff;
-        border: 1px solid #e9e1d6; box-shadow: 0 5px 18px rgba(45,35,25,.14);
+        width: min(260px, 78vw); padding: 12px; background: #302923;
+        border: 1px solid rgba(198,166,116,.45); box-shadow: 0 8px 24px rgba(0,0,0,.35);
       }
       #cdc-language-menu[hidden] { display: none; }
       #cdc-language-menu label {
@@ -305,7 +369,7 @@
       }
       #cdc-language-select {
         box-sizing: border-box; width: 100%; padding: 10px;
-        border: 1px solid #ded5c9; background: #fff; color: #40372f;
+        border: 1px solid rgba(198,166,116,.45); background: #40382f; color: #f0e7da;
         font: 12px Montserrat, Arial, sans-serif;
       }
       #google_translate_element {
