@@ -309,7 +309,7 @@
     footer.innerHTML = `
       <div class="footer-brand">
         <a class="cdc-footer-home" href="index.html" aria-label="LA CLÉ DES CŒURS — Retour à l’accueil">
-          <span class="brand-monogram">CDC</span>
+          <span class="brand-monogram" aria-label="CDC"><span class="brand-initials">CDC</span></span>
           <h3>LA CLÉ DES CŒURS</h3>
           <p>BIJOUX FINS &amp; RAFFINÉS</p>
         </a>
@@ -344,14 +344,29 @@
       style.textContent = `
         .cdc-global-footer { margin-top: 64px; }
         .cdc-global-footer .footer-brand a {
-          display: inline-block; color: inherit; text-decoration: none;
+          display: flex; flex-direction: column; align-items: center; justify-content: center;
+          gap: 0; color: inherit; text-decoration: none; text-align: center;
         }
         .cdc-global-footer .footer-brand a:hover { opacity: .82; }
         .cdc-global-footer .footer-brand .brand-monogram {
           display: inline-flex; align-items: center; justify-content: center;
+          flex: 0 0 46px; width: 46px; height: 46px; min-width: 46px; min-height: 46px;
+          margin: 0 auto 9px; border: 1px solid #c7aa7b; border-radius: 50%;
+          outline: 1px solid rgba(199,170,123,.42); outline-offset: 3px;
+          background: radial-gradient(circle at 35% 25%,#665344,#302820 78%);
+          color: #ead7b5; box-shadow: 0 2px 9px rgba(48,40,32,.13),inset 0 0 0 2px rgba(199,170,123,.12);
         }
-        .cdc-global-footer .footer-brand h3 { margin: 12px 0 5px; }
-        .cdc-global-footer .footer-brand p { margin: 0; }
+        .cdc-global-footer .footer-brand .brand-initials {
+          display:block; color:#ead7b5; font:600 11px/1 Montserrat,Arial,sans-serif; letter-spacing:1px;
+        }
+        .cdc-global-footer .footer-brand h3 {
+          margin: 0; color:#302820; font:600 17px/1.15 "Cormorant Garamond",Georgia,serif;
+          letter-spacing:1.1px; text-align:center;
+        }
+        .cdc-global-footer .footer-brand p {
+          margin: 4px 0 0; color:#514238; font:7px/1.3 Montserrat,Arial,sans-serif;
+          letter-spacing:1.5px; text-align:center;
+        }
         .cdc-global-footer .footer-column a { cursor: pointer; }
       `;
       document.head.appendChild(style);

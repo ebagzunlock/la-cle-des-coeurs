@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Finalisez votre commande LA CLÉ DES CŒURS.">
   <title>Finaliser ma commande | LA CLÉ DES CŒURS</title>
-  <link rel="stylesheet" href="styles.css?v=cdc-collections-logo-20261107-24">
+  <link rel="stylesheet" href="styles.css?v=cdc-categories-strict-20261107-25">
 
   <style>
     .checkout-page {
@@ -467,7 +467,7 @@
     verifierRetourStripe().then(traite => { if (!traite) displayOrderSummary(); });
   </script>
 
-  <script src="langue.js?v=identite-lisible-20261107-1"></script>
+  <script src="langue.js?v=footer-logo-20261107-2"></script>
 
 <script id="cdc-active-navigation-20261107">
 (() => {
@@ -543,23 +543,6 @@
     if(active){link.setAttribute("aria-current","page");link.classList.add("is-current");}
     else {link.removeAttribute("aria-current");link.classList.remove("is-current");}
   });
-})();
-</script>
-
-<script id="cdc-universal-footer-brand">
-(() => {
- const logo = '<div class="cdc-footer-brand"><span class="brand-monogram" aria-label="CDC"><span class="brand-initials">CDC</span></span><h3>LA CLÉ DES CŒURS</h3><p>BIJOUX FINS &amp; RAFFINÉS</p></div>';
- let footer=document.querySelector("footer");
- if(!footer){
-   footer=document.createElement("footer");
-   footer.className="cdc-site-footer";
-   footer.innerHTML=logo+'<nav class="cdc-footer-links" aria-label="Informations"><a href="catalogue.html">Catalogue</a><a href="contact.html">Contact</a><a href="livraison-retours.html">Livraison et retours</a><a href="mentions-legales.html">Mentions légales</a><a href="conditions-generales.html">Conditions générales</a></nav><p class="footer-bottom">© LA CLÉ DES CŒURS — Tous droits réservés.</p>';
-   document.body.appendChild(footer);
- } else if(!footer.querySelector(".footer-brand,.cdc-footer-brand")){
-   footer.insertAdjacentHTML("afterbegin",logo);
- }
- const old=footer.querySelector(".footer-brand .brand-monogram");
- if(old) old.outerHTML='<span class="brand-monogram" aria-label="CDC"><span class="brand-initials">CDC</span></span>';
 })();
 </script>
 </body>

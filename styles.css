@@ -1745,3 +1745,65 @@ input, select, textarea, .catalogue-filters input, .catalogue-filters select, .c
 .header .brand-tagline{font-size:4.5px!important;letter-spacing:.4px!important}
 }
 @media(prefers-reduced-motion:reduce){.category-product-track{animation:cdc-category-marquee var(--category-duration,24s) linear infinite!important;animation-delay:var(--category-delay,0s)!important}}
+
+
+/* VERSION 25 — CATEGORIES STRICTES, LOGO IDENTIQUE ET CINQ COMMANDES */
+.header {
+  grid-template-columns:minmax(34px,1fr) minmax(180px,auto) minmax(190px,1fr)!important;
+  column-gap:clamp(8px,1.4vw,20px)!important;
+}
+.header>.header-actions {
+  display:flex!important;flex-wrap:nowrap!important;align-items:center!important;
+  justify-content:flex-end!important;gap:clamp(5px,.8vw,12px)!important;
+  min-width:0!important;
+}
+.header-actions a {
+  flex:0 0 27px!important;width:27px!important;min-width:27px!important;
+  max-width:27px!important;height:34px!important;padding:1px!important;
+}
+#cdc-language-switcher {
+  display:flex!important;flex:0 0 27px!important;width:27px!important;
+  min-width:27px!important;margin:0!important;align-items:center!important;
+}
+#cdc-language-button {
+  display:inline-flex!important;flex:0 0 27px!important;width:27px!important;
+  min-width:27px!important;height:27px!important;min-height:27px!important;
+  padding:3px!important;border-radius:50%!important;
+}
+#cdc-language-button svg {width:18px!important;height:18px!important;}
+.cdc-global-footer .footer-brand {display:flex!important;justify-content:center!important;text-align:center!important;}
+.cdc-global-footer .footer-brand .cdc-footer-home {
+  display:flex!important;flex-direction:column!important;align-items:center!important;
+  justify-content:center!important;text-align:center!important;gap:0!important;
+}
+.cdc-global-footer .footer-brand .brand-monogram {margin:0 auto 9px!important;}
+.cdc-global-footer .footer-brand h3 {margin:0!important;}
+.cdc-global-footer .footer-brand p {margin:4px 0 0!important;}
+@media(max-width:700px) {
+  .header {
+    grid-template-columns:29px minmax(0,1fr) minmax(132px,auto)!important;
+    column-gap:4px!important;padding-left:6px!important;padding-right:6px!important;
+  }
+  .header>.header-actions {gap:1px!important;}
+  .header-actions a {
+    flex:0 0 23px!important;width:23px!important;min-width:23px!important;
+    max-width:23px!important;height:29px!important;padding:0!important;
+  }
+  .header-actions a svg {width:16px!important;height:16px!important;}
+  #cdc-language-switcher {
+    flex:0 0 23px!important;width:23px!important;min-width:23px!important;
+  }
+  #cdc-language-button {
+    flex:0 0 23px!important;width:23px!important;min-width:23px!important;
+    height:23px!important;min-height:23px!important;padding:2px!important;
+  }
+  #cdc-language-button svg {width:16px!important;height:16px!important;}
+  .header .brand-monogram {margin-bottom:5px!important;}
+}
+@media(max-width:370px) {
+  .header {grid-template-columns:25px minmax(0,1fr) minmax(122px,auto)!important;column-gap:2px!important;}
+  .header-actions a,#cdc-language-switcher,#cdc-language-button {
+    flex-basis:21px!important;width:21px!important;min-width:21px!important;max-width:21px!important;
+  }
+  #cdc-language-button {height:21px!important;min-height:21px!important;}
+}

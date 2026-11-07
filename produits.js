@@ -143,7 +143,7 @@ function convertirProduit(p) {
   // de termes, sans reclasser les montres déjà correctement catégorisées.
   if (!categories.length) {
     const texteProduit = normaliserTexteCategorie(
-      [p.name, p.short_description, p.description]
+      [p.name, p.short_description, p.sku, p.brands?.[0]?.name]
         .filter(Boolean).join(" ")
     );
     if (/bracelet|bague|ring|collier|necklace|boucle-d-oreille|earring|bijou|jewel|broche|pendentif/.test(texteProduit)) {
