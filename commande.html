@@ -91,6 +91,20 @@
       font-size: 14px;
     }
 
+    .checkout-customer-details {
+      padding: 4px 0 12px;
+      border-bottom: 1px solid #e9e1d6;
+      margin-bottom: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .checkout-customer-details p {
+      margin: 7px 0;
+      color: #55483d;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
     .checkout-total {
       border-top: 1px solid #e9e1d6;
       margin-top: 20px;
@@ -222,11 +236,13 @@
 
         <section class="checkout-card" aria-labelledby="recapTitle">
           <h2 id="recapTitle">3. RÉCAPITULATIF DE VOTRE COMMANDE</h2>
-          <div class="checkout-line"><strong>Nom</strong><span id="recapName">—</span></div>
-          <div class="checkout-line"><strong>Adresse mail</strong><span id="recapEmail">—</span></div>
-          <div class="checkout-line"><strong>Téléphone</strong><span id="recapPhone">—</span></div>
-          <div class="checkout-line"><strong>Adresse de livraison</strong><span id="recapAddress">—</span></div>
-          <div class="checkout-line"><strong>Articles</strong><span id="recapItems">—</span></div>
+          <div class="checkout-customer-details" aria-live="polite">
+            <p id="recapName">—</p>
+            <p id="recapEmail">—</p>
+            <p id="recapPhone">—</p>
+            <p id="recapAddress">—</p>
+          </div>
+          <div class="checkout-line"><span id="recapItems">—</span></div>
           <div id="recapProductLines"></div>
           <div class="checkout-line"><span>Sous-total</span><span id="recapSubtotal">0,00 €</span></div>
           <div class="checkout-line"><span>Frais de livraison (taxes comprises)</span><span id="recapShipping">15,62 €</span></div>
