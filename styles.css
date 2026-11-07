@@ -647,3 +647,39 @@ select {
   .brand-monogram{width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important}
   .brand-initials{font-size:10px!important}
 }
+
+
+/* Harmonisation des styles locaux avec la toute première charte */
+.main-nav.is-open { background: var(--brown) !important; }
+.featured-home-card,
+.product-card,
+.favorite-card,
+.checkout-card,
+.account-card,
+.delivery-section {
+  background: var(--cream) !important;
+  color: var(--dark);
+}
+.featured-home-card img,
+.product-image,
+.favorite-image {
+  background: var(--beige) !important;
+}
+.catalogue-filters input,
+.catalogue-filters select,
+.checkout-form input,
+.checkout-form select,
+.checkout-form textarea,
+.contact-form input,
+.contact-form select,
+.contact-form textarea,
+.account-form input {
+  background: var(--ivory) !important;
+  color: var(--dark) !important;
+}
+.cart-item-image,
+.cart-item-image img {
+  background: var(--beige) !important;
+}
+.account-tabs button { background: var(--ivory) !important; color: var(--brown) !important; }
+.account-tabs button[aria-selected="true"] { background: var(--brown) !important; color: var(--ivory) !important; }
