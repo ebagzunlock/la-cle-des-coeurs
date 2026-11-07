@@ -8,8 +8,11 @@
 const API_PRODUITS =
   "https://la-cle-des-coeurs-api.bagzful.workers.dev/wp-json/wc/store/v1/products";
 
-const IMAGE_CARTIER =
-  "https://content.thewosgroup.com/productimage/17311580/17311580_2.jpg?impolicy=hero&imwidth=600";
+const IMAGES_CARTIER = [
+  "https://www.watchesofswitzerland.com/cdn/shop/files/926-CRWGBA0025_1_8b8b16c7-b0ce-4f5a-b949-7baa591c569a.jpg?width=1200",
+  "https://www.watchesofswitzerland.com/cdn/shop/files/926-CRWGBA0025_4_fea54808-353b-414a-a1a9-2059147e57c0.jpg?width=1200",
+  "https://www.watchesofswitzerland.com/cdn/shop/files/926-CRWGBA0025_5_425d5a57-ee4f-4b2e-8a76-d2a2b1586d7c.jpg?width=1200"
+];
 
 const CATEGORIES = {
   "ap-x-swatch": "ap-swatch",
@@ -68,7 +71,7 @@ function convertirProduit(p) {
   ];
 
   const galerie = estCartier
-    ? [IMAGE_CARTIER]
+    ? IMAGES_CARTIER
     : galerieOriginale;
 
   return {
