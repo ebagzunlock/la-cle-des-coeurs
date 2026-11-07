@@ -1584,3 +1584,17 @@ input, select, textarea, #cdc-language-menu, #cdc-language-select {
     animation-delay: var(--category-delay,0s) !important;
   }
 }
+
+/* CORRECTION PRIORITAIRE : les anciens flex-basis 100% écrasaient la largeur des diapositives. */
+.category-product-track {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  width: max-content !important;
+  max-width: none !important;
+}
+.category-product-item {
+  flex: 0 0 var(--category-slide-width) !important;
+  width: var(--category-slide-width) !important;
+  min-width: var(--category-slide-width) !important;
+  max-width: var(--category-slide-width) !important;
+}
