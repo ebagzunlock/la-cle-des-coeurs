@@ -734,3 +734,92 @@ h1, h2, h3, h4, .brand-name, .brand-monogram {
 @media (max-width: 600px) {
   body { background-attachment: scroll; }
 }
+
+
+/* ACCUEIL — RUBANS DE PRODUITS PAR CATÉGORIE */
+.category-image {
+  position: relative;
+  display: block;
+  height: 300px;
+  overflow: hidden;
+  background: #f4f1eb;
+  border: 1px solid rgba(173,151,119,.22);
+  box-shadow: 0 8px 24px rgba(57,47,39,.045);
+}
+.category-image > span { display: none !important; }
+.category-product-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  height: 100%;
+  animation: cdc-category-marquee var(--category-duration, 24s) linear infinite;
+  will-change: transform;
+}
+.category-image:hover .category-product-track { animation-play-state: paused; }
+.category-product-track img {
+  display: block;
+  flex: 0 0 100%;
+  width: 300px;
+  height: 100%;
+  object-fit: contain;
+  padding: 18px;
+  background: #f7f5f0;
+}
+@keyframes cdc-category-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.category-image-empty::after {
+  content: "Collection";
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: #9a8b79;
+  font: italic 25px var(--serif);
+}
+@media (max-width: 900px) {
+  .category-image { height: 250px; }
+  .category-product-track img { width: 250px; }
+}
+@media (max-width: 600px) {
+  .category-image { height: 190px; }
+  .category-product-track img { width: 190px; padding: 12px; }
+}
+
+/* FOND SIGNATURE — PERLE, PIERRE CLAIRE ET OR BROSSÉ */
+html { background: #f8f7f4; }
+body {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(220,207,184,.12), transparent 42%),
+    linear-gradient(180deg, #fbfaf8 0%, #f7f6f2 52%, #fbfaf8 100%);
+  color: #625b53;
+}
+.announcement {
+  background: #302a27;
+  color: #e6d9c5;
+  border-bottom: 1px solid rgba(190,166,126,.35);
+}
+.header, .main-nav {
+  background: rgba(251,250,248,.97);
+  border-color: #e9e4dc;
+}
+.welcome-section, .contact-strip, .featured-section { background: transparent; }
+.categories-section {
+  background: linear-gradient(135deg, #f2f0eb 0%, #f8f7f3 100%);
+}
+.editorial-section {
+  background: linear-gradient(120deg, #eeeae2 0%, #f5f2ec 52%, #ebe6dc 100%);
+}
+.primary-button, .cart-checkout {
+  background: #39312c;
+  border-color: #bca77f;
+  box-shadow: 0 5px 16px rgba(45,37,31,.08);
+}
+.primary-button:hover, .cart-checkout:hover {
+  background: #bca77f;
+  color: #29221e;
+}
+.footer {
+  background: #302a27;
+  border-top: 1px solid #bca77f;
+}
