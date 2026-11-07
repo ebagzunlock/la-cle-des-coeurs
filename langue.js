@@ -439,6 +439,25 @@ html body header.header>.header-actions svg,html body header.header #cdc-languag
         .header-actions a{position:relative!important;overflow:visible!important}
         .cdc-count-badge{position:absolute!important;top:-5px!important;right:-5px!important;z-index:8!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:16px!important;height:16px!important;padding:0 4px!important;border:1px solid #f0e7d8!important;border-radius:999px!important;background:#9b7448!important;color:#fffaf1!important;font:700 9px/1 Arial,sans-serif!important;box-shadow:0 1px 4px rgba(0,0,0,.2)!important;pointer-events:none!important}
         .cdc-count-badge[hidden]{display:none!important}
+
+        /* Pied de page : logo au centre de toute la largeur, cliquable vers l'accueil. */
+        .cdc-global-footer{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:clamp(24px,7vw,90px)!important;row-gap:30px!important}
+        .cdc-global-footer .footer-brand{grid-column:1/-1!important;display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;text-align:center!important}
+        .cdc-global-footer .footer-brand .cdc-footer-home{width:max-content!important;max-width:100%!important;margin:0 auto!important;align-items:center!important;justify-content:center!important;text-align:center!important}
+        .cdc-global-footer .footer-column{min-width:0!important}
+        .cdc-global-footer .footer-bottom{grid-column:1/-1!important;width:100%!important;text-align:center!important}
+        @media(max-width:700px){.cdc-global-footer{grid-template-columns:1fr 1fr!important;column-gap:16px!important;row-gap:26px!important}.cdc-global-footer .footer-brand,.cdc-global-footer .footer-bottom{grid-column:1/-1!important}}
+
+        /* Harmonisation des zones qui conservaient un fond blanc et masquaient les textes. */
+        html,body{background-color:#dcd4c9!important}
+        body{color:#403831!important}
+        main,main>section:not(.hero),.page-content,.page-container,.content-section,.legal-content,.about-content,.contact-page,.account-page,.catalogue-page,.favorites-page,.checkout-page,.cart-page,.product-page,.product-detail,.product-info,.product-details,.product-description,.delivery-section,.policy-section,.terms-section{background-color:transparent!important;color:#403831!important}
+        .product-card,.product-item,.catalogue-card,.favorite-card,.favorite-item,.cart-item,.cart-summary,.cart-empty,.checkout-card,.account-card,.contact-form,.form-card,.product-info-card,.product-details-card,.info-card,.legal-card,.content-card,.faq-item,.accordion-item,.order-card{background:#e9e2d8!important;color:#403831!important;border-color:#c9beb0!important}
+        .product-card *, .product-item *, .catalogue-card *, .favorite-card *, .favorite-item *, .cart-item *, .cart-summary *, .cart-empty *, .checkout-card *, .account-card *, .contact-form *, .form-card *, .product-info-card *, .product-details-card *, .info-card *, .legal-card *, .content-card *, .faq-item *, .accordion-item *, .order-card *{color:inherit}
+        h1,h2,h3,h4,h5,h6,p,li,label,small,.description,.product-description,.price,.form-help,.empty-message{color:#403831}
+        .footer,.cdc-global-footer{color:#e7ddce!important}
+        .cdc-global-footer .footer-brand h3{color:#f0e5d2!important}
+        .cdc-global-footer .footer-brand p{color:#d2bd99!important}
       `;
       document.head.appendChild(style);
     }
