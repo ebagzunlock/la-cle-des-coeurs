@@ -199,49 +199,58 @@
     let footer = document.querySelector("footer.footer");
     if (!footer) {
       footer = document.createElement("footer");
-      footer.className = "footer cdc-global-footer";
-      footer.innerHTML = `
-        <div class="footer-brand">
-          <a class="cdc-footer-home" href="index.html" aria-label="LA CLÉ DES CŒURS — Retour à l’accueil">
-            <span class="brand-monogram">CDC</span>
-            <h3>LA CLÉ DES CŒURS</h3>
-            <p>BIJOUX FINS &amp; RAFFINÉS</p>
-          </a>
-        </div>
-        <div class="footer-column"><h4>LA BOUTIQUE</h4>
-          <a href="index.html">Accueil</a><a href="catalogue.html">Tous les produits</a>
-          <a href="favoris.html">Mes favoris</a><a href="panier.html">Mon panier</a>
-          <a href="qui-sommes-nous.html">Qui sommes-nous</a><a href="contact.html">Contact</a>
-        </div>
-        <div class="footer-column"><h4>INFORMATIONS</h4>
-          <a href="livraison-retours.html">Livraison et retours</a>
-          <a href="conditions-generales.html">Conditions générales de vente</a>
-          <a href="mentions-legales.html">Mentions légales</a>
-          <a href="confidentialite.html">Confidentialité</a>
-        </div>
-        <div class="footer-bottom">© <span class="cdc-current-year"></span> LA CLÉ DES CŒURS. Tous droits réservés.</div>
-      `;
+      footer.className = "footer";
       document.body.appendChild(footer);
-    } else {
-      const brand = footer.querySelector(".footer-brand");
-      if (brand && !brand.querySelector("a")) {
-        const content = brand.innerHTML;
-        brand.innerHTML = '<a class="cdc-footer-home" href="index.html" aria-label="LA CLÉ DES CŒURS — Retour à l’accueil">' + content + '</a>';
-      }
     }
-    footer.querySelectorAll(".cdc-current-year, #currentYear").forEach(el => el.textContent = new Date().getFullYear());
-    footer.querySelectorAll(".cdc-footer-home, .footer-brand a").forEach(a => a.setAttribute("href", "index.html"));
+
+    footer.classList.add("cdc-global-footer");
+    footer.innerHTML = `
+      <div class="footer-brand">
+        <a class="cdc-footer-home" href="index.html" aria-label="LA CLÉ DES CŒURS — Retour à l’accueil">
+          <span class="brand-monogram">CDC</span>
+          <h3>LA CLÉ DES CŒURS</h3>
+          <p>BIJOUX FINS &amp; RAFFINÉS</p>
+        </a>
+      </div>
+      <div class="footer-column">
+        <h4>LA BOUTIQUE</h4>
+        <a href="index.html">Accueil</a>
+        <a href="catalogue.html">Tous les produits</a>
+        <a href="favoris.html">Mes favoris</a>
+        <a href="panier.html">Mon panier</a>
+        <a href="qui-sommes-nous.html">Qui sommes-nous</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-column">
+        <h4>INFORMATIONS</h4>
+        <a href="commande.html">Ma commande</a>
+        <a href="livraison-retours.html">Livraison et retours</a>
+        <a href="conditions-generales.html">Conditions générales de vente</a>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="confidentialite.html">Politique de confidentialité</a>
+      </div>
+      <div class="footer-bottom">
+        © <span class="cdc-current-year"></span> LA CLÉ DES CŒURS. Tous droits réservés.
+      </div>
+    `;
+
+    footer.querySelector(".cdc-current-year").textContent = new Date().getFullYear();
 
     if (!document.getElementById("cdc-global-footer-style")) {
       const style = document.createElement("style");
       style.id = "cdc-global-footer-style";
       style.textContent = `
         .cdc-global-footer { margin-top: 64px; }
-        .footer-brand a, .cdc-footer-home { display: inline-block; color: inherit; text-decoration: none; }
-        .footer-brand a:hover, .cdc-footer-home:hover { opacity: .82; }
-        .footer-brand .brand-monogram { display: inline-flex; align-items: center; justify-content: center; }
-        .footer-brand h3 { margin: 12px 0 5px; }
-        .footer-brand p { margin: 0; }
+        .cdc-global-footer .footer-brand a {
+          display: inline-block; color: inherit; text-decoration: none;
+        }
+        .cdc-global-footer .footer-brand a:hover { opacity: .82; }
+        .cdc-global-footer .footer-brand .brand-monogram {
+          display: inline-flex; align-items: center; justify-content: center;
+        }
+        .cdc-global-footer .footer-brand h3 { margin: 12px 0 5px; }
+        .cdc-global-footer .footer-brand p { margin: 0; }
+        .cdc-global-footer .footer-column a { cursor: pointer; }
       `;
       document.head.appendChild(style);
     }
