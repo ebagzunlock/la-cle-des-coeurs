@@ -1,44 +1,32 @@
 /* =========================================
    LA CLÉ DES CŒURS
-   CATALOGUE LOCAL — INDÉPENDANT DE WORDPRESS
-   Les produits sont gérés directement dans ce fichier.
-   Pour ajouter un produit, ajouter un objet dans le tableau.
+   CHARGEMENT DU CATALOGUE LOCAL JSON
+   Source unique : produits.json
+   Aucun appel à l'ancienne boutique / WooCommerce.
    ========================================= */
 
 "use strict";
 
-/*
-  Catalogue initial.
-  L'article DETAILS à 2 € est conservé comme article de test
-  déjà prévu dans le parcours de commande.
-  Remplacer ses informations par celles du vrai article avant
-  toute mise en vente réelle.
-*/
-window.produits = [
-  {
-    id: "987654321",
-    nom: "DETAILS",
-    marque: "LA CLÉ DES CŒURS",
-    reference: "TEST-DETAILS",
-    categorie: "accessoires",
-    categories: ["accessoires"],
-    prix: 2,
-    ancienPrix: null,
-    devise: "EUR",
-    image: "",
-    images: [],
-    actif: true,
-    enStock: true,
-    enPromo: false,
-    note: 0,
-    nombreAvis: 0,
-    description: "Article de démonstration à 2 € destiné aux essais de commande et de paiement. Aucun bijou physique n’est associé à cet article.",
-    ficheSource: ""
-  }
-];
+window.produits = [];
 
-/* Compatibilité avec les pages qui attendent la fin du chargement. */
-window.produitsReady = Promise.resolve(window.produits).then(function(produits) {
-  window.dispatchEvent(new Event("produits:loaded"));
-  return produits;
-});
+window.produitsReady = fetch("produits.json?v=20261107-local", { cache: "no-store" })
+  .then(function(reponse) {
+    if (!reponse.ok) {
+      throw new Error("Impossible de charger produits.json : HTTP " + reponse.status);
+    }
+    return reponse.json();
+  })
+  .then(function(donnees) {
+    if (!donnees || !Array.isArray(donnees.products)) {
+      throw new Error("Le fichier produits.json ne contient pas de tableau products valide.");
+    }
+
+    window.produits.splice(0, window.produits.length, ...donnees.products);
+    window.dispatchEvent(new Event("produits:loaded"));
+    return window.produits;
+  })
+  .catch(function(erreur) {
+    console.error("Erreur de chargement du catalogue local :", erreur);
+    window.dispatchEvent(new Event("produits:error"));
+    throw erreur;
+  });
