@@ -2,7 +2,7 @@
    LA CLÉ DES CŒURS
    IMPORT AUTOMATIQUE DU CATALOGUE ORIGINAL
    CORRECTION CARTIER BAIGNOIRE 30716
-   ARTICLE DETAILS POUR TESTS
+   ARTICLE DETAILS À 2 €
    ========================================= */
 
 const API_PRODUITS =
@@ -11,6 +11,15 @@ const API_PRODUITS =
 const DETAILS_PRODUCT_ID = "987654321";
 const DETAILS_IMAGE =
   "https://shop.pinetti.it/cdn/shop/products/prestigebox_zoom-Pinetti.png?v=1611572510";
+
+// Les quatre vues du même modèle Cartier Baignoire WGBA0025,
+// retrouvées dans l'historique du dépôt.
+const IMAGES_CARTIER = [
+  "https://pisa1940.com/cdn/shop/files/SOLD_115_e13845bd-fce8-4eeb-8067-a5a86ae5bad8.png",
+  "https://pisa1940.com/cdn/shop/files/w1242_tpadding12_20_3__8_56539df2-8927-4022-9f58-d1892be7478d.webp",
+  "https://pisa1940.com/cdn/shop/files/w1242_tpadding12_20_1__8.webp",
+  "https://pisa1940.com/cdn/shop/files/w1242_tpadding12_20_2__7.webp"
+];
 
 const CATEGORIES = {
   "ap-x-swatch": "ap-swatch",
@@ -51,6 +60,7 @@ function nettoyerDescription(html) {
 function convertirProduit(p) {
   const id = String(p.id);
   const estDetails = id === DETAILS_PRODUCT_ID;
+  const estCartier = id === "30716";
 
   if (estDetails) {
     return {
@@ -77,8 +87,7 @@ function convertirProduit(p) {
   }
 
   // WooCommerce Store API fournit les prix dans la plus petite unité
-  // monétaire. Si "price" vaut 0 mais qu'un tarif de vente ou normal existe,
-  // on utilise ce tarif réel plutôt que d'afficher un faux prix à 0 €.
+  // monétaire. On conserve le calcul actuel pour tous les autres produits.
   const minorUnit = Number.isInteger(Number(p.prices?.currency_minor_unit))
     ? Number(p.prices.currency_minor_unit)
     : 2;
@@ -94,7 +103,7 @@ function convertirProduit(p) {
   const prixVente = convertirMontant(p.prices?.sale_price);
   const prixNormal = convertirMontant(p.prices?.regular_price);
 
-  const prix = prixAPI
+  const prixCatalogue = prixAPI
     || (p.is_on_sale && prixVente ? prixVente : null)
     || prixNormal
     || prixVente
@@ -114,24 +123,32 @@ function convertirProduit(p) {
     )
   ];
 
-  const galerie = galerieOriginale;
+  const galerie = estCartier ? IMAGES_CARTIER : galerieOriginale;
 
   return {
     id,
 
-    nom: p.name || "",
+    nom: estCartier
+      ? "Cartier Baignoire Petit WGBA0025 « Femme » Quartz Or Jaune (2025) Taille 16 NEUF"
+      : p.name || "",
 
-    marque: p.brands?.[0]?.name || "",
+    marque: estCartier ? "Cartier" : p.brands?.[0]?.name || "",
 
-    reference: p.sku || "",
+    reference: estCartier ? "WGBA0025" : p.sku || "",
 
-    categorie: categories[0] || "accessoires",
+    categorie: estCartier ? "femme" : categories[0] || "accessoires",
 
-    categories: categories.length ? categories : ["accessoires"],
+    categories: estCartier
+      ? ["femme"]
+      : categories.length ? categories : ["accessoires"],
 
-    prix: Number.isFinite(prix) && prix >= 0 ? prix : null,
+    prix: estCartier ? 16000 : prixCatalogue,
 
-    ancienPrix: Number.isFinite(prixNormal) && Number.isFinite(prix) && prixNormal > prix ? prixNormal : null,
+    ancienPrix: estCartier
+      ? null
+      : Number.isFinite(prixNormal) && Number.isFinite(prixCatalogue) && prixNormal > prixCatalogue
+        ? prixNormal
+        : null,
 
     devise: "EUR",
     image: galerie[0] || "",
@@ -142,7 +159,9 @@ function convertirProduit(p) {
     note: Number(p.average_rating || 0),
     nombreAvis: Number(p.review_count || 0),
 
-    description: nettoyerDescription(p.description),
+    description: estCartier
+      ? "Montre Cartier Baignoire petit modèle, référence WGBA0025. Mouvement quartz, boîtier et bracelet rigide intégrés en or jaune 18 carats, cadran argenté avec chiffres romains et aiguilles bleuies. Taille 16."
+      : nettoyerDescription(p.description),
 
     ficheSource: p.permalink || ""
   };
@@ -179,7 +198,6 @@ async function chargerTousLesProduits() {
       if (dejaVus.has(id)) continue;
       dejaVus.add(id);
 
-      // Conserver tous les produits du catalogue d'origine, quel que soit leur prix.
       produitsImportes.push(convertirProduit(produit));
     }
 
@@ -202,7 +220,7 @@ window.produitsReady = chargerTousLesProduits()
     );
 
     console.log(
-      `${produitsImportes.length} produits importés depuis le catalogue d'origine, plus DETAILS si présent.`
+      `${produitsImportes.length} produits importés depuis le catalogue d'origine, avec DETAILS à 2 €.`
     );
 
     window.dispatchEvent(new Event("produits:loaded"));
