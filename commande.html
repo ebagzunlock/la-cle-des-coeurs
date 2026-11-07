@@ -200,42 +200,24 @@
         </section>
 
         <section class="checkout-card">
-          <h2>2. Adresse de livraison</h2>
-
-          <label for="address">Adresse *</label>
-          <input id="address" name="address" required autocomplete="street-address">
-
-          <label for="address2">Complément d'adresse</label>
-          <input id="address2" name="address2" autocomplete="address-line2">
-
-          <div class="checkout-row">
-            <div>
-              <label for="postalCode">Code postal *</label>
-              <input id="postalCode" name="postalCode" required autocomplete="postal-code">
-            </div>
-
-            <div>
-              <label for="city">Ville *</label>
-              <input id="city" name="city" required autocomplete="address-level2">
-            </div>
-          </div>
-
-          <label for="country">Pays *</label>
-          <select id="country" name="country" required autocomplete="country-name">
+          <h2>2. Pays de livraison</h2>
+          <label for="country">Pays de livraison *</label>
+          <select id="country" name="country" required>
             <option value="">Choisir un pays</option>
             <option value="France">France</option>
             <option value="Belgique">Belgique</option>
             <option value="Suisse">Suisse</option>
             <option value="Luxembourg">Luxembourg</option>
-            <option value="Autre">Autre</option>
           </select>
-
-          <label for="deliveryNote">Instructions de livraison (facultatif)</label>
-          <textarea id="deliveryNote" name="deliveryNote"
-            placeholder="Informations utiles pour le transporteur..."></textarea>
+          <p class="checkout-notice">
+            Vous indiquerez votre adresse complète sur la page de paiement sécurisée Stripe.
+          </p>
         </section>
 
         <section class="checkout-card">
+          <h2>3. Paiement sécurisé</h2>
+          <p>Le paiement par carte sera effectué sur la page sécurisée de Stripe.
+          </p>        <section class="checkout-card">
           <h2>3. Mode de paiement</h2>
 
           <label class="payment-option">
@@ -395,12 +377,8 @@
           lastName: String(formData.get("lastName") || "").trim(),
           email: String(formData.get("email") || "").trim(),
           phone: String(formData.get("phone") || "").trim(),
-          address: String(formData.get("address") || "").trim(),
-          address2: String(formData.get("address2") || "").trim(),
-          postalCode: String(formData.get("postalCode") || "").trim(),
-          city: String(formData.get("city") || "").trim(),
           country: String(formData.get("country") || "").trim(),
-          deliveryNote: String(formData.get("deliveryNote") || "").trim()
+          country: String(formData.get("country") || "").trim()
         };
 
         const items = cart.map(item => ({
