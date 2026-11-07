@@ -25,12 +25,7 @@
       letter-spacing: 2px;
     }
 
-    .checkout-layout {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 35px;
-      align-items: start;
-    }
+    .checkout-layout { display: block; max-width: 760px; margin: 0 auto; }
 
     .checkout-card {
       background: #fff;
@@ -154,14 +149,6 @@
     }
 
     @media (max-width: 750px) {
-      .checkout-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .checkout-summary {
-        position: static;
-      }
-
       .checkout-row {
         grid-template-columns: 1fr;
         gap: 0;
@@ -233,52 +220,30 @@
           <input id="city" name="city" type="text" required autocomplete="address-level2">
         </section>
 
+        <section class="checkout-card" aria-labelledby="recapTitle">
+          <h2 id="recapTitle">3. RÉCAPITULATIF DE VOTRE COMMANDE</h2>
+          <div class="checkout-line"><strong>Nom</strong><span id="recapName">—</span></div>
+          <div class="checkout-line"><strong>Adresse mail</strong><span id="recapEmail">—</span></div>
+          <div class="checkout-line"><strong>Téléphone</strong><span id="recapPhone">—</span></div>
+          <div class="checkout-line"><strong>Adresse de livraison</strong><span id="recapAddress">—</span></div>
+          <div class="checkout-line"><strong>Articles</strong><span id="recapItems">—</span></div>
+          <div id="recapProductLines"></div>
+          <div class="checkout-line"><span>Sous-total</span><span id="recapSubtotal">0,00 €</span></div>
+          <div class="checkout-line"><span>Frais de livraison (taxes comprises)</span><span id="recapShipping">15,62 €</span></div>
+          <div class="checkout-line checkout-total"><strong>Total</strong><strong id="recapTotal">15,62 €</strong></div>
+        </section>
+
         <section class="checkout-card">
           <label class="payment-option">
-            <input type="checkbox" id="acceptTerms" required>
-            J’ai lu et j’accepte les <a href="conditions-generales.html" target="_blank" rel="noopener">Conditions Générales de Vente (CGV)</a>.
+            <input type="checkbox" id="acceptTerms" name="acceptTerms" required>
+            <span>J’accepte les <a href="conditions-generales.html" target="_blank" rel="noopener">Conditions Générales de Vente (CGV)</a>.</span>
           </label>
-
-          <button class="checkout-button" type="submit">
-            PAYER
-          </button>
+          <button class="checkout-button" type="submit">PAYER</button>
         </section>
 
       </form>
 
-      <aside class="checkout-summary">
-        <section class="checkout-card">
-          <h2>Récapitulatif</h2>
-
-          <div id="orderItems">
-            <p class="empty-cart">Chargement de votre panier...</p>
-          </div>
-
-          <div class="checkout-line">
-            <span>Sous-total</span>
-            <span id="subtotal">0,00 €</span>
-          </div>
-
-          <div class="checkout-line">
-            <span>Livraison</span>
-            <span>À confirmer</span>
-          </div>
-
-          <div class="checkout-line checkout-total">
-            <span>Total provisoire</span>
-            <span id="total">0,00 €</span>
-          </div>
-
-          <p class="checkout-notice">
-            Les frais et conditions de livraison seront confirmés avant
-            l'activation des commandes en ligne.
-          </p>
-        </section>
-
-        <p style="text-align:center;font-size:12px;color:#776b60;">
-          LA CLÉ DES CŒURS — BIJOUX FINS & RAFFINÉS
-        </p>
-      </aside>
+aside>
 
     </div>
   </main>
@@ -322,44 +287,47 @@
       });
     }
 
+    const SHIPPING_COST = 15.62;
+
+    function updateCustomerRecap() {
+      const value = id => String(document.getElementById(id).value || "").trim();
+      document.getElementById("recapName").textContent = value("fullName") || "—";
+      document.getElementById("recapEmail").textContent = value("email") || "—";
+      document.getElementById("recapPhone").textContent = value("phone") || "—";
+      const country = document.getElementById("country");
+      const countryName = country.options[country.selectedIndex]?.text || "";
+      const address = [value("address"), value("postalCode"), value("city"), countryName && country.value ? countryName : ""].filter(Boolean).join(", ");
+      document.getElementById("recapAddress").textContent = address || "—";
+    }
+
     function displayOrderSummary() {
       const cart = getCart();
-      const container = document.getElementById("orderItems");
-
-      container.replaceChildren();
-
-      if (cart.length === 0) {
-        const message = document.createElement("p");
-        message.className = "empty-cart";
-        message.textContent = "Votre panier est vide.";
-        container.appendChild(message);
-      }
-
+      const lines = document.getElementById("recapProductLines");
+      lines.replaceChildren();
       let subtotal = 0;
+      let itemCount = 0;
 
       cart.forEach(item => {
         const price = Number(item.price);
         const quantity = Number(item.quantity);
-
-        if (!Number.isFinite(price) || !Number.isFinite(quantity)) return;
-
+        if (!Number.isFinite(price) || !Number.isFinite(quantity) || quantity <= 0) return;
         subtotal += price * quantity;
-
+        itemCount += quantity;
         const line = document.createElement("div");
         line.className = "checkout-line";
-
         const name = document.createElement("span");
         name.textContent = `${item.name || "Article"} × ${quantity}`;
-
         const amount = document.createElement("span");
         amount.textContent = formatPrice(price * quantity);
-
         line.append(name, amount);
-        container.appendChild(line);
+        lines.appendChild(line);
       });
 
-      document.getElementById("subtotal").textContent = formatPrice(subtotal);
-      document.getElementById("total").textContent = formatPrice(subtotal);
+      document.getElementById("recapItems").textContent = itemCount ? String(itemCount) + (itemCount > 1 ? " articles" : " article") : "Aucun article";
+      document.getElementById("recapSubtotal").textContent = formatPrice(subtotal);
+      document.getElementById("recapShipping").textContent = formatPrice(SHIPPING_COST) + " (taxes comprises)";
+      document.getElementById("recapTotal").textContent = formatPrice(subtotal + SHIPPING_COST);
+      updateCustomerRecap();
     }
 
     async function verifierRetourStripe() {
@@ -470,6 +438,8 @@
       }
     });
 
+    document.getElementById("checkoutForm").addEventListener("input", updateCustomerRecap);
+    document.getElementById("checkoutForm").addEventListener("change", updateCustomerRecap);
     verifierRetourStripe().then(traite => { if (!traite) displayOrderSummary(); });
   </script>
 
