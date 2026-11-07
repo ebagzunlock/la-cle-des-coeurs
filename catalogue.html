@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Découvrez les bijoux et montres LA CLÉ DES CŒURS.">
   <title>Notre catalogue | LA CLÉ DES CŒURS</title>
-  <link rel="stylesheet" href="styles.css?v=cdc-theme-fix-20261107-10">
+  <link rel="stylesheet" href="styles.css?v=cdc-ivoire-signature-20261107-11">
 
   <style>
     .catalogue-page {
@@ -281,7 +281,7 @@
     </section>
   </main>
 
-  <script src="produits.js?v=description-cleanup-20261107-7"></script>
+  <script src="produits.js?v=categories-completes-20261107-11"></script>
 
   <script>
     "use strict";
@@ -389,11 +389,11 @@
 
       if (categorie) {
         produits = produits.filter(function(produit) {
-          if (Array.isArray(produit.categories)) {
-            return produit.categories.includes(categorie);
-          }
-
-          return produit.categorie === categorie;
+          const categoriesProduit = Array.isArray(produit.categories)
+            ? produit.categories
+            : [];
+          return categoriesProduit.includes(categorie) ||
+            produit.categorie === categorie;
         });
       }
 
