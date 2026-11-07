@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap");
+
 
 /* =========================================
    LA CLÉ DES CŒURS
@@ -650,4 +652,85 @@ select {
   .footer-bottom {
     grid-column: auto;
   }
+}
+
+
+/* IDENTITÉ VISUELLE SIGNATURE — LA CLÉ DES CŒURS */
+:root {
+  --ivory: #fbf8f2;
+  --cream: #f2ece2;
+  --beige: #e5d8c7;
+  --champagne: #c5a46d;
+  --brown: #49342f;
+  --dark: #241b1b;
+  --text: #655653;
+  --white: #fffdf9;
+  --border: #e5dbce;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "Manrope", Arial, sans-serif;
+}
+html { background: #fbf8f2; }
+body {
+  color: var(--text);
+  font-family: var(--sans);
+  background:
+    radial-gradient(ellipse at 12% 8%, rgba(197,164,109,.075), transparent 34%),
+    radial-gradient(ellipse at 90% 42%, rgba(91,57,52,.045), transparent 38%),
+    linear-gradient(145deg, #fcfaf6 0%, #f7f1e8 48%, #fbf8f2 100%);
+  background-attachment: fixed;
+}
+h1, h2, h3, h4, .brand-name, .brand-monogram {
+  font-family: var(--serif);
+}
+.announcement {
+  background: linear-gradient(90deg, #241b1b, #49342f 48%, #241b1b);
+  color: #ead8b7;
+  letter-spacing: 3.5px;
+}
+.header, .main-nav {
+  background: rgba(251,248,242,.94);
+  border-color: rgba(170,145,111,.25);
+}
+.brand-name { letter-spacing: 3.5px; }
+.brand-monogram { color: #b99a67; }
+.primary-button, .cart-checkout {
+  background: linear-gradient(110deg, #382724, #62483c);
+  border-color: #b99a67;
+  color: #fffaf1;
+}
+.primary-button:hover, .cart-checkout:hover {
+  background: #b99a67;
+  color: #241b1b;
+}
+.categories-section, .featured-placeholder {
+  background: linear-gradient(135deg, rgba(241,234,222,.92), rgba(250,247,240,.96));
+}
+.category-image {
+  border: 1px solid rgba(181,151,105,.28);
+  box-shadow: 0 12px 30px rgba(55,38,31,.07);
+}
+.editorial-section {
+  background: linear-gradient(135deg, #e8ddce, #f4eee5 58%, #e4d5c2);
+}
+.footer {
+  background: linear-gradient(125deg, #251d1c, #3b2b28);
+  color: #e9dfd0;
+  border-top: 1px solid #b99a67;
+}
+.footer-brand h3, .footer-column h4 { color: #f5e9d4; }
+.footer-column a { color: #e3d7c8; }
+.footer-column a:hover { color: #d5b77f; }
+.footer-bottom { border-color: rgba(213,183,127,.3); color: #cfc0ae; }
+.cart-page { max-width: 1050px; }
+.cart-item, .cart-summary, .cart-empty {
+  background: rgba(255,253,249,.88);
+  border: 1px solid rgba(181,151,105,.28);
+  box-shadow: 0 14px 38px rgba(49,35,29,.055);
+}
+.cart-item { border-radius: 3px; }
+.cart-summary { border-radius: 3px; }
+.cart-page h1 { color: #2c2020; letter-spacing: .5px; }
+.cart-item h2 { color: #302321; }
+@media (max-width: 600px) {
+  body { background-attachment: scroll; }
 }
