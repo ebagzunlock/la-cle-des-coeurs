@@ -14,7 +14,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=cdc-theme-fix-20261107-10">
+  <link rel="stylesheet" href="styles.css?v=cdc-ivoire-signature-20261107-11">
 
   <style>
     .main-nav.is-open {
@@ -96,16 +96,7 @@
 
   <header class="header">
 
-    <button
-      class="menu-button"
-      id="menuButton"
-      type="button"
-      aria-label="Ouvrir le menu"
-      aria-expanded="false"
-      aria-controls="mainNav"
-    >
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
+    <button class="menu-button" id="menuButton" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainNav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
 
     <a href="index.html" class="brand brand-home-link" title="Retour à l’accueil">
       <span class="brand-monogram" aria-label="Monogramme CDC avec une clé"><span class="brand-initials">CDC</span><svg viewBox="0 0 96 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="6.2" fill="none" stroke="currentColor" stroke-width="1.15"/><path d="M16.5 10H91m-9 0v5m-8-5v4m-8-4v5" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/><path d="M43 5.5h10" fill="none" stroke="currentColor" stroke-width=".7" opacity=".65"/></svg></span>
@@ -122,35 +113,16 @@
 
   </header>
 
-  <nav class="main-nav" id="mainNav">
-
-    <a href="index.html">Accueil</a>
-
-    <a href="catalogue.html?categorie=accessoires">
-      Accessoires et bracelets
-    </a>
-
-    <a href="catalogue.html?categorie=ap-swatch">
-      AP x Swatch
-    </a>
-
-    <a href="catalogue.html?categorie=femme">
-      Montres femme
-    </a>
-
-    <a href="catalogue.html?categorie=homme">
-      Montres homme
-    </a>
-
-    <a href="qui-sommes-nous.html">
-      Qui sommes-nous
-    </a>
-
-    <a href="contact.html">
-      Contact
-    </a>
-
-  </nav>
+  <nav class="main-nav" id="mainNav" aria-label="Navigation principale">
+  <a href="index.html">Accueil</a>
+  <a href="catalogue.html?categorie=homme">Montres homme</a>
+  <a href="catalogue.html?categorie=femme">Montres femme</a>
+  <a href="catalogue.html?categorie=accessoires">Accessoires et bracelets</a>
+  <a href="catalogue.html?categorie=ap-swatch">AP x Swatch</a>
+  <a href="catalogue.html">Tout le catalogue</a>
+  <a href="qui-sommes-nous.html">Qui sommes-nous</a>
+  <a href="contact.html">Contact</a>
+</nav>
 
   <main>
 
@@ -408,7 +380,7 @@
     actualiserCompteurPanier();
   </script>
 
-  <script src="produits.js?v=description-cleanup-20261107-7"></script>
+  <script src="produits.js?v=categories-completes-20261107-11"></script>
   <script>
     (function() {
       const zone = document.getElementById("featuredProducts");
