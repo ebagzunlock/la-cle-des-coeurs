@@ -758,7 +758,7 @@ h1, h2, h3, h4, .brand-name, .brand-monogram {
 .category-image:hover .category-product-track { animation-play-state: paused; }
 .category-product-track img {
   display: block;
-  flex: 0 0 100%;
+  flex: 0 0 auto;
   width: 300px;
   height: 100%;
   object-fit: contain;
