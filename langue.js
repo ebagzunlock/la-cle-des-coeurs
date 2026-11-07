@@ -638,7 +638,7 @@ html body header.header>.header-actions svg,html body header.header #cdc-languag
     const button = document.createElement("button");
     button.id = "cdc-theme-toggle";
     button.type = "button";
-    button.textContent = "◐";
+    button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.6 8.6 0 1 0 20.2 15.1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     button.setAttribute("aria-label", "Thème : Automatique");
     button.title = "Thème : Automatique — appuyer pour changer";
     const read = () => {
@@ -649,7 +649,7 @@ html body header.header>.header-actions svg,html body header.header #cdc-languag
     const apply = () => {
       const dark = preference === "dark" || (preference === "auto" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
       document.documentElement.setAttribute("data-cdc-theme", dark ? "dark" : "light");
-      button.textContent = dark ? "☾" : "☀";
+      button.innerHTML = dark ? '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>' : '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.6 8.6 0 1 0 20.2 15.1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       button.setAttribute("aria-label", "Thème actuel : " + labels[preference] + ". Appuyer pour changer.");
       button.title = "Thème : " + labels[preference] + " — appuyer pour changer";
     };
